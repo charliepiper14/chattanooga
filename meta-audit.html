@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chattanooga Beard Co — Growth Audit & 90‑Day Strategy</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f1c33 0%, #1a2b4a 100%);
+            color: #fff; line-height: 1.6;
+        }
+        .container { max-width: 1200px; margin: 0 auto; padding: 40px 20px; }
+        .header {
+            display: flex; justify-content: space-between; align-items: center;
+            margin-bottom: 60px; padding: 30px; background: rgba(255,255,255,0.05);
+            backdrop-filter: blur(10px); border-radius: 20px; border: 1px solid rgba(255,255,255,0.1);
+        }
+        .logo { height: 50px; max-width: 220px; object-fit: contain; }
+        .report-info { text-align: right; color: #b0c4de; }
+        .section {
+            margin-bottom: 80px; padding: 40px; background: rgba(255,255,255,0.05);
+            backdrop-filter: blur(10px); border-radius: 20px; border: 1px solid rgba(255,255,255,0.1);
+            animation: fadeInUp 0.6s ease-out;
+        }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        h1 { font-size: 3.2rem; font-weight: 700; margin-bottom: 20px; text-align: center;
+            background: linear-gradient(135deg, #cc5b27, #ff7b47); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        h2 { font-size: 2.2rem; margin-bottom: 28px; color: #cc5b27; border-bottom: 3px solid #cc5b27; padding-bottom: 12px; }
+        h3 { font-size: 1.6rem; margin-bottom: 18px; color: #cc5b27; }
+        h4 { font-size: 1.25rem; margin-bottom: 12px; color: #ff7b47; }
+        .subtitle { font-size: 1.2rem; color: #b0c4de; margin-bottom: 36px; text-align: center; }
+        .hero-section { text-align: center; padding: 60px 40px; margin-bottom: 60px; }
+        .highlight-box { background: linear-gradient(135deg, #cc5b27, #ff7b47); padding: 24px; border-radius: 15px; margin: 24px auto; text-align: center; max-width: 680px; }
+        .highlight-number { font-size: 2.4rem; font-weight: 800; margin-bottom: 6px; }
+        .content-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 36px; margin-bottom: 24px; }
+        .content-grid-three { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px; margin-bottom: 24px; }
+        .metric-card { background: linear-gradient(135deg, rgba(204,91,39,0.1), rgba(255,123,71,0.1)); border: 1px solid #cc5b27; border-radius: 15px; padding: 20px; transition: transform 0.3s ease; }
+        .metric-card:hover { transform: translateY(-5px); }
+        .metric-number { font-size: 2rem; font-weight: 800; color: #cc5b27; margin-bottom: 4px; }
+        .metric-label { font-size: 1rem; color: #b0c4de; }
+        .pill { display: inline-block; padding: 6px 10px; border: 1px solid #cc5b27; border-radius: 999px; color: #ffb095; margin-right: 8px; font-size: 0.95rem; }
+        .pain-point { background: rgba(22,38,66,0.3); border-left: 4px solid #cc5b27; padding: 16px; margin-bottom: 12px; border-radius: 0 10px 10px 0; }
+        .pain-point-title { font-weight: 700; color: #cc5b27; margin-bottom: 6px; font-size: 1.05rem; }
+        .key-insight { background: rgba(204,91,39,0.1); border: 2px solid #cc5b27; border-radius: 15px; padding: 20px; margin: 20px 0; }
+        .persona-card { background: linear-gradient(135deg, rgba(204,91,39,0.08), rgba(255,123,71,0.08)); border: 1px solid #cc5b27; border-radius: 15px; padding: 20px; }
+        .phase { background: linear-gradient(135deg, rgba(204,91,39,0.18), rgba(255,123,71,0.1)); border-radius: 15px; padding: 26px; margin-bottom: 26px; border: 1px solid #cc5b27; }
+        .phase-number { background: #cc5b27; color: #fff; width: 46px; height: 46px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 16px; font-weight: 800; }
+        .phase-title { font-size: 1.6rem; color: #cc5b27; margin-bottom: 6px; }
+        .phase-duration { color: #b0c4de; margin-bottom: 12px; font-size: 1rem; }
+        ul { margin-left: 20px; margin-bottom: 16px; }
+        li { margin-bottom: 8px; }
+        .budget-allocation { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+        .campaign-example { background: rgba(22,38,66,0.3); border-left: 4px solid #cc5b27; padding: 16px; margin-bottom: 12px; border-radius: 0 10px 10px 0; }
+        .action-item { background: rgba(204,91,39,0.1); border: 1px solid #cc5b27; border-radius: 10px; padding: 16px; margin-bottom: 12px; }
+        .cta-section { background: linear-gradient(135deg, #cc5b27, #ff7b47); padding: 34px; border-radius: 20px; text-align: center; margin-top: 50px; }
+        .cta-title { font-size: 1.8rem; margin-bottom: 14px; }
+        .cta-text { font-size: 1.1rem; margin-bottom: 16px; }
+        @media (max-width: 768px) {
+            .content-grid, .content-grid-three, .budget-allocation { grid-template-columns: 1fr; }
+            h1 { font-size: 2.4rem; } h2 { font-size: 1.9rem; }
+            .container { padding: 20px 10px; } .section { padding: 28px 20px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <img src="https://res.cloudinary.com/dcnabm5nc/image/upload/v1754585626/lead-guru-new-logo-W-450_oyvumx.webp" alt="Lead Guru Logo" class="logo" />
+            <div class="report-info">
+                <div><strong>Growth Audit & 90‑Day Strategy</strong></div>
+                <div>September 2025</div>
+            </div>
+        </div>
+
+        <!-- Hero Section -->
+        <div class="section hero-section">
+            <h1>Chattanooga Beard Co</h1>
+            <div class="subtitle">Performance Review, Recovery Plan & Scalable Growth Strategy</div>
+            <div class="highlight-box">
+                <div class="highlight-number">Focused 90‑Day Turnaround</div>
+                <div>Scale proven winners, reduce waste, and position for Q4</div>
+            </div>
+            <div style="margin-top: 24px; font-size: 1.05rem; color: #b0c4de;">
+                Period Reviewed: Aug 23 – Sep 21, 2025 &nbsp;•&nbsp; Breakeven target: 3.5x ROAS
+            </div>
+        </div>
+
+        <!-- Executive Summary -->
+        <div class="section">
+            <h2>Executive Summary</h2>
+            <div class="content-grid">
+                <div>
+                    <h3>Current Snapshot</h3>
+                    <div class="metric-card"><div class="metric-number">$3,953</div><div class="metric-label">Total Ad Spend</div></div>
+                    <div class="metric-card"><div class="metric-number">$7,120</div><div class="metric-label">Revenue (Blended)</div></div>
+                    <div class="metric-card"><div class="metric-number">1.80x</div><div class="metric-label">ROAS vs. 3.5x Target</div></div>
+                    <div class="metric-card"><div class="metric-number">$48.11</div><div class="metric-label">Average Order Value</div></div>
+                    <div class="metric-card"><div class="metric-number">7.2%</div><div class="metric-label">Overall Conversion Rate</div></div>
+                    <div class="metric-card"><div class="metric-number">148</div><div class="metric-label">Total Purchases</div></div>
+                </div>
+                <div>
+                    <h3>Where We Stand</h3>
+                    <div class="key-insight"><strong>Positive Signal:</strong> Two ads already exceed breakeven (4.34x and 3.69x ROAS), indicating clear product–market fit for specific offers/creatives.</div>
+                    <div class="pain-point"><div class="pain-point-title">Primary Constraint</div> Spend concentration in lower‑ROAS catalog activity is holding back efficiency.</div>
+                    <div class="pain-point"><div class="pain-point-title">Opportunity</div> Reallocate budget to proven ads and reactivate a paused TOF campaign with refreshed creatives.</div>
+                    <div class="pain-point"><div class="pain-point-title">Revenue Upside</div> Near‑term potential of $15k–$25k/month with disciplined optimization.</div>
+                    <div class="pill">Quick Wins Available</div><div class="pill">Low Engineering Lift</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Data Diagnostics -->
+        <div class="section">
+            <h2>Data Diagnostics</h2>
+            <div class="content-grid">
+                <div>
+                    <h3>Tracking & Integrity</h3>
+                    <ul>
+                        <li>✅ Pixel events and purchase tracking appear consistent across campaigns.</li>
+                        <li>✅ Catalog vs. standard campaigns are correctly separated.</li>
+                        <li>✅ Ad‑level attribution matches ad set totals.</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>Gaps to Close</h3>
+                    <ul>
+                        <li>Google Ads performance not included (recommend enable & import conversions).</li>
+                        <li>Email/SMS channel metrics not provided (important for blended CPA/ROAS).</li>
+                        <li>Customer LTV & repeat purchase rate missing (vital for bid strategy and AOV plays).</li>
+                        <li>Competitive spend/share insights unavailable.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Paid Media Audit -->
+        <div class="section">
+            <h2>Paid Media Audit</h2>
+            <div class="content-grid">
+                <div>
+                    <h3>Account Structure — Observations</h3>
+                    <ul>
+                        <li><strong>Budget Drag:</strong> Catalog CBO ~25% of spend at ~1.65x ROAS.</li>
+                        <li><strong>Missed Momentum:</strong> TOF | Cold | Multiple Creatives paused despite reasonable performance.</li>
+                        <li><strong>Testing Depth:</strong> Limited creative diversification (one major active structure).</li>
+                    </ul>
+                    <h4>Campaign Performance (Last 30 Days)</h4>
+                    <div class="campaign-example"><strong>TOF Cold Multiple Creatives</strong> — Inactive — Spend $362 · Rev $630 · ROAS 1.74x → <em>Consider reactivation with updated ads</em>.</div>
+                    <div class="campaign-example"><strong>Advantage+ Website Test</strong> — Active — Spend $2,602 · Rev $4,863 · ROAS 1.87x → <em>Primary driver</em>.</div>
+                    <div class="campaign-example"><strong>Catalog CBO</strong> — Active — Spend $989 · Rev $1,627 · ROAS 1.65x → <em>Rebalance budget</em>.</div>
+                </div>
+                <div>
+                    <h3>Creative & Copy — What’s Working</h3>
+                    <ul>
+                        <li><strong>Winners:</strong> HM – VID3 DYCOPY (4.34x on $38), Google Search ad (3.69x on $149).</li>
+                        <li><strong>Solid Bench:</strong> “I love it – Jan 19 2024” series at ~2.79–3.37x.</li>
+                        <li><strong>Positioning:</strong> “Manly American” voice + scent benefits resonate; bullet‑point copy structures convert cleanly.</li>
+                        <li><strong>To Add:</strong> Seasonal/holiday variants and embedded social proof (UGC, reviews).</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Organic & Lifecycle -->
+        <div class="section">
+            <h2>Organic & Lifecycle</h2>
+            <div class="content-grid">
+                <div>
+                    <h3>Missing Components</h3>
+                    <ul>
+                        <li>Email/SMS performance not provided.</li>
+                        <li>SEO content plan unclear.</li>
+                        <li>Retention metrics not available.</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>Immediate Additions</h3>
+                    <ul>
+                        <li>Post‑purchase flows and win‑back sequences.</li>
+                        <li>Referral program (brand loyalty fit).</li>
+                        <li>Content hub on grooming education (evergreen + seasonal).</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Site & CRO -->
+        <div class="section">
+            <h2>Site & CRO</h2>
+            <div class="content-grid-three">
+                <div class="metric-card"><div class="metric-number">7.2%</div><div class="metric-label">Storewide CVR</div></div>
+                <div class="metric-card"><div class="metric-number">$48.11</div><div class="metric-label">AOV (Strong)</div></div>
+                <div class="metric-card"><div class="metric-number">Mobile OK</div><div class="metric-label">Consistent CTR by device</div></div>
+            </div>
+            <h4>Recommended Experiments</h4>
+            <ul>
+                <li>Value‑stacked bundles at higher price points.</li>
+                <li>Prominent testimonials, ratings, and UGC on PDPs.</li>
+                <li>Q4 seasonal gift packaging and message testing.</li>
+            </ul>
+        </div>
+
+        <!-- Competitive Landscape -->
+        <div class="section">
+            <h2>Competitive Landscape</h2>
+            <ul>
+                <li>Premium, artisanal beard care segment; brand voice differentiates on identity + scent.</li>
+                <li>Opportunities in seasonal gifting, broader creative testing, and adjacent grooming SKUs.</li>
+            </ul>
+        </div>
+
+        <!-- 90‑Day Implementation Roadmap -->
+        <div class="section">
+            <h2>90‑Day Implementation Roadmap</h2>
+            <div class="phase">
+                <div class="phase-number">1</div>
+                <div class="phase-title">Month 1 — Stabilize & Refocus</div>
+                <div class="phase-duration">Weeks 1–4</div>
+                <ul>
+                    <li><strong>Reallocate</strong> ~80% of catalog budget into top performers.</li>
+                    <li>Duplicate/scale HM – VID3 DYCOPY & high‑ROAS search; pause sub‑1.5x after $50 spend.</li>
+                    <li>Reactivate TOF | Cold with refreshed creatives and bullet‑point copy.</li>
+                    <li><strong>Budget:</strong> ~$150/day (~$4,500/month).</li>
+                </ul>
+                <div class="highlight-box" style="margin-top: 12px;"><strong>Target:</strong> 2.5x ROAS on rebalanced mix; Rev ≈ $11,250. Confidence ~85%.</div>
+            </div>
+            <div class="phase">
+                <div class="phase-number">2</div>
+                <div class="phase-title">Month 2 — Scale Proven Engines</div>
+                <div class="phase-duration">Weeks 5–8</div>
+                <ul>
+                    <li>Scale winners to $100+/day; add interest‑based prospecting.</li>
+                    <li>Launch Q4 gifting bundles and creative variants.</li>
+                    <li>Layer retargeting to capture PDP and cart viewers.</li>
+                    <li><strong>Budget:</strong> ~$200/day (~$6,000/month).</li>
+                </ul>
+                <div class="highlight-box" style="margin-top: 12px;"><strong>Target:</strong> 3.0x ROAS; Rev ≈ $18,000. Confidence ~75%.</div>
+            </div>
+            <div class="phase">
+                <div class="phase-number">3</div>
+                <div class="phase-title">Month 3 — Optimize for Durability</div>
+                <div class="phase-duration">Weeks 9–12</div>
+                <ul>
+                    <li>Launch LALs from converters; implement automated budget rules.</li>
+                    <li>Introduce complementary upsells; expand email/SMS capture.</li>
+                    <li>Optimize daily budget to $250–$300 based on performance.</li>
+                </ul>
+                <div class="highlight-box" style="margin-top: 12px;"><strong>Target:</strong> 3.5x ROAS; Rev ≈ $26,250. Confidence ~70%.</div>
+            </div>
+        </div>
+
+        <!-- Budget & KPIs -->
+        <div class="section">
+            <h2>Budget Allocation & KPI Targets</h2>
+            <div class="budget-allocation">
+                <div>
+                    <h3>Budget Mix</h3>
+                    <div class="metric-card"><div class="metric-number">60%</div><div class="metric-label">Scaling winning video creatives (HM series)</div></div>
+                    <div class="metric-card"><div class="metric-number">25%</div><div class="metric-label">New prospecting</div></div>
+                    <div class="metric-card"><div class="metric-number">10%</div><div class="metric-label">Retargeting</div></div>
+                    <div class="metric-card"><div class="metric-number">5%</div><div class="metric-label">Creative tests</div></div>
+                </div>
+                <div>
+                    <h3>KPI Targets</h3>
+                    <ul>
+                        <li><strong>ROAS:</strong> 2.5x → 3.0x → 3.5x+</li>
+                        <li><strong>Monthly Revenue:</strong> $11,250 → $18,000 → $26,250</li>
+                        <li><strong>AOV:</strong> $48 → $52 → $55</li>
+                        <li><strong>CVR:</strong> 8% → 9% → 10%</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Risk Mitigation -->
+        <div class="section">
+            <h2>Risk Mitigation</h2>
+            <ul>
+                <li>Automated rules: pause ads < 2.0x ROAS after $50 spend; cap CPA thresholds.</li>
+                <li>Maintain ~20% test budget to discover new winners without dragging blended ROAS.</li>
+                <li>Weekly reviews for transparent reporting and rapid pivots.</li>
+            </ul>
+        </div>
+
+        <!-- Immediate Next Steps -->
+        <div class="section">
+            <h2>Immediate Next Steps</h2>
+            <h3>Week 1 Priorities</h3>
+            <div class="action-item"><strong>Rebalance Budget:</strong> Shift catalog spend into proven HM video & search winners.</div>
+            <div class="action-item"><strong>Creative Work:</strong> Produce 5 new videos (variants on winners) + add social proof.</div>
+            <div class="action-item"><strong>Lifecycle:</strong> Enable post‑purchase/win‑back flows; add referral program.</div>
+            <div class="action-item"><strong>Tracking:</strong> Confirm pixel events; prep Google Ads with conversion imports.</div>
+            <h3>Quick Wins (Week 2–3)</h3>
+            <div class="action-item">Launch refreshed TOF; consolidate campaigns ~40%; expand retargeting with PDP/cart messaging.</div>
+        </div>
+
+        <!-- Call to Action -->
+        <div class="cta-section">
+            <div class="cta-title">Aligned on the plan?</div>
+            <div class="cta-text">We’ll aim for a 15% ROAS lift in 30 days while protecting revenue, then scale into Q4.</div>
+            <div style="font-size: 1.05rem;"><strong>Next Step:</strong> Schedule the implementation kickoff within 48 hours.</div>
+        </div>
+    </div>
+</body>
+</html>
