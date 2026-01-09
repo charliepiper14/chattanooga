@@ -1,0 +1,1698 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chattanooga Beard Co | Q1 2026 Growth Strategy</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0f0f1a;
+            --bg-secondary: #1a1a2e;
+            --bg-card: #16162a;
+            --bg-card-hover: #1e1e3a;
+            --border: rgba(255,255,255,0.06);
+            --accent-green: #00d9a5;
+            --accent-green-dim: rgba(0, 217, 165, 0.15);
+            --accent-purple: #8b5cf6;
+            --accent-purple-dim: rgba(139, 92, 246, 0.15);
+            --accent-blue: #3b82f6;
+            --accent-pink: #ec4899;
+            --accent-red: #ef4444;
+            --accent-orange: #f59e0b;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0b8;
+            --text-muted: #6b6b80;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            font-size: 15px;
+        }
+        
+        .slide {
+            min-height: 100vh;
+            padding: 48px 64px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .slide-number {
+            position: absolute;
+            top: 24px;
+            right: 32px;
+            font-size: 13px;
+            color: var(--text-muted);
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+        
+        .slide-tag {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--accent-green);
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+        
+        h1 {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 52px;
+            font-weight: 700;
+            line-height: 1.15;
+            margin-bottom: 16px;
+            color: var(--text-primary);
+        }
+        
+        h2 {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 28px;
+            color: var(--text-primary);
+        }
+        
+        h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: var(--text-primary);
+        }
+        
+        h4 {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+        }
+        
+        p {
+            font-size: 15px;
+            color: var(--text-secondary);
+            max-width: 720px;
+        }
+        
+        .subtitle {
+            font-size: 18px;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin-bottom: 32px;
+            font-weight: 400;
+        }
+        
+        /* Cover Slide */
+        .cover {
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: radial-gradient(ellipse at 50% 30%, rgba(139, 92, 246, 0.08) 0%, transparent 50%),
+                        radial-gradient(ellipse at 80% 80%, rgba(0, 217, 165, 0.05) 0%, transparent 40%);
+        }
+        
+        .cover h1 {
+            font-size: 56px;
+        }
+        
+        .cover .meta {
+            margin-top: 48px;
+            display: flex;
+            gap: 48px;
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+        
+        .cover .meta span {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: var(--bg-card);
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+        
+        .logo-badge {
+            width: 72px;
+            height: 72px;
+            border-radius: 16px;
+            background: linear-gradient(135deg, var(--accent-purple) 0%, var(--accent-green) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--bg-primary);
+            margin-bottom: 32px;
+        }
+        
+        /* Metrics Grid */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 16px;
+            margin: 32px 0;
+        }
+        
+        .metrics-grid.four-col {
+            grid-template-columns: repeat(4, 1fr);
+        }
+        
+        .metric-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px 24px;
+            position: relative;
+        }
+        
+        .metric-card.green {
+            border-top: 3px solid var(--accent-green);
+        }
+        
+        .metric-card.purple {
+            border-top: 3px solid var(--accent-purple);
+        }
+        
+        .metric-card.red {
+            border-top: 3px solid var(--accent-red);
+        }
+        
+        .metric-card.orange {
+            border-top: 3px solid var(--accent-orange);
+        }
+        
+        .metric-label {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        .metric-value {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--text-primary);
+            line-height: 1.1;
+        }
+        
+        .metric-value.large {
+            font-size: 40px;
+        }
+        
+        .metric-change {
+            font-size: 12px;
+            margin-top: 8px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        
+        .metric-change.up { color: var(--accent-green); }
+        .metric-change.down { color: var(--accent-red); }
+        .metric-change.neutral { color: var(--text-muted); }
+        
+        /* Data Table */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 13px;
+        }
+        
+        .data-table th {
+            text-align: left;
+            padding: 12px 16px;
+            background: var(--bg-card);
+            font-weight: 600;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-muted);
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .data-table td {
+            padding: 12px 16px;
+            border-bottom: 1px solid var(--border);
+            color: var(--text-secondary);
+        }
+        
+        .data-table tr:hover td {
+            background: var(--bg-card-hover);
+        }
+        
+        .data-table .highlight {
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+        
+        .data-table .green { color: var(--accent-green); font-weight: 600; }
+        .data-table .red { color: var(--accent-red); font-weight: 600; }
+        .data-table .purple { color: var(--accent-purple); font-weight: 600; }
+        .data-table .orange { color: var(--accent-orange); font-weight: 600; }
+        
+        /* Two Column Layout */
+        .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 32px;
+            margin-top: 32px;
+        }
+        
+        .three-col {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-top: 32px;
+        }
+        
+        /* Insight Box */
+        .insight-box {
+            background: var(--bg-card);
+            border-left: 3px solid var(--accent-green);
+            padding: 20px 24px;
+            margin: 24px 0;
+            border-radius: 0 12px 12px 0;
+        }
+        
+        .insight-box.purple {
+            border-left-color: var(--accent-purple);
+        }
+        
+        .insight-box h4 {
+            color: var(--accent-green);
+            margin-bottom: 8px;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .insight-box.purple h4 {
+            color: var(--accent-purple);
+        }
+        
+        .insight-box p {
+            color: var(--text-secondary);
+            font-size: 14px;
+            line-height: 1.7;
+        }
+        
+        /* Progress Bar */
+        .progress-container {
+            margin: 12px 0;
+        }
+        
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 6px;
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+        
+        .progress-label .value {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+        
+        .progress-bar {
+            height: 6px;
+            background: rgba(255,255,255,0.06);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            border-radius: 3px;
+            background: linear-gradient(90deg, var(--accent-purple) 0%, var(--accent-green) 100%);
+        }
+        
+        .progress-fill.green { background: var(--accent-green); }
+        .progress-fill.purple { background: var(--accent-purple); }
+        .progress-fill.red { background: var(--accent-red); }
+        
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding-left: 32px;
+            margin: 24px 0;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 8px;
+            top: 4px;
+            bottom: 4px;
+            width: 2px;
+            background: linear-gradient(to bottom, var(--accent-purple), var(--accent-green));
+            border-radius: 1px;
+        }
+        
+        .timeline-item {
+            position: relative;
+            margin-bottom: 28px;
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -28px;
+            top: 4px;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--accent-purple);
+            border: 2px solid var(--bg-primary);
+        }
+        
+        .timeline-month {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--accent-green);
+            margin-bottom: 6px;
+            font-weight: 600;
+        }
+        
+        /* Cards */
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+        }
+        
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+        
+        .card-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: var(--accent-purple-dim);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            color: var(--accent-purple);
+        }
+        
+        /* Creative Concepts */
+        .concept-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 28px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .concept-card::after {
+            content: '';
+            position: absolute;
+            top: -30%;
+            right: -30%;
+            width: 60%;
+            height: 60%;
+            background: radial-gradient(circle, var(--accent-purple-dim) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        
+        .concept-number {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 48px;
+            font-weight: 700;
+            color: rgba(139, 92, 246, 0.15);
+            position: absolute;
+            top: 16px;
+            right: 20px;
+        }
+        
+        .concept-title {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            position: relative;
+            z-index: 1;
+            color: var(--text-primary);
+        }
+        
+        .tag {
+            display: inline-block;
+            padding: 4px 10px;
+            background: var(--accent-purple-dim);
+            border-radius: 6px;
+            font-size: 10px;
+            font-weight: 600;
+            color: var(--accent-purple);
+            margin-right: 6px;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .tag.green { background: var(--accent-green-dim); color: var(--accent-green); }
+        .tag.red { background: rgba(239, 68, 68, 0.15); color: var(--accent-red); }
+        .tag.orange { background: rgba(245, 158, 11, 0.15); color: var(--accent-orange); }
+        
+        /* List Styles */
+        .check-list {
+            list-style: none;
+            margin: 16px 0;
+        }
+        
+        .check-list li {
+            padding: 8px 0;
+            padding-left: 24px;
+            position: relative;
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+        
+        .check-list li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 12px;
+            width: 8px;
+            height: 8px;
+            border-radius: 2px;
+            background: var(--accent-green);
+        }
+        
+        .check-list li.red::before {
+            background: var(--accent-red);
+        }
+        
+        /* Comparison Box */
+        .comparison {
+            display: grid;
+            grid-template-columns: 1fr 80px 1fr;
+            gap: 24px;
+            align-items: center;
+            margin: 32px 0;
+        }
+        
+        .comparison-box {
+            padding: 28px;
+            border-radius: 12px;
+            text-align: center;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+        }
+        
+        .comparison-box.old {
+            border-color: rgba(239, 68, 68, 0.3);
+        }
+        
+        .comparison-box.new {
+            border-color: rgba(0, 217, 165, 0.3);
+        }
+        
+        .comparison-vs {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-align: center;
+        }
+        
+        /* Reporting Gap Visual */
+        .reporting-gap {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+            margin: 24px 0;
+        }
+        
+        .gap-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 16px;
+            color: var(--text-muted);
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .gap-indicator {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 8px 0;
+        }
+        
+        .gap-label {
+            width: 60px;
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+        
+        .gap-bar {
+            flex: 1;
+            height: 8px;
+            background: rgba(255,255,255,0.06);
+            border-radius: 4px;
+            position: relative;
+        }
+        
+        .gap-fill {
+            height: 100%;
+            border-radius: 4px;
+        }
+        
+        .gap-fill.hyros {
+            background: var(--accent-green);
+            width: 100%;
+        }
+        
+        .gap-fill.meta {
+            background: var(--accent-purple);
+            width: 32%;
+        }
+        
+        .gap-value {
+            width: 80px;
+            text-align: right;
+            font-weight: 600;
+            font-size: 14px;
+        }
+        
+        .tracked-more {
+            background: var(--accent-green-dim);
+            color: var(--accent-green);
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin-top: 16px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+        
+        /* Footer */
+        .slide-footer {
+            margin-top: auto;
+            padding-top: 32px;
+            font-size: 11px;
+            color: var(--text-muted);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .slide-footer img {
+            height: 24px;
+            opacity: 0.6;
+        }
+        
+        /* Print Styles */
+        @media print {
+            .slide {
+                page-break-after: always;
+            }
+        }
+        
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: var(--bg-primary);
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: var(--bg-card);
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- SLIDE 1: Cover -->
+    <section class="slide cover">
+        <img src="https://res.cloudinary.com/dcnabm5nc/image/upload/v1754585626/lead-guru-new-logo-W-450_oyvumx.webp" alt="Lead Guru" class="agency-logo" style="width: 180px; margin-bottom: 48px; opacity: 0.9;">
+        <div class="slide-tag">Q1 2026 Growth Strategy</div>
+        <h1>Chattanooga Beard Co.</h1>
+        <p class="subtitle">Meta Ads Scaling Strategy and Performance Analysis</p>
+        <div class="meta">
+            <span>January 2026</span>
+            <span>Target: 2.5x+ ROAS</span>
+            <span>Q1 Goal: $90K Revenue</span>
+        </div>
+    </section>
+
+    <!-- SLIDE 2: Executive Summary -->
+    <section class="slide">
+        <span class="slide-number">02 / 12</span>
+        <div class="slide-tag">Executive Summary</div>
+        <h2>Q4 2025 Performance Overview</h2>
+        
+        <div class="metrics-grid">
+            <div class="metric-card green">
+                <div class="metric-label">Total Revenue</div>
+                <div class="metric-value large">$74,298</div>
+                <div class="metric-change up">+99% from prior period</div>
+            </div>
+            <div class="metric-card green">
+                <div class="metric-label">Ad Spend</div>
+                <div class="metric-value">$25,729</div>
+                <div class="metric-change up">+99% from prior period</div>
+            </div>
+            <div class="metric-card green">
+                <div class="metric-label">Net Profit</div>
+                <div class="metric-value">$48,569</div>
+                <div class="metric-change up">+99% from prior period</div>
+            </div>
+            <div class="metric-card purple">
+                <div class="metric-label">ROAS (Hyros)</div>
+                <div class="metric-value">2.89x</div>
+                <div class="metric-change up">+99% from prior period</div>
+            </div>
+            <div class="metric-card purple">
+                <div class="metric-label">Total Sales</div>
+                <div class="metric-value">4,532</div>
+                <div class="metric-change neutral">$46.76 AOV</div>
+            </div>
+        </div>
+        
+        <div class="reporting-gap">
+            <div class="gap-header">Reporting Gap</div>
+            <div class="gap-indicator">
+                <div class="gap-label">Hyros</div>
+                <div class="gap-bar"><div class="gap-fill hyros"></div></div>
+                <div class="gap-value" style="color: var(--accent-green);">1,596</div>
+            </div>
+            <div class="gap-indicator">
+                <div class="gap-label">Meta</div>
+                <div class="gap-bar"><div class="gap-fill meta"></div></div>
+                <div class="gap-value" style="color: var(--accent-purple);">514</div>
+            </div>
+            <div class="tracked-more">+ 1,082 Hyros tracked more sales</div>
+        </div>
+        
+        <div class="two-col">
+            <div>
+                <h3>What Delivered Results</h3>
+                <ul class="check-list">
+                    <li>Halloween Flash Sale: 10.77x ROAS ($113 spend, $1,220 revenue)</li>
+                    <li>Black Friday Teaser Video 2: 11.81x ROAS ($70 spend, $835 revenue)</li>
+                    <li>Black Friday Teaser Video 3: 10.15x ROAS ($23 spend, $242 revenue)</li>
+                    <li>Black Friday Teaser Campaign: 5.74x ROAS ($288 spend, $1,655 revenue)</li>
+                    <li>Packing Labels Final Push: 2.11x ROAS ($179 spend, $378 revenue)</li>
+                </ul>
+            </div>
+            <div>
+                <h3>What Underperformed</h3>
+                <ul class="check-list">
+                    <li class="red">Advantage+ New Content: 0.28x ROAS ($2,746 spend, $768 revenue)</li>
+                    <li class="red">TOF Interests: 0.48x ROAS ($764 spend, $366 revenue)</li>
+                    <li class="red">RMT HOT: 0.34x ROAS ($153 spend, $51 revenue)</li>
+                    <li class="red">Advantage+ Test Ad Set: 0.47x ROAS ($3,634 spend, $1,722 revenue)</li>
+                    <li class="red">CM Video 2 Copy 2: 0.57x ROAS ($856 spend, $491 revenue)</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="slide-footer">
+            <img src="https://res.cloudinary.com/dcnabm5nc/image/upload/v1754585626/lead-guru-new-logo-W-450_oyvumx.webp" alt="Lead Guru">
+            <span></span>
+            <span>02 / 12</span>
+        </div>
+    </section>
+
+    <!-- SLIDE 3: Campaign Performance -->
+    <section class="slide">
+        <span class="slide-number">03 / 12</span>
+        <div class="slide-tag">Performance Analysis</div>
+        <h2>Campaign Performance by Source</h2>
+        
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>Source</th>
+                    <th>Cost</th>
+                    <th>Revenue</th>
+                    <th>ROAS</th>
+                    <th>Sales</th>
+                    <th>Profit</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="highlight">Organic Traffic</td>
+                    <td>$0</td>
+                    <td class="green">$33,257</td>
+                    <td>N/A</td>
+                    <td>1,946</td>
+                    <td class="green">$29,089</td>
+                    <td><span class="tag green">Strong</span></td>
+                </tr>
+                <tr>
+                    <td class="highlight">Black Friday TOF</td>
+                    <td>$8,345</td>
+                    <td>$9,655</td>
+                    <td class="green">1.16x</td>
+                    <td>659</td>
+                    <td>$1,309</td>
+                    <td><span class="tag green">Scale</span></td>
+                </tr>
+                <tr>
+                    <td class="highlight">Direct Traffic</td>
+                    <td>$0</td>
+                    <td class="green">$8,754</td>
+                    <td>N/A</td>
+                    <td>516</td>
+                    <td class="green">$7,715</td>
+                    <td><span class="tag green">Strong</span></td>
+                </tr>
+                <tr>
+                    <td class="highlight">Halloween Flash Sale</td>
+                    <td>$949</td>
+                    <td>$2,089</td>
+                    <td class="green">2.20x</td>
+                    <td>116</td>
+                    <td class="green">$1,139</td>
+                    <td><span class="tag green">Winner</span></td>
+                </tr>
+                <tr>
+                    <td class="highlight">Black Friday RMT</td>
+                    <td>$1,909</td>
+                    <td>$2,562</td>
+                    <td class="green">1.34x</td>
+                    <td>177</td>
+                    <td>$653</td>
+                    <td><span class="tag">Monitor</span></td>
+                </tr>
+                <tr>
+                    <td class="highlight">Black Friday Teaser</td>
+                    <td>$288</td>
+                    <td>$1,655</td>
+                    <td class="green">5.74x</td>
+                    <td>122</td>
+                    <td class="green">$1,367</td>
+                    <td><span class="tag green">Top</span></td>
+                </tr>
+                <tr>
+                    <td>AD+ Catalogue</td>
+                    <td>$2,510</td>
+                    <td>$1,900</td>
+                    <td class="orange">0.76x</td>
+                    <td>110</td>
+                    <td class="red">-$609</td>
+                    <td><span class="tag orange">Review</span></td>
+                </tr>
+                <tr>
+                    <td>Advantage+ New Content</td>
+                    <td>$2,746</td>
+                    <td>$768</td>
+                    <td class="red">0.28x</td>
+                    <td>44</td>
+                    <td class="red">-$1,978</td>
+                    <td><span class="tag red">Pause</span></td>
+                </tr>
+                <tr>
+                    <td>TOF Interests</td>
+                    <td>$764</td>
+                    <td>$366</td>
+                    <td class="red">0.48x</td>
+                    <td>26</td>
+                    <td class="red">-$397</td>
+                    <td><span class="tag red">Pause</span></td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <div class="insight-box">
+            <h4>Key Finding</h4>
+            <p>Flash sale and teaser campaigns significantly outperform evergreen prospecting. The Halloween ad achieved 10.77x ROAS on minimal spend. Teaser content with scarcity messaging consistently delivers 5x+ returns. Budget currently diluted across underperforming broad targeting campaigns.</p>
+        </div>
+        
+        <div class="slide-footer">
+            <img src="https://res.cloudinary.com/dcnabm5nc/image/upload/v1754585626/lead-guru-new-logo-W-450_oyvumx.webp" alt="Lead Guru">
+            <span></span>
+            <span>03 / 12</span>
+        </div>
+    </section>
+
+    <!-- SLIDE 4: Top Performing Ads -->
+    <section class="slide">
+        <span class="slide-number">04 / 12</span>
+        <div class="slide-tag">Creative Analysis</div>
+        <h2>Best Performing Ads (Hyros Data)</h2>
+        
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>Ad Name</th>
+                    <th>Cost</th>
+                    <th>Revenue</th>
+                    <th>ROAS</th>
+                    <th>Profit</th>
+                    <th>Format</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="highlight">HM Halloween Ad 1 (23.10.25)</td>
+                    <td>$113</td>
+                    <td class="green">$1,220</td>
+                    <td class="green">10.77x</td>
+                    <td class="green">$1,107</td>
+                    <td><span class="tag">Video</span></td>
+                </tr>
+                <tr>
+                    <td class="highlight">HM Black Friday Teaser Video 2</td>
+                    <td>$70</td>
+                    <td class="green">$835</td>
+                    <td class="green">11.81x</td>
+                    <td class="green">$764</td>
+                    <td><span class="tag">Video</span></td>
+                </tr>
+                <tr>
+                    <td class="highlight">HM Black Friday Teaser Video 3</td>
+                    <td>$23</td>
+                    <td>$242</td>
+                    <td class="green">10.15x</td>
+                    <td class="green">$218</td>
+                    <td><span class="tag">Video</span></td>
+                </tr>
+                <tr>
+                    <td class="highlight">Black Friday Teaser Static 2</td>
+                    <td>$86</td>
+                    <td>$257</td>
+                    <td class="green">2.98x</td>
+                    <td class="green">$170</td>
+                    <td><span class="tag">Static</span></td>
+                </tr>
+                <tr>
+                    <td class="highlight">CM Static 2</td>
+                    <td>$95</td>
+                    <td>$273</td>
+                    <td class="green">2.86x</td>
+                    <td class="green">$177</td>
+                    <td><span class="tag">Static</span></td>
+                </tr>
+                <tr>
+                    <td class="highlight">Black Friday Phase 2 Video 1</td>
+                    <td>$118</td>
+                    <td>$272</td>
+                    <td class="green">2.30x</td>
+                    <td class="green">$153</td>
+                    <td><span class="tag">Video</span></td>
+                </tr>
+                <tr>
+                    <td class="highlight">Packing Labels Final Push</td>
+                    <td>$179</td>
+                    <td>$378</td>
+                    <td class="green">2.11x</td>
+                    <td class="green">$198</td>
+                    <td><span class="tag">Video</span></td>
+                </tr>
+                <tr>
+                    <td class="highlight">CM Static 1 Copy 2</td>
+                    <td>$139</td>
+                    <td>$280</td>
+                    <td class="green">2.01x</td>
+                    <td class="green">$140</td>
+                    <td><span class="tag">Static</span></td>
+                </tr>
+                <tr>
+                    <td class="highlight">Black Friday Main Video 3</td>
+                    <td>$332</td>
+                    <td>$657</td>
+                    <td class="green">1.98x</td>
+                    <td class="green">$325</td>
+                    <td><span class="tag">Video</span></td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <div class="three-col" style="margin-top: 32px;">
+            <div class="card">
+                <h4>Winning Creative Pattern</h4>
+                <p style="font-size: 13px;">Todd on camera with authentic delivery. Behind the scenes footage. Scarcity and urgency messaging. Raw over polished production.</p>
+            </div>
+            <div class="card">
+                <h4>Winning Format</h4>
+                <p style="font-size: 13px;">Short form video (under 30 seconds). Teaser content with limited time offers. Packing and fulfillment footage. Static images with bold urgency text.</p>
+            </div>
+            <div class="card">
+                <h4>Failing Pattern</h4>
+                <p style="font-size: 13px;">Generic catalog ads. Broad interest targeting without strong creative. Overproduced content. Ads without clear offer or urgency.</p>
+            </div>
+        </div>
+        
+        <div class="slide-footer">
+            <img src="https://res.cloudinary.com/dcnabm5nc/image/upload/v1754585626/lead-guru-new-logo-W-450_oyvumx.webp" alt="Lead Guru">
+            <span></span>
+            <span>04 / 12</span>
+        </div>
+    </section>
+
+    <!-- SLIDE 5: Audience Insights -->
+    <section class="slide">
+        <span class="slide-number">05 / 12</span>
+        <div class="slide-tag">Audience Analysis</div>
+        <h2>Customer Demographics and Behaviour</h2>
+        
+        <div class="two-col">
+            <div>
+                <h3>Age Distribution (Q4 Purchases)</h3>
+                <div class="progress-container">
+                    <div class="progress-label">
+                        <span>45 to 54</span>
+                        <span class="value">197 purchases (22%)</span>
+                    </div>
+                    <div class="progress-bar"><div class="progress-fill green" style="width: 100%"></div></div>
+                </div>
+                <div class="progress-container">
+                    <div class="progress-label">
+                        <span>55 to 64</span>
+                        <span class="value">168 purchases (19%)</span>
+                    </div>
+                    <div class="progress-bar"><div class="progress-fill green" style="width: 85%"></div></div>
+                </div>
+                <div class="progress-container">
+                    <div class="progress-label">
+                        <span>35 to 44</span>
+                        <span class="value">163 purchases (18%)</span>
+                    </div>
+                    <div class="progress-bar"><div class="progress-fill green" style="width: 83%"></div></div>
+                </div>
+                <div class="progress-container">
+                    <div class="progress-label">
+                        <span>25 to 34</span>
+                        <span class="value">112 purchases (13%)</span>
+                    </div>
+                    <div class="progress-bar"><div class="progress-fill purple" style="width: 57%"></div></div>
+                </div>
+                <div class="progress-container">
+                    <div class="progress-label">
+                        <span>65+</span>
+                        <span class="value">79 purchases (9%)</span>
+                    </div>
+                    <div class="progress-bar"><div class="progress-fill purple" style="width: 40%"></div></div>
+                </div>
+                <div class="progress-container">
+                    <div class="progress-label">
+                        <span>18 to 24</span>
+                        <span class="value">23 purchases (3%)</span>
+                    </div>
+                    <div class="progress-bar"><div class="progress-fill purple" style="width: 12%"></div></div>
+                </div>
+            </div>
+            <div>
+                <h3>Gender Split</h3>
+                <div style="margin: 24px 0;">
+                    <div class="progress-container">
+                        <div class="progress-label">
+                            <span>Male (Primary Buyers)</span>
+                            <span class="value">724 purchases (82%)</span>
+                        </div>
+                        <div class="progress-bar" style="height: 16px;">
+                            <div class="progress-fill green" style="width: 82%"></div>
+                        </div>
+                    </div>
+                    <div class="progress-container" style="margin-top: 20px;">
+                        <div class="progress-label">
+                            <span>Female (Gift Buyers)</span>
+                            <span class="value">124 purchases (14%)</span>
+                        </div>
+                        <div class="progress-bar" style="height: 16px;">
+                            <div class="progress-fill purple" style="width: 14%"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="insight-box purple" style="margin-top: 32px;">
+                    <h4>Female Buyer Opportunity</h4>
+                    <p>14% of Q4 purchases came from women buying for partners. Market feedback from Todd confirms wives and girlfriends are a significant buyer segment, especially around gift giving occasions. Untapped angle for Q1 Valentine's campaign.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="insight-box" style="margin-top: 24px;">
+            <h4>Primary Target Segment</h4>
+            <p>Men aged 35 to 64 account for 59% of all purchases. This aligns with the rugged American man brand positioning. Focus creative and targeting on this demographic while testing female gift buyer angles for seasonal campaigns.</p>
+        </div>
+        
+        <div class="slide-footer">
+            <img src="https://res.cloudinary.com/dcnabm5nc/image/upload/v1754585626/lead-guru-new-logo-W-450_oyvumx.webp" alt="Lead Guru">
+            <span></span>
+            <span>05 / 12</span>
+        </div>
+    </section>
+
+    <!-- SLIDE 6: CAC LTV Framework -->
+    <section class="slide">
+        <span class="slide-number">06 / 12</span>
+        <div class="slide-tag">Unit Economics</div>
+        <h2>CAC to LTV Analysis</h2>
+        
+        <div class="comparison">
+            <div class="comparison-box old">
+                <h4 style="color: var(--accent-red); margin-bottom: 12px;">ROAS Only View</h4>
+                <div class="metric-value" style="font-size: 36px;">3.5x</div>
+                <p style="font-size: 13px; margin-top: 12px; color: var(--text-muted);">Breakeven target based on first purchase</p>
+                <p style="font-size: 13px; color: var(--accent-red); margin-top: 8px;">Max CAC: $11.88</p>
+            </div>
+            <div class="comparison-vs">vs</div>
+            <div class="comparison-box new">
+                <h4 style="color: var(--accent-green); margin-bottom: 12px;">CAC to LTV View</h4>
+                <div class="metric-value" style="font-size: 36px;">$50</div>
+                <p style="font-size: 13px; margin-top: 12px; color: var(--text-muted);">Max CAC based on 12 month customer value</p>
+                <p style="font-size: 13px; color: var(--accent-green); margin-top: 8px;">4.2x more headroom</p>
+            </div>
+        </div>
+        
+        <div class="two-col">
+            <div class="card">
+                <h3>Current Unit Economics</h3>
+                <table class="data-table" style="margin: 16px 0 0 0;">
+                    <tr>
+                        <td>Average Order Value</td>
+                        <td class="highlight">$46.76</td>
+                    </tr>
+                    <tr>
+                        <td>Orders per Customer (12mo)</td>
+                        <td class="highlight">2.0x</td>
+                    </tr>
+                    <tr>
+                        <td>Returning Customer Rate</td>
+                        <td class="highlight">51%</td>
+                    </tr>
+                    <tr>
+                        <td>12 Month LTV</td>
+                        <td class="green">$83.08</td>
+                    </tr>
+                    <tr>
+                        <td>Profit Margin (est. 40%)</td>
+                        <td class="highlight">$33.23</td>
+                    </tr>
+                    <tr>
+                        <td>Max Allowable CAC</td>
+                        <td class="green">$49.85</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="card">
+                <h3>Q4 Actual Performance</h3>
+                <table class="data-table" style="margin: 16px 0 0 0;">
+                    <tr>
+                        <td>Total Ad Spend</td>
+                        <td class="highlight">$25,729</td>
+                    </tr>
+                    <tr>
+                        <td>New Customers Acquired</td>
+                        <td class="highlight">1,281</td>
+                    </tr>
+                    <tr>
+                        <td>Blended CAC</td>
+                        <td class="green">$20.08</td>
+                    </tr>
+                    <tr>
+                        <td>CAC to LTV Ratio</td>
+                        <td class="green">4.14x</td>
+                    </tr>
+                    <tr>
+                        <td>LTV Profit per Customer</td>
+                        <td class="green">$63.00</td>
+                    </tr>
+                    <tr>
+                        <td>Total Projected LTV Profit</td>
+                        <td class="green">$80,703</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        
+        <div class="insight-box">
+            <h4>What This Means</h4>
+            <p>Q4 acquired 1,281 new customers at $20.08 CAC against $83 LTV. That represents $63 profit per customer over 12 months. Ads showing 1.5x ROAS on first purchase are actually profitable when accounting for repeat purchase behaviour. The business can afford more aggressive acquisition while maintaining profitability.</p>
+        </div>
+        
+        <div class="slide-footer">
+            <img src="https://res.cloudinary.com/dcnabm5nc/image/upload/v1754585626/lead-guru-new-logo-W-450_oyvumx.webp" alt="Lead Guru">
+            <span></span>
+            <span>06 / 12</span>
+        </div>
+    </section>
+
+    <!-- SLIDE 7: Product Performance -->
+    <section class="slide">
+        <span class="slide-number">07 / 12</span>
+        <div class="slide-tag">Product Analysis</div>
+        <h2>Product Performance and Strategy</h2>
+        
+        <div class="two-col">
+            <div>
+                <h3>Top Products by Net Sales (2025)</h3>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Product</th>
+                            <th>Net Sales</th>
+                            <th>Units</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="highlight">Churchwarden</td>
+                            <td class="green">$25,802</td>
+                            <td>1,662</td>
+                        </tr>
+                        <tr>
+                            <td class="highlight">1838</td>
+                            <td>$16,217</td>
+                            <td>1,053</td>
+                        </tr>
+                        <tr>
+                            <td class="highlight">Holy Cow</td>
+                            <td>$15,602</td>
+                            <td>1,002</td>
+                        </tr>
+                        <tr>
+                            <td>Bundle Beard Oil</td>
+                            <td>$13,963</td>
+                            <td>965</td>
+                        </tr>
+                        <tr>
+                            <td>Bundle Beard Balm</td>
+                            <td>$13,337</td>
+                            <td>886</td>
+                        </tr>
+                        <tr>
+                            <td>Sir Beard Wash</td>
+                            <td>$10,674</td>
+                            <td>801</td>
+                        </tr>
+                        <tr>
+                            <td>Iron Forged</td>
+                            <td>$10,075</td>
+                            <td>644</td>
+                        </tr>
+                        <tr>
+                            <td>Explorer Kit (9 Scents)</td>
+                            <td>$7,804</td>
+                            <td>206</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div>
+                <h3>Strategic Insights</h3>
+                
+                <div class="card" style="margin-bottom: 16px;">
+                    <h4>Hero Product: Churchwarden</h4>
+                    <p style="font-size: 13px;">$25.8K revenue from 1,662 units. Lead acquisition campaigns with this product. Proven gateway item for new customers.</p>
+                </div>
+                
+                <div class="card" style="margin-bottom: 16px;">
+                    <h4>Bundle Strategy Working</h4>
+                    <p style="font-size: 13px;">Oil and Balm bundles combined for $27.3K. Continue pushing bundle offers to increase AOV from current $46.76 baseline.</p>
+                </div>
+                
+                <div class="card" style="margin-bottom: 16px;">
+                    <h4>Explorer Kit for Gifting</h4>
+                    <p style="font-size: 13px;">$37.89 AOV on Explorer Kit. Position as primary Valentine's Day gift offering for female buyer segment.</p>
+                </div>
+                
+                <div class="card">
+                    <h4>Cross Sell Opportunity</h4>
+                    <p style="font-size: 13px;">Wash and Conditioner total $19.7K. Implement post purchase upsell flow to increase LTV.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="slide-footer">
+            <img src="https://res.cloudinary.com/dcnabm5nc/image/upload/v1754585626/lead-guru-new-logo-W-450_oyvumx.webp" alt="Lead Guru">
+            <span></span>
+            <span>07 / 12</span>
+        </div>
+    </section>
+
+    <!-- SLIDE 8: Q1 Creative Concepts -->
+    <section class="slide">
+        <span class="slide-number">08 / 12</span>
+        <div class="slide-tag">Creative Strategy</div>
+        <h2>Q1 Creative Concepts</h2>
+        
+        <div class="three-col">
+            <div class="concept-card">
+                <span class="concept-number">01</span>
+                <div class="concept-title">New Year New Beard</div>
+                <span class="tag">January</span>
+                <span class="tag green">High Priority</span>
+                <p style="font-size: 13px; margin-top: 12px; position: relative; z-index: 1; color: var(--text-secondary);">Resolution based messaging. Your beard has been through a lot. Start fresh. Focus on transformation journey content.</p>
+                <h4 style="margin-top: 16px; font-size: 12px;">Formats:</h4>
+                <ul class="check-list" style="font-size: 12px;">
+                    <li>Before and after transformation videos</li>
+                    <li>Todd 2026 beard goals video</li>
+                    <li>Customer resolution testimonials</li>
+                </ul>
+            </div>
+            
+            <div class="concept-card">
+                <span class="concept-number">02</span>
+                <div class="concept-title">For Her to Give Him</div>
+                <span class="tag">Valentine's</span>
+                <span class="tag green">Untapped</span>
+                <p style="font-size: 13px; margin-top: 12px; position: relative; z-index: 1; color: var(--text-secondary);">Target women buying for partners. Make him smell like the man you married. Direct from Todd's market insights.</p>
+                <h4 style="margin-top: 16px; font-size: 12px;">Formats:</h4>
+                <ul class="check-list" style="font-size: 12px;">
+                    <li>Wife approved scents testimonials</li>
+                    <li>Gift guide carousel</li>
+                    <li>Female POV reaction videos</li>
+                </ul>
+            </div>
+            
+            <div class="concept-card">
+                <span class="concept-number">03</span>
+                <div class="concept-title">Made in Tennessee</div>
+                <span class="tag">Evergreen</span>
+                <span class="tag">Brand</span>
+                <p style="font-size: 13px; margin-top: 12px; position: relative; z-index: 1; color: var(--text-secondary);">Double down on authenticity. Workshop footage, handwritten notes, Todd packing orders. The anti Amazon play.</p>
+                <h4 style="margin-top: 16px; font-size: 12px;">Formats:</h4>
+                <ul class="check-list" style="font-size: 12px;">
+                    <li>Workshop tour video</li>
+                    <li>Ingredient sourcing story</li>
+                    <li>Not corporate comparison</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="three-col" style="margin-top: 24px;">
+            <div class="concept-card">
+                <span class="concept-number">04</span>
+                <div class="concept-title">The Switching Angle</div>
+                <span class="tag">Conquest</span>
+                <span class="tag">TOF</span>
+                <p style="font-size: 13px; margin-top: 12px; position: relative; z-index: 1; color: var(--text-secondary);">Still using Cremo? Here is what you are missing. Direct competitor callout with premium positioning.</p>
+                <h4 style="margin-top: 16px; font-size: 12px;">Hooks:</h4>
+                <ul class="check-list" style="font-size: 12px;">
+                    <li>I used to buy from Amazon</li>
+                    <li>Big beard brands hate this</li>
+                    <li>Why I ditched [competitor]</li>
+                </ul>
+            </div>
+            
+            <div class="concept-card">
+                <span class="concept-number">05</span>
+                <div class="concept-title">Label Printer Never Stops</div>
+                <span class="tag">Social Proof</span>
+                <span class="tag green">Proven</span>
+                <p style="font-size: 13px; margin-top: 12px; position: relative; z-index: 1; color: var(--text-secondary);">Expand on the winning format. More packing, fulfillment, order volume content. Visual proof of demand.</p>
+                <h4 style="margin-top: 16px; font-size: 12px;">Variations:</h4>
+                <ul class="check-list" style="font-size: 12px;">
+                    <li>ASMR packing compilation</li>
+                    <li>Monday morning orders timelapse</li>
+                    <li>Handwritten note close ups</li>
+                </ul>
+            </div>
+            
+            <div class="concept-card">
+                <span class="concept-number">06</span>
+                <div class="concept-title">The Itch Killer</div>
+                <span class="tag">Pain Point</span>
+                <span class="tag">Direct Response</span>
+                <p style="font-size: 13px; margin-top: 12px; position: relative; z-index: 1; color: var(--text-secondary);">Problem solution format. Lead with the itch, flakes, dryness. Show the solution in action.</p>
+                <h4 style="margin-top: 16px; font-size: 12px;">Hooks:</h4>
+                <ul class="check-list" style="font-size: 12px;">
+                    <li>Beard itch ruining your day?</li>
+                    <li>Stop scratching. Start living.</li>
+                    <li>One week. That is all it took.</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="slide-footer">
+            <img src="https://res.cloudinary.com/dcnabm5nc/image/upload/v1754585626/lead-guru-new-logo-W-450_oyvumx.webp" alt="Lead Guru">
+            <span></span>
+            <span>08 / 12</span>
+        </div>
+    </section>
+
+    <!-- SLIDE 9: Q1 Roadmap -->
+    <section class="slide">
+        <span class="slide-number">09 / 12</span>
+        <div class="slide-tag">Execution Plan</div>
+        <h2>Q1 2026 Monthly Roadmap</h2>
+        
+        <div class="two-col">
+            <div>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-month">January</div>
+                        <h4>Foundation and Recovery</h4>
+                        <ul class="check-list" style="font-size: 13px;">
+                            <li>Pause all ads with ROAS below 1.0x</li>
+                            <li>Scale Black Friday winners to evergreen</li>
+                            <li>Launch New Year New Beard campaign</li>
+                            <li>Implement CAC reporting framework</li>
+                            <li>Budget: $5,500 to $6,500</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-month">February</div>
+                        <h4>Valentine's Push</h4>
+                        <ul class="check-list" style="font-size: 13px;">
+                            <li>Launch female targeted gift campaign</li>
+                            <li>Explorer Kit bundle promotion</li>
+                            <li>Test new packing videos</li>
+                            <li>Scale winning January creative</li>
+                            <li>Budget: $6,500 to $7,500</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-month">March</div>
+                        <h4>Controlled Growth</h4>
+                        <ul class="check-list" style="font-size: 13px;">
+                            <li>Scale proven creative 30 to 50%</li>
+                            <li>Launch competitor conquest campaigns</li>
+                            <li>Test new product launches if available</li>
+                            <li>Prepare Q2 seasonal strategy</li>
+                            <li>Budget: $7,500 to $8,500</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div>
+                <h3>Monthly KPI Targets</h3>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Metric</th>
+                            <th>Jan</th>
+                            <th>Feb</th>
+                            <th>Mar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Ad Spend</td>
+                            <td>$6,000</td>
+                            <td>$7,000</td>
+                            <td>$8,000</td>
+                        </tr>
+                        <tr>
+                            <td>Target ROAS</td>
+                            <td>2.5x</td>
+                            <td>2.8x</td>
+                            <td>3.0x</td>
+                        </tr>
+                        <tr>
+                            <td>Target CAC</td>
+                            <td>$25</td>
+                            <td>$22</td>
+                            <td>$20</td>
+                        </tr>
+                        <tr>
+                            <td>New Customers</td>
+                            <td>240</td>
+                            <td>318</td>
+                            <td>400</td>
+                        </tr>
+                        <tr>
+                            <td>Meta Revenue</td>
+                            <td class="green">$15,000</td>
+                            <td class="green">$19,600</td>
+                            <td class="green">$24,000</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <div class="insight-box" style="margin-top: 24px;">
+                    <h4>Q1 Target Summary</h4>
+                    <p>$21,000 total ad spend targeting $58,600 Meta attributed revenue (2.79x blended ROAS). With Hyros attribution multiplier, actual revenue projection is $85,000 to $95,000 total including organic. Conservative scale based on Q4 proven performance.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="slide-footer">
+            <img src="https://res.cloudinary.com/dcnabm5nc/image/upload/v1754585626/lead-guru-new-logo-W-450_oyvumx.webp" alt="Lead Guru">
+            <span></span>
+            <span>09 / 12</span>
+        </div>
+    </section>
+
+    <!-- SLIDE 10: Budget Allocation -->
+    <section class="slide">
+        <span class="slide-number">10 / 12</span>
+        <div class="slide-tag">Budget Strategy</div>
+        <h2>Q1 Budget Allocation Model</h2>
+        
+        <div class="two-col">
+            <div>
+                <h3>Campaign Budget Split</h3>
+                <div class="progress-container" style="margin-bottom: 20px;">
+                    <div class="progress-label">
+                        <span><strong>Advantage+ Evergreen</strong></span>
+                        <span class="value" style="color: var(--accent-green);">50% / $10,500</span>
+                    </div>
+                    <div class="progress-bar" style="height: 12px;">
+                        <div class="progress-fill green" style="width: 50%"></div>
+                    </div>
+                    <p style="font-size: 11px; color: var(--text-muted); margin-top: 6px;">Proven performers. Todd videos, packing content, winning static ads.</p>
+                </div>
+                
+                <div class="progress-container" style="margin-bottom: 20px;">
+                    <div class="progress-label">
+                        <span><strong>Seasonal Campaigns</strong></span>
+                        <span class="value" style="color: var(--accent-purple);">25% / $5,250</span>
+                    </div>
+                    <div class="progress-bar" style="height: 12px;">
+                        <div class="progress-fill purple" style="width: 25%"></div>
+                    </div>
+                    <p style="font-size: 11px; color: var(--text-muted); margin-top: 6px;">Valentine's push, New Year campaign, flash sales.</p>
+                </div>
+                
+                <div class="progress-container" style="margin-bottom: 20px;">
+                    <div class="progress-label">
+                        <span><strong>Creative Testing</strong></span>
+                        <span class="value">15% / $3,150</span>
+                    </div>
+                    <div class="progress-bar" style="height: 12px;">
+                        <div class="progress-fill" style="width: 15%"></div>
+                    </div>
+                    <p style="font-size: 11px; color: var(--text-muted); margin-top: 6px;">New concepts, hooks, formats. Feed the winners pipeline.</p>
+                </div>
+                
+                <div class="progress-container">
+                    <div class="progress-label">
+                        <span><strong>Remarketing</strong></span>
+                        <span class="value">10% / $2,100</span>
+                    </div>
+                    <div class="progress-bar" style="height: 12px;">
+                        <div class="progress-fill" style="width: 10%"></div>
+                    </div>
+                    <p style="font-size: 11px; color: var(--text-muted); margin-top: 6px;">Warm audiences, cart abandoners, past purchasers.</p>
+                </div>
+            </div>
+            
+            <div>
+                <h3>Spend Rules</h3>
+                <div class="card" style="margin-bottom: 16px;">
+                    <h4 style="color: var(--accent-green);">Scale When:</h4>
+                    <ul class="check-list" style="font-size: 13px;">
+                        <li>CAC below $25 for 3+ consecutive days</li>
+                        <li>ROAS above 2.0x with volume</li>
+                        <li>CTR above 1.5% on new creative</li>
+                        <li>Frequency below 2.5</li>
+                    </ul>
+                </div>
+                
+                <div class="card" style="margin-bottom: 16px; border-color: rgba(239, 68, 68, 0.3);">
+                    <h4 style="color: var(--accent-red);">Pause When:</h4>
+                    <ul class="check-list" style="font-size: 13px;">
+                        <li class="red">CAC above $40 after $75+ spend</li>
+                        <li class="red">ROAS below 1.0x after learning phase</li>
+                        <li class="red">Frequency above 4.0</li>
+                        <li class="red">Zero purchases after $50+ spend</li>
+                    </ul>
+                </div>
+                
+                <div class="card">
+                    <h4>Daily Monitoring</h4>
+                    <p style="font-size: 13px;">Check at 10am and 4pm EST. Reallocate from underperformers to winners same day. Never let budget drain on losing ads.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="slide-footer">
+            <img src="https://res.cloudinary.com/dcnabm5nc/image/upload/v1754585626/lead-guru-new-logo-W-450_oyvumx.webp" alt="Lead Guru">
+            <span></span>
+            <span>10 / 12</span>
+        </div>
+    </section>
+
+    <!-- SLIDE 11: Projections -->
+    <section class="slide">
+        <span class="slide-number">11 / 12</span>
+        <div class="slide-tag">Financial Projections</div>
+        <h2>Q1 2026 Revenue Projections</h2>
+        
+        <div class="metrics-grid four-col">
+            <div class="metric-card green">
+                <div class="metric-label">Q1 Ad Spend</div>
+                <div class="metric-value">$21,000</div>
+                <div class="metric-change neutral">Controlled scale</div>
+            </div>
+            <div class="metric-card green">
+                <div class="metric-label">Projected Revenue</div>
+                <div class="metric-value">$90,000</div>
+                <div class="metric-change up">+21% vs Q4</div>
+            </div>
+            <div class="metric-card purple">
+                <div class="metric-label">New Customers</div>
+                <div class="metric-value">958</div>
+                <div class="metric-change neutral">At $22 avg CAC</div>
+            </div>
+            <div class="metric-card green">
+                <div class="metric-label">Projected Profit</div>
+                <div class="metric-value">$52,000</div>
+                <div class="metric-change up">Based on 2.8x ROAS</div>
+            </div>
+        </div>
+        
+        <div class="two-col" style="margin-top: 32px;">
+            <div>
+                <h3>Scenario Planning</h3>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Scenario</th>
+                            <th>Spend</th>
+                            <th>Revenue</th>
+                            <th>ROAS</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="orange">Conservative</td>
+                            <td>$18,000</td>
+                            <td>$72,000</td>
+                            <td>2.5x</td>
+                        </tr>
+                        <tr>
+                            <td class="highlight">Target</td>
+                            <td>$21,000</td>
+                            <td class="green">$90,000</td>
+                            <td class="green">2.8x</td>
+                        </tr>
+                        <tr>
+                            <td class="green">Strong</td>
+                            <td>$24,000</td>
+                            <td class="green">$115,000</td>
+                            <td class="green">3.2x</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p style="font-size: 11px; color: var(--text-muted); margin-top: 12px;">Revenue projections include Hyros attribution multiplier based on Q4 data showing 3.1x reporting gap vs Meta.</p>
+            </div>
+            
+            <div>
+                <h3>Key Success Factors</h3>
+                <div class="card">
+                    <ul class="check-list" style="font-size: 13px;">
+                        <li><strong>Budget discipline:</strong> Kill underperformers fast, scale winners aggressively</li>
+                        <li><strong>Fresh creative:</strong> 3 to 5 new concepts per month minimum</li>
+                        <li><strong>Todd's involvement:</strong> Authentic founder content consistently outperforms</li>
+                        <li><strong>Female audience:</strong> Valentine's push represents untapped opportunity</li>
+                        <li><strong>CAC focus:</strong> Measure success by acquisition cost, not ROAS alone</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="slide-footer">
+            <img src="https://res.cloudinary.com/dcnabm5nc/image/upload/v1754585626/lead-guru-new-logo-W-450_oyvumx.webp" alt="Lead Guru">
+            <span></span>
+            <span>11 / 12</span>
+        </div>
+    </section>
+
+    <!-- SLIDE 12: Summary -->
+    <section class="slide">
+        <span class="slide-number">12 / 12</span>
+        <div class="slide-tag">Summary</div>
+        <h2>Q1 2026 Strategic Priorities</h2>
+        
+        <div class="three-col">
+            <div class="card" style="border-top: 3px solid var(--accent-green);">
+                <h3>Immediate Actions</h3>
+                <ul class="check-list" style="font-size: 13px;">
+                    <li>Pause all campaigns below 1.0x ROAS</li>
+                    <li>Scale Halloween and Teaser winners</li>
+                    <li>Launch New Year creative by Jan 10</li>
+                    <li>Brief Todd on new filming requirements</li>
+                    <li>Set up Triple Whale attribution tracking</li>
+                </ul>
+            </div>
+            
+            <div class="card" style="border-top: 3px solid var(--accent-purple);">
+                <h3>Monthly Focus Areas</h3>
+                <ul class="check-list" style="font-size: 13px;">
+                    <li>January: Foundation and cleanup</li>
+                    <li>February: Valentine's and female targeting</li>
+                    <li>March: Scale and optimise winners</li>
+                    <li>Ongoing: Fresh creative pipeline</li>
+                    <li>Ongoing: Daily budget reallocation</li>
+                </ul>
+            </div>
+            
+            <div class="card" style="border-top: 3px solid var(--accent-green);">
+                <h3>Q1 Targets</h3>
+                <ul class="check-list" style="font-size: 13px;">
+                    <li>Total Ad Spend: $21,000</li>
+                    <li>Total Revenue: $90,000</li>
+                    <li>Blended ROAS: 2.8x minimum</li>
+                    <li>New Customers: 958</li>
+                    <li>Average CAC: $22</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="insight-box" style="margin-top: 32px; border-left-color: var(--accent-green);">
+            <h4>Strategic Summary</h4>
+            <p>Q4 proved the model works. $25,729 in spend generated $74,298 in tracked revenue with $48,569 profit. The path forward is not more spend but smarter allocation. Winners like the Halloween ad (10.77x ROAS) and Teaser campaigns (5.74x ROAS) demonstrate what is possible with the right creative and offer structure. Q1 focuses on replicating these wins while testing new angles like female gift buyers. Conservative budget increase of 18% targets 21% revenue growth through improved efficiency rather than raw scale.</p>
+        </div>
+        
+        <div class="slide-footer">
+            <img src="https://res.cloudinary.com/dcnabm5nc/image/upload/v1754585626/lead-guru-new-logo-W-450_oyvumx.webp" alt="Lead Guru">
+            <span>Chattanooga Beard Co. | Q1 2026 Growth Strategy</span>
+            <span>Prepared January 2026</span>
+        </div>
+    </section>
+
+</body>
+</html>
