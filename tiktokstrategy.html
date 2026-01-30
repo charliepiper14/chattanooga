@@ -1,0 +1,1700 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TikTok Ads Strategy | Chattanooga Beard Co</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #0d0d0d;
+            --bg-slide: #141414;
+            --bg-card: #1c1c1c;
+            --text-primary: #f5f5f5;
+            --text-secondary: #9a9a9a;
+            --accent-tiktok: #00f2ea;
+            --accent-red: #ff4444;
+            --accent-gold: #c9a227;
+            --accent-green: #2ecc71;
+            --accent-orange: #e67e22;
+            --border-subtle: rgba(255,255,255,0.08);
+            --gradient-brand: linear-gradient(135deg, #c9a227 0%, #8b6914 100%);
+            --gradient-tiktok: linear-gradient(135deg, #00f2ea 0%, #ff0050 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Source Sans Pro', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(13,13,13,0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-subtle);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-brand {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.3rem;
+            letter-spacing: 0.05em;
+            background: var(--gradient-brand);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-gold);
+        }
+
+        .slide {
+            min-height: 100vh;
+            padding: 8rem 4rem 4rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .slide-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .slide-title {
+            background: radial-gradient(ellipse at top right, rgba(201,162,39,0.15) 0%, transparent 50%),
+                        radial-gradient(ellipse at bottom left, rgba(139,105,20,0.1) 0%, transparent 50%),
+                        var(--bg-dark);
+        }
+
+        .hero-badge {
+            display: inline-block;
+            padding: 0.5rem 1.25rem;
+            background: var(--bg-card);
+            border: 1px solid var(--accent-gold);
+            border-radius: 4px;
+            font-size: 0.75rem;
+            color: var(--accent-gold);
+            margin-bottom: 2rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-weight: 700;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        .hero-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 5rem;
+            letter-spacing: 0.02em;
+            line-height: 1;
+            margin-bottom: 1.5rem;
+            animation: fadeInUp 0.8s ease 0.1s both;
+        }
+
+        .hero-title .gradient {
+            background: var(--gradient-tiktok);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            color: var(--text-secondary);
+            max-width: 650px;
+            margin-bottom: 3rem;
+            animation: fadeInUp 0.8s ease 0.2s both;
+        }
+
+        .hero-meta {
+            display: flex;
+            gap: 3rem;
+            animation: fadeInUp 0.8s ease 0.3s both;
+        }
+
+        .meta-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .meta-label {
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            font-weight: 700;
+        }
+
+        .meta-value {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.2rem;
+            letter-spacing: 0.02em;
+        }
+
+        .section-number {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1rem;
+            letter-spacing: 0.1em;
+            color: var(--accent-gold);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .section-number::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, var(--accent-gold), transparent);
+            max-width: 200px;
+        }
+
+        .section-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 3.5rem;
+            letter-spacing: 0.02em;
+            margin-bottom: 1rem;
+        }
+
+        .section-subtitle {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            max-width: 700px;
+            margin-bottom: 3rem;
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .cards-grid-2 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+        }
+
+        .cards-grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 8px;
+            padding: 1.75rem;
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            border-color: rgba(201,162,39,0.4);
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        }
+
+        .card-icon {
+            width: 44px;
+            height: 44px;
+            background: linear-gradient(135deg, rgba(201,162,39,0.2) 0%, rgba(139,105,20,0.1) 100%);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.25rem;
+            font-size: 1.3rem;
+        }
+
+        .card-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.3rem;
+            letter-spacing: 0.02em;
+            margin-bottom: 0.6rem;
+        }
+
+        .card-text {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .card-highlight {
+            background: linear-gradient(135deg, rgba(0,242,234,0.08) 0%, rgba(255,0,80,0.04) 100%);
+            border-color: rgba(0,242,234,0.25);
+        }
+
+        .card-highlight:hover {
+            border-color: rgba(0,242,234,0.5);
+        }
+
+        .card-warning {
+            background: linear-gradient(135deg, rgba(230,126,34,0.08) 0%, rgba(230,126,34,0.02) 100%);
+            border-color: rgba(230,126,34,0.25);
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .metric-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 8px;
+            padding: 1.75rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .metric-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--gradient-brand);
+        }
+
+        .metric-value {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2.25rem;
+            letter-spacing: 0.02em;
+            margin-bottom: 0.4rem;
+        }
+
+        .metric-value.gold { color: var(--accent-gold); }
+        .metric-value.tiktok { color: var(--accent-tiktok); }
+        .metric-value.green { color: var(--accent-green); }
+        .metric-value.orange { color: var(--accent-orange); }
+
+        .metric-label {
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-weight: 600;
+        }
+
+        .data-table {
+            width: 100%;
+            background: var(--bg-card);
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid var(--border-subtle);
+        }
+
+        .data-table thead {
+            background: rgba(201,162,39,0.1);
+        }
+
+        .data-table th {
+            padding: 1rem 1.25rem;
+            text-align: left;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 0.85rem;
+            letter-spacing: 0.1em;
+            color: var(--accent-gold);
+        }
+
+        .data-table td {
+            padding: 1rem 1.25rem;
+            border-top: 1px solid var(--border-subtle);
+            font-size: 0.9rem;
+        }
+
+        .data-table tbody tr:hover {
+            background: rgba(255,255,255,0.02);
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 0.3rem 0.6rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+        }
+
+        .tag-primary { background: rgba(0,242,234,0.15); color: var(--accent-tiktok); }
+        .tag-success { background: rgba(46,204,113,0.15); color: var(--accent-green); }
+        .tag-warning { background: rgba(201,162,39,0.2); color: var(--accent-gold); }
+        .tag-spark { background: rgba(255,0,80,0.15); color: #ff0050; }
+        .tag-danger { background: rgba(255,68,68,0.15); color: var(--accent-red); }
+
+        .timeline {
+            position: relative;
+            padding-left: 2rem;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(180deg, var(--accent-gold), var(--accent-orange));
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-bottom: 2rem;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -2rem;
+            top: 0.4rem;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--accent-gold);
+            transform: translateX(-4px);
+            box-shadow: 0 0 15px rgba(201,162,39,0.5);
+        }
+
+        .timeline-phase {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 0.9rem;
+            letter-spacing: 0.05em;
+            color: var(--accent-gold);
+            margin-bottom: 0.4rem;
+        }
+
+        .timeline-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.2rem;
+            letter-spacing: 0.02em;
+            margin-bottom: 0.4rem;
+        }
+
+        .timeline-text {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: start;
+        }
+
+        .three-col {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+
+        .cta-box {
+            background: linear-gradient(135deg, rgba(201,162,39,0.1) 0%, rgba(139,105,20,0.05) 100%);
+            border: 1px solid rgba(201,162,39,0.3);
+            border-radius: 12px;
+            padding: 2.5rem;
+            text-align: center;
+            margin-top: 2.5rem;
+        }
+
+        .cta-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.75rem;
+            letter-spacing: 0.02em;
+            margin-bottom: 0.75rem;
+        }
+
+        .cta-text {
+            color: var(--text-secondary);
+            margin-bottom: 1.25rem;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-items {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .cta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-primary);
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .cta-item .check {
+            color: var(--accent-green);
+            font-weight: 700;
+        }
+
+        .info-box {
+            background: linear-gradient(135deg, rgba(201,162,39,0.08) 0%, rgba(139,105,20,0.04) 100%);
+            border-left: 3px solid var(--accent-gold);
+            padding: 1.25rem;
+            margin-top: 1.5rem;
+        }
+
+        .info-box h4 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.1rem;
+            letter-spacing: 0.02em;
+            margin-bottom: 0.4rem;
+            color: var(--accent-gold);
+        }
+
+        .info-box p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .info-box.tiktok {
+            border-left-color: var(--accent-tiktok);
+            background: linear-gradient(135deg, rgba(0,242,234,0.08) 0%, rgba(0,242,234,0.02) 100%);
+        }
+
+        .info-box.tiktok h4 {
+            color: var(--accent-tiktok);
+        }
+
+        .info-box.warning {
+            border-left-color: var(--accent-orange);
+            background: linear-gradient(135deg, rgba(230,126,34,0.08) 0%, rgba(230,126,34,0.02) 100%);
+        }
+
+        .info-box.warning h4 {
+            color: var(--accent-orange);
+        }
+
+        .info-box.danger {
+            border-left-color: var(--accent-red);
+            background: linear-gradient(135deg, rgba(255,68,68,0.08) 0%, rgba(255,68,68,0.02) 100%);
+        }
+
+        .info-box.danger h4 {
+            color: var(--accent-red);
+        }
+
+        .benchmark-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--border-subtle);
+            font-size: 0.9rem;
+        }
+
+        .benchmark-row:last-child {
+            border-bottom: none;
+        }
+
+        .benchmark-label {
+            color: var(--text-secondary);
+        }
+
+        .benchmark-value {
+            font-weight: 700;
+            color: var(--accent-gold);
+        }
+
+        .checklist {
+            list-style: none;
+        }
+
+        .checklist li {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.6rem;
+            padding: 0.6rem 0;
+            border-bottom: 1px solid var(--border-subtle);
+            font-size: 0.9rem;
+        }
+
+        .checklist li:last-child {
+            border-bottom: none;
+        }
+
+        .checklist .icon {
+            color: var(--accent-green);
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .decision-tree {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 8px;
+            padding: 1.5rem;
+        }
+
+        .decision-node {
+            padding: 1rem;
+            border-left: 3px solid var(--accent-gold);
+            margin-bottom: 1rem;
+            background: rgba(201,162,39,0.05);
+        }
+
+        .decision-node:last-child {
+            margin-bottom: 0;
+        }
+
+        .decision-condition {
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .decision-action {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .decision-action .tag {
+            margin-right: 0.5rem;
+        }
+
+        .funnel-stage {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 8px;
+            margin-bottom: 0.75rem;
+        }
+
+        .funnel-stage-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+
+        .funnel-stage-icon.tof { background: rgba(0,242,234,0.2); }
+        .funnel-stage-icon.mof { background: rgba(201,162,39,0.2); }
+        .funnel-stage-icon.bof { background: rgba(46,204,113,0.2); }
+
+        .funnel-stage-content {
+            flex: 1;
+        }
+
+        .funnel-stage-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1rem;
+            letter-spacing: 0.02em;
+        }
+
+        .funnel-stage-desc {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .hero-title { font-size: 3.5rem; }
+            .metrics-grid { grid-template-columns: repeat(2, 1fr); }
+            .two-col { grid-template-columns: 1fr; }
+            .three-col { grid-template-columns: 1fr; }
+            .cards-grid-2 { grid-template-columns: 1fr; }
+            .cards-grid-3 { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 768px) {
+            .slide { padding: 6rem 1.5rem 3rem; }
+            .hero-title { font-size: 2.5rem; }
+            .section-title { font-size: 2.5rem; }
+            .nav-links { display: none; }
+            .hero-meta { flex-direction: column; gap: 1rem; }
+            .metrics-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="nav">
+        <div class="nav-brand">Chattanooga Beard Co x TikTok</div>
+        <ul class="nav-links">
+            <li><a href="#overview">Overview</a></li>
+            <li><a href="#spark">Spark Ads</a></li>
+            <li><a href="#structure">Structure</a></li>
+            <li><a href="#retargeting">Retargeting</a></li>
+            <li><a href="#creative">Creative</a></li>
+            <li><a href="#tracking">Tracking</a></li>
+            <li><a href="#scaling">Scaling</a></li>
+            <li><a href="#diagnostics">Diagnostics</a></li>
+            <li><a href="#action">Action</a></li>
+        </ul>
+    </nav>
+
+    <!-- Slide 1: Title -->
+    <section class="slide slide-title" id="overview">
+        <div class="slide-content">
+            <span class="hero-badge">Q1 2026 Channel Expansion</span>
+            <h1 class="hero-title">
+                <span class="gradient">TikTok Ads</span><br>
+                Launch Strategy
+            </h1>
+            <p class="hero-subtitle">
+                Spark Ads-first approach with consolidated structure, full-funnel retargeting, and Triple Whale attribution. Built around TikTok's learning phase requirements.
+            </p>
+            <div class="hero-meta">
+                <div class="meta-item">
+                    <span class="meta-label">Client</span>
+                    <span class="meta-value">Chattanooga Beard Co</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Strategy</span>
+                    <span class="meta-value">Spark Ads + Consolidated</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Test Budget</span>
+                    <span class="meta-value">$100/day*</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Learning Threshold</span>
+                    <span class="meta-value">50 conv/ad group/week</span>
+                </div>
+            </div>
+            <p style="font-size: 0.75rem; color: var(--text-secondary); margin-top: 1.5rem; font-style: italic;">*All budget figures throughout this document are illustrative examples showing advised levels, not committed amounts.</p>
+        </div>
+    </section>
+
+    <!-- Slide 2: Platform Reality + Expectations -->
+    <section class="slide" id="reality">
+        <div class="slide-content">
+            <span class="section-number">01 // Platform Reality</span>
+            <h2 class="section-title">TikTok is Not Meta</h2>
+            <p class="section-subtitle">
+                Before we get into it: TikTok's algorithm, learning phase, and creative requirements work differently than Meta. This is what it means for CBC.
+            </p>
+
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-value gold">1.5-2X</div>
+                    <div class="metric-label">Week 1-3 ROAS Target</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value tiktok">2-2.5X</div>
+                    <div class="metric-label">Week 4-6 ROAS Target</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value green">2.5-3X</div>
+                    <div class="metric-label">Scale Phase Target</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value orange">$20-25</div>
+                    <div class="metric-label">Target CPA</div>
+                </div>
+            </div>
+
+            <div class="two-col">
+                <div>
+                    <h3 style="font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; margin-bottom: 1.25rem;">How TikTok Differs</h3>
+                    
+                    <div class="card" style="margin-bottom: 1rem;">
+                        <h4 class="card-title">Learning Phase is Hungrier</h4>
+                        <p class="card-text">TikTok needs <strong>50 conversions per ad group per week</strong> to exit learning. At $41 AOV, that means roughly $2,050 in revenue per ad group weekly. This shapes everything about how we structure campaigns. We consolidate instead of fragmenting.</p>
+                    </div>
+                    
+                    <div class="card" style="margin-bottom: 1rem;">
+                        <h4 class="card-title">Creative Fatigue is Faster</h4>
+                        <p class="card-text">TikTok ads fatigue in <strong>7-14 days</strong> compared to 3-4 weeks on Meta. You need fresh hooks constantly. The good news is that lo-fi content is faster to produce and actually performs better here.</p>
+                    </div>
+                    
+                    <div class="card">
+                        <h4 class="card-title">Sound is Not Optional</h4>
+                        <p class="card-text"><strong>93% of TikTok users</strong> watch with sound on, versus maybe 15% on Meta feed. Voiceover, music, and natural audio are required here, not nice-to-have.</p>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 style="font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; margin-bottom: 1.25rem;">TikTok Benchmarks for E-commerce</h3>
+                    
+                    <div class="card">
+                        <div class="benchmark-row">
+                            <span class="benchmark-label">Average CPM</span>
+                            <span class="benchmark-value">$9 - $14</span>
+                        </div>
+                        <div class="benchmark-row">
+                            <span class="benchmark-label">Good CTR</span>
+                            <span class="benchmark-value">>1.0%</span>
+                        </div>
+                        <div class="benchmark-row">
+                            <span class="benchmark-label">Strong CTR</span>
+                            <span class="benchmark-value">>1.5%</span>
+                        </div>
+                        <div class="benchmark-row">
+                            <span class="benchmark-label">Hook Rate (2-sec view)</span>
+                            <span class="benchmark-value">>25%</span>
+                        </div>
+                        <div class="benchmark-row">
+                            <span class="benchmark-label">Hold Rate (full view)</span>
+                            <span class="benchmark-value">>8%</span>
+                        </div>
+                        <div class="benchmark-row">
+                            <span class="benchmark-label">Average CVR (cold)</span>
+                            <span class="benchmark-value">1.5% - 2.5%</span>
+                        </div>
+                    </div>
+                    
+                    <div class="info-box" style="margin-top: 1rem;">
+                        <h4>The Math for CBC</h4>
+                        <p>At $41 AOV, 2% CVR, $12 CPM, the estimated CPA lands around $29. That's 1.4X ROAS before optimization. We need strong creative and proper structure to hit 2X+ in test phase.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-box tiktok" style="margin-top: 2rem;">
+                <h4>About Your Question on Repurposing Meta Ads</h4>
+                <p><strong>The video content can transfer, but the format needs adaptation.</strong> Your BTS packing videos and Todd's founder content are exactly the kind of stuff that wins on TikTok. Authentic, personality-driven, real. But we need to re-cut with stronger hooks in the first 1-2 seconds, add native elements like text overlays and trending sounds, make sure everything is vertical 9:16, and ideally post organically first before boosting as Spark Ads. Your static images won't work here. TikTok is video-only for performance.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 3: Spark Ads Strategy -->
+    <section class="slide" id="spark">
+        <div class="slide-content">
+            <span class="section-number">02 // The Unfair Advantage</span>
+            <h2 class="section-title">Spark Ads First</h2>
+            <p class="section-subtitle">
+                Spark Ads let you boost organic TikTok posts as ads. They keep native engagement, build your profile, and consistently outperform standard in-feed ads by 30-50%. This is our primary format.
+            </p>
+
+            <div class="cards-grid-3" style="margin-bottom: 2.5rem;">
+                <div class="card card-highlight">
+                    <div class="card-icon">🔥</div>
+                    <h3 class="card-title">+142% Completion Rate</h3>
+                    <p class="card-text">TikTok's own data shows Spark Ads have dramatically higher completion rates. Users engage with content that feels organic.</p>
+                </div>
+                <div class="card card-highlight">
+                    <div class="card-icon">💬</div>
+                    <h3 class="card-title">Social Proof Compounds</h3>
+                    <p class="card-text">Engagement stays on the post. A Spark Ad with 50K views and 2K likes keeps building credibility. Standard ads reset to zero every time.</p>
+                </div>
+                <div class="card card-highlight">
+                    <div class="card-icon">👤</div>
+                    <h3 class="card-title">Profile Growth</h3>
+                    <p class="card-text">Spark Ads drive follows to @chattanoogabeardco. You're building an owned audience while running paid. Meta can't do this.</p>
+                </div>
+            </div>
+
+            <div class="two-col">
+                <div>
+                    <h3 style="font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; margin-bottom: 1.25rem;">Spark Ads Workflow</h3>
+                    
+                    <div class="funnel-stage">
+                        <div class="funnel-stage-icon tof">1</div>
+                        <div class="funnel-stage-content">
+                            <div class="funnel-stage-title">Post Organically First</div>
+                            <div class="funnel-stage-desc">Post content to @chattanoogabeardco. Let it get initial engagement for 24-48 hours. Posts with early traction convert better as Spark Ads.</div>
+                        </div>
+                    </div>
+                    
+                    <div class="funnel-stage">
+                        <div class="funnel-stage-icon mof">2</div>
+                        <div class="funnel-stage-content">
+                            <div class="funnel-stage-title">Identify Winners</div>
+                            <div class="funnel-stage-desc">Posts with over 5% engagement rate or over 30% completion rate are candidates. Even 500+ views can scale massively with paid.</div>
+                        </div>
+                    </div>
+                    
+                    <div class="funnel-stage">
+                        <div class="funnel-stage-icon bof">3</div>
+                        <div class="funnel-stage-content">
+                            <div class="funnel-stage-title">Boost as Spark Ad</div>
+                            <div class="funnel-stage-desc">Generate authorization code in TikTok app, then import to Ads Manager. The ad runs from your organic post and all engagement stays.</div>
+                        </div>
+                    </div>
+
+                    <div class="info-box warning" style="margin-top: 1.5rem;">
+                        <h4>This Requires an Active TikTok Profile</h4>
+                        <p>Spark Ads require posting from the brand's TikTok account. We need @chattanoogabeardco posting <strong>3x/week minimum</strong> to fuel this strategy. This is non-negotiable for optimal TikTok performance.</p>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 style="font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; margin-bottom: 1.25rem;">Content Priority for Spark</h3>
+                    
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Content Type</th>
+                                <th>Spark Fit</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Todd packing orders (BTS)</td>
+                                <td><span class="tag tag-spark">Perfect</span></td>
+                            </tr>
+                            <tr>
+                                <td>Handwritten note process</td>
+                                <td><span class="tag tag-spark">Perfect</span></td>
+                            </tr>
+                            <tr>
+                                <td>Founder story / why I started</td>
+                                <td><span class="tag tag-spark">Perfect</span></td>
+                            </tr>
+                            <tr>
+                                <td>Scent descriptions / reactions</td>
+                                <td><span class="tag tag-success">Strong</span></td>
+                            </tr>
+                            <tr>
+                                <td>Customer testimonials</td>
+                                <td><span class="tag tag-success">Strong</span></td>
+                            </tr>
+                            <tr>
+                                <td>Product demos</td>
+                                <td><span class="tag tag-warning">Test</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="info-box tiktok" style="margin-top: 1.5rem;">
+                        <h4>Comment Strategy</h4>
+                        <p>Spark Ads get comments, both positive and negative. Plan for Todd or team responding to top comments within 24hrs, pinning the best customer comments, hiding spam and trolls, and never deleting negative comments because it looks worse. Active comment sections boost engagement rate and lower CPM.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 4: Campaign Structure -->
+    <section class="slide" id="structure">
+        <div class="slide-content">
+            <span class="section-number">03 // Prospecting Structure</span>
+            <h2 class="section-title">Consolidated Architecture</h2>
+            <p class="section-subtitle">
+                TikTok's learning phase demands consolidation. ONE campaign with TWO ad groups max so each gets enough conversion volume to optimize properly.
+            </p>
+
+            <div class="info-box tiktok" style="margin-bottom: 2rem;">
+                <h4>The Math Behind This Structure</h4>
+                <p>At $100/day budget and roughly $25 target CPA, we expect around 4 conversions/day which is 28/week. Splitting across 4+ ad groups like you might on Meta would starve each one. Two ad groups at $50/day each gives us the best shot at 25+ conversions per ad group weekly, close enough to exit learning. <em>*Budget figures shown are illustrative examples to demonstrate the approach, not committed amounts.</em></p>
+            </div>
+
+            <table class="data-table" style="margin-bottom: 2rem;">
+                <thead>
+                    <tr>
+                        <th>Campaign</th>
+                        <th>Ad Group</th>
+                        <th>Targeting</th>
+                        <th>Budget</th>
+                        <th>Ads</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td rowspan="2" style="vertical-align: top;">
+                            <strong>CBC - Prospecting</strong><br>
+                            <span style="color: var(--text-secondary); font-size: 0.85rem;">
+                                Objective: Website Conversions<br>
+                                Event: Complete Payment<br>
+                                Bid: Lowest Cost
+                            </span>
+                        </td>
+                        <td><strong>Broad - US Males 25-55</strong></td>
+                        <td>No interest targeting. Gender: Male. Age: 25-55. Location: US. Let TikTok's algorithm find buyers.</td>
+                        <td>$50/day</td>
+                        <td>4-6 Spark Ads</td>
+                    </tr>
+                    <tr>
+                        <td><strong>LAL 1-3% Purchasers</strong></td>
+                        <td>Stacked 1%, 2%, 3% lookalikes from customer list. Around 8-10M reach.</td>
+                        <td>$50/day</td>
+                        <td>4-6 Spark Ads</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="cards-grid-3" style="margin-bottom: 2rem;">
+                <div class="card">
+                    <h3 class="card-title">Why Broad Works</h3>
+                    <p class="card-text">TikTok's algorithm is exceptionally good at finding buyers from broad audiences. Interest targeting often restricts reach without improving efficiency. Start broad and let the pixel learn.</p>
+                </div>
+                <div class="card">
+                    <h3 class="card-title">When to Add Interests</h3>
+                    <p class="card-text">Only after Week 4 if Broad plateaus or if LAL outperforms significantly. Test one interest stack: Men's Grooming + Outdoor + DIY/Tradesman. Keep as separate ad group.</p>
+                </div>
+                <div class="card">
+                    <h3 class="card-title">Audience Exclusions</h3>
+                    <p class="card-text">Exclude purchasers from the past 180 days, website visitors if retargeting separately, and TikTok profile followers to avoid paying for organic reach.</p>
+                </div>
+            </div>
+
+            <div class="two-col">
+                <div>
+                    <h3 style="font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; margin-bottom: 1rem;">Campaign Settings</h3>
+                    <div class="card">
+                        <ul class="checklist">
+                            <li><span class="icon">✓</span> <strong>Objective:</strong> Website Conversions</li>
+                            <li><span class="icon">✓</span> <strong>Optimization Event:</strong> Complete Payment</li>
+                            <li><span class="icon">✓</span> <strong>Bid Strategy:</strong> Lowest Cost for test phase</li>
+                            <li><span class="icon">✓</span> <strong>Budget Type:</strong> Ad Group Budget, not CBO</li>
+                            <li><span class="icon">✓</span> <strong>Placement:</strong> TikTok only, disable Pangle</li>
+                            <li><span class="icon">✓</span> <strong>Creative Type:</strong> Spark Ads</li>
+                            <li><span class="icon">✓</span> <strong>Smart Creative:</strong> OFF initially</li>
+                        </ul>
+                    </div>
+                </div>
+                <div>
+                    <h3 style="font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; margin-bottom: 1rem;">Smart Performance Campaign Option</h3>
+                    <div class="card card-warning">
+                        <p class="card-text" style="margin-bottom: 1rem;">TikTok's Smart Performance Campaign (SPC) is their version of Meta's Advantage+. Fully automated targeting and creative optimization.</p>
+                        <p class="card-text" style="margin-bottom: 1rem;"><strong>When to consider:</strong> After 200+ conversions when pixel has strong data. Or as a parallel test in Week 5+.</p>
+                        <p class="card-text"><strong>Not for launch:</strong> New pixels need manual structure to build signal first. SPC works better with mature data.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 5: Retargeting Structure -->
+    <section class="slide" id="retargeting">
+        <div class="slide-content">
+            <span class="section-number">04 // Retargeting Structure</span>
+            <h2 class="section-title">Full-Funnel Retargeting</h2>
+            <p class="section-subtitle">
+                Retargeting on TikTok is where margins live. We launch retargeting in Week 3 once we have audience pools built from prospecting traffic.
+            </p>
+
+            <div class="info-box" style="margin-bottom: 2rem;">
+                <h4>Why Wait Until Week 3?</h4>
+                <p>Retargeting audiences need volume. At $100/day prospecting, we'll have around 3,000-5,000 site visitors by Week 3. That's enough to run retargeting without frequency issues. Launching retargeting Day 1 with no pixel data means wasted spend.</p>
+            </div>
+
+            <table class="data-table" style="margin-bottom: 2rem;">
+                <thead>
+                    <tr>
+                        <th>Campaign</th>
+                        <th>Ad Group</th>
+                        <th>Audience</th>
+                        <th>Budget</th>
+                        <th>Creative Angle</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td rowspan="3" style="vertical-align: top;">
+                            <strong>CBC - Retargeting</strong><br>
+                            <span style="color: var(--text-secondary); font-size: 0.85rem;">
+                                Launch: Week 3<br>
+                                Bid: Lowest Cost
+                            </span>
+                        </td>
+                        <td><strong>Engaged Viewers</strong></td>
+                        <td>Viewed 50%+ of any video ad in past 30 days OR engaged with TikTok profile</td>
+                        <td>$15/day</td>
+                        <td>Social proof, testimonials, "still thinking about it?"</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Site Visitors</strong></td>
+                        <td>Visited site but didn't purchase in past 14 days. Exclude purchasers.</td>
+                        <td>$15/day</td>
+                        <td>Urgency, limited stock, founder message</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Cart Abandoners</strong></td>
+                        <td>Added to cart but didn't purchase in past 7 days</td>
+                        <td>$10/day</td>
+                        <td>Direct CTA, "complete your order", shipping reminder</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="cards-grid-3">
+                <div class="card">
+                    <h3 class="card-title">Engaged Viewers (TOF Retarget)</h3>
+                    <p class="card-text" style="margin-bottom: 0.75rem;">Warmest TikTok-native audience. They watched your content but didn't click.</p>
+                    <p class="card-text"><strong>Creative:</strong> Customer testimonials, "thousands of beards trust us", bundle offers</p>
+                </div>
+                <div class="card">
+                    <h3 class="card-title">Site Visitors (MOF)</h3>
+                    <p class="card-text" style="margin-bottom: 0.75rem;">They clicked, browsed, but didn't buy. Higher intent than video viewers.</p>
+                    <p class="card-text"><strong>Creative:</strong> "Still thinking about it?", limited time offers, founder direct message</p>
+                </div>
+                <div class="card">
+                    <h3 class="card-title">Cart Abandoners (BOF)</h3>
+                    <p class="card-text" style="margin-bottom: 0.75rem;">Highest intent. They wanted to buy but something stopped them.</p>
+                    <p class="card-text"><strong>Creative:</strong> Reminder-style, "your cart is waiting", shipping/guarantee reassurance</p>
+                </div>
+            </div>
+
+            <div class="two-col" style="margin-top: 2rem;">
+                <div>
+                    <h3 style="font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; margin-bottom: 1rem;">Frequency Management</h3>
+                    <div class="card">
+                        <p class="card-text" style="margin-bottom: 1rem;">TikTok retargeting can burn audiences fast. Monitor these numbers:</p>
+                        <div class="benchmark-row">
+                            <span class="benchmark-label">Max Frequency (7-day)</span>
+                            <span class="benchmark-value">4-6 impressions</span>
+                        </div>
+                        <div class="benchmark-row">
+                            <span class="benchmark-label">Warning Sign</span>
+                            <span class="benchmark-value">>8 frequency</span>
+                        </div>
+                        <div class="benchmark-row">
+                            <span class="benchmark-label">Action if High Freq</span>
+                            <span class="benchmark-value">Pause 48hrs, refresh creative</span>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <h3 style="font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; margin-bottom: 1rem;">Expected Retargeting Performance</h3>
+                    <div class="card">
+                        <div class="benchmark-row">
+                            <span class="benchmark-label">Retarget ROAS (target)</span>
+                            <span class="benchmark-value">4-6X</span>
+                        </div>
+                        <div class="benchmark-row">
+                            <span class="benchmark-label">Retarget CPA (target)</span>
+                            <span class="benchmark-value">$10-15</span>
+                        </div>
+                        <div class="benchmark-row">
+                            <span class="benchmark-label">% of Total Budget</span>
+                            <span class="benchmark-value">25-30%</span>
+                        </div>
+                        <div class="benchmark-row">
+                            <span class="benchmark-label">Blended Impact</span>
+                            <span class="benchmark-value">+0.3-0.5X total ROAS</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 6: Creative Framework -->
+    <section class="slide" id="creative">
+        <div class="slide-content">
+            <span class="section-number">05 // Creative Framework</span>
+            <h2 class="section-title">Hook Testing System</h2>
+            <p class="section-subtitle">
+                TikTok creative lives or dies in the first 1-2 seconds. We're building a systematic hook testing framework with clear performance thresholds.
+            </p>
+
+            <h3 style="font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; margin-bottom: 1.25rem;">Creative Performance Thresholds</h3>
+
+            <table class="data-table" style="margin-bottom: 2rem;">
+                <thead>
+                    <tr>
+                        <th>Metric</th>
+                        <th>Kill Zone</th>
+                        <th>Monitor</th>
+                        <th>Winner</th>
+                        <th>Action Trigger</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Hook Rate</strong> (2-sec view %)</td>
+                        <td><span class="tag tag-danger">below 20%</span></td>
+                        <td><span class="tag tag-warning">20-30%</span></td>
+                        <td><span class="tag tag-success">above 30%</span></td>
+                        <td>Kill after $15 spend if below 20%</td>
+                    </tr>
+                    <tr>
+                        <td><strong>CTR</strong></td>
+                        <td><span class="tag tag-danger">below 0.8%</span></td>
+                        <td><span class="tag tag-warning">0.8-1.2%</span></td>
+                        <td><span class="tag tag-success">above 1.2%</span></td>
+                        <td>Kill after $20 spend if below 0.8%</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Hold Rate</strong> (full view %)</td>
+                        <td><span class="tag tag-danger">below 5%</span></td>
+                        <td><span class="tag tag-warning">5-10%</span></td>
+                        <td><span class="tag tag-success">above 10%</span></td>
+                        <td>Content issue, need to re-edit middle section</td>
+                    </tr>
+                    <tr>
+                        <td><strong>CPA</strong></td>
+                        <td><span class="tag tag-danger">above $35</span></td>
+                        <td><span class="tag tag-warning">$25-35</span></td>
+                        <td><span class="tag tag-success">below $25</span></td>
+                        <td>Kill after $50 spend if above $35</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Thumb-Stop Ratio</strong></td>
+                        <td><span class="tag tag-danger">below 15%</span></td>
+                        <td><span class="tag tag-warning">15-25%</span></td>
+                        <td><span class="tag tag-success">above 25%</span></td>
+                        <td>Hook isn't stopping scroll, test new opener</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="two-col">
+                <div>
+                    <h3 style="font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; margin-bottom: 1rem;">Hook Categories to Test</h3>
+                    
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Hook Type</th>
+                                <th>Example for CBC</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Pattern Interrupt</strong></td>
+                                <td>"Stop buying beard oil from Amazon."</td>
+                            </tr>
+                            <tr>
+                                <td><strong>POV / Relatable</strong></td>
+                                <td>"POV: You finally fix your itchy beard"</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Founder Direct</strong></td>
+                                <td>"I handwrite every thank you note. Here's why."</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Controversial</strong></td>
+                                <td>"90% of beard oils are cheap garbage"</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Transformation</strong></td>
+                                <td>"What 2 weeks of real beard care looks like"</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Social Proof</strong></td>
+                                <td>"My wife won't stop smelling my beard"</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div>
+                    <h3 style="font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; margin-bottom: 1rem;">Testing Protocol</h3>
+                    
+                    <div class="card">
+                        <ul class="checklist">
+                            <li><span class="icon">1.</span> <strong>Same body, different hooks</strong> to isolate hook performance. Don't change multiple variables at once.</li>
+                            <li><span class="icon">2.</span> <strong>4-6 ads per ad group</strong> for enough variety for algorithm to optimize, but not so many it fragments spend.</li>
+                            <li><span class="icon">3.</span> <strong>$15-20 spend = kill decision</strong> so you don't let losers drain budget. Cut fast.</li>
+                            <li><span class="icon">4.</span> <strong>Winners get duplicated</strong> by taking winning hook and applying to new body content.</li>
+                            <li><span class="icon">5.</span> <strong>Refresh every 10-14 days</strong> because even winners fatigue. Plan for iteration.</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="info-box tiktok" style="margin-top: 1rem;">
+                        <h4>Use TikTok Creative Center</h4>
+                        <p>Research top ads at <strong>ads.tiktok.com/business/creativecenter</strong>. Filter by Personal Care, US, last 7 days. Analyze hooks, pacing, CTAs. Free competitive intelligence.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-box warning" style="margin-top: 2rem;">
+                <h4>Landing Page Consideration</h4>
+                <p>TikTok traffic is colder and more impulsive than Meta. Expect higher bounce rate (60-70%), shorter session duration, and almost all mobile. Make sure your landing page loads in under 3 seconds, has sticky add-to-cart on mobile, shows social proof above fold, and has clear trust signals like Made in USA and money-back guarantee. Consider a TikTok-specific landing page if conversion rate is significantly lower than Meta.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 7: Tracking & Attribution -->
+    <section class="slide" id="tracking">
+        <div class="slide-content">
+            <span class="section-number">06 // Measurement Setup</span>
+            <h2 class="section-title">Attribution Stack</h2>
+            <p class="section-subtitle">
+                TikTok's native attribution is directionally useful but not gospel. We'll triangulate with Triple Whale using the same approach you're already using for Meta.
+            </p>
+
+            <div class="cards-grid-2" style="margin-bottom: 2rem;">
+                <div class="card card-highlight">
+                    <h3 class="card-title">TikTok Events API (Required)</h3>
+                    <p class="card-text" style="margin-bottom: 1rem;">Browser pixel alone misses 30-40% of conversions post-iOS14.5. Events API sends server-side data directly to TikTok. <strong>This is mandatory.</strong></p>
+                    <div style="padding: 0.75rem; background: rgba(0,0,0,0.3); border-radius: 4px;">
+                        <p style="font-size: 0.85rem; color: var(--text-secondary);"><strong>Setup:</strong> Shopify then Settings then Apps then TikTok then Enable Events API. Takes 10 minutes. Verify in Events Manager showing "Active".</p>
+                    </div>
+                </div>
+                <div class="card card-highlight">
+                    <h3 class="card-title">Triple Whale Integration</h3>
+                    <p class="card-text" style="margin-bottom: 1rem;">Add TikTok as a source in Triple Whale for unified view. Triple Whale's first-party pixel catches conversions TikTok misses.</p>
+                    <div style="padding: 0.75rem; background: rgba(0,0,0,0.3); border-radius: 4px;">
+                        <p style="font-size: 0.85rem; color: var(--text-secondary);"><strong>Expectation:</strong> Triple Whale will likely show 20-40% more TikTok conversions than TikTok reports natively, similar to the Meta discrepancy you've seen.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="two-col">
+                <div>
+                    <h3 style="font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; margin-bottom: 1rem;">Attribution Windows</h3>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Window</th>
+                                <th>Setting</th>
+                                <th>Why</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Click-through</td>
+                                <td><span class="tag tag-success">7-day</span></td>
+                                <td>Standard for e-commerce</td>
+                            </tr>
+                            <tr>
+                                <td>View-through</td>
+                                <td><span class="tag tag-warning">1-day</span></td>
+                                <td>TikTok VTA over-attributes so keep tight</td>
+                            </tr>
+                            <tr>
+                                <td>Engaged View</td>
+                                <td><span class="tag tag-primary">6-sec, ON</span></td>
+                                <td>TikTok-specific, captures intent</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div>
+                    <h3 style="font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; margin-bottom: 1rem;">Events to Verify</h3>
+                    <div class="card">
+                        <ul class="checklist">
+                            <li><span class="icon">✓</span> <strong>ViewContent</strong> for product page views</li>
+                            <li><span class="icon">✓</span> <strong>AddToCart</strong> for cart additions</li>
+                            <li><span class="icon">✓</span> <strong>InitiateCheckout</strong> for checkout starts</li>
+                            <li><span class="icon">✓</span> <strong>CompletePayment</strong> for purchases (optimize here)</li>
+                        </ul>
+                        <p style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 0.75rem;">Use TikTok Pixel Helper Chrome extension to verify all events fire correctly. Do a test purchase.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-box" style="margin-top: 2rem;">
+                <h4>Post-Purchase Survey</h4>
+                <p>Add "How did you hear about us?" to checkout with "TikTok" as an option. Zero-party attribution data validates platform-reported conversions. This is especially valuable for TikTok where view-through attribution is murky. Cross-reference survey responses with TikTok and Triple Whale data monthly.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 8: Scaling Protocol -->
+    <section class="slide" id="scaling">
+        <div class="slide-content">
+            <span class="section-number">07 // Scaling Protocol</span>
+            <h2 class="section-title">How to Scale Winners</h2>
+            <p class="section-subtitle">
+                Scaling on TikTok is more sensitive than Meta. Aggressive budget increases reset learning. This is the playbook for sustainable growth.
+            </p>
+
+            <div class="two-col">
+                <div>
+                    <h3 style="font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; margin-bottom: 1.25rem;">Vertical Scaling (Same Ad Group)</h3>
+                    
+                    <div class="card" style="margin-bottom: 1rem;">
+                        <h4 class="card-title">The 20-30% Rule</h4>
+                        <p class="card-text">Increase budget by max 20-30% every 48-72 hours. Larger jumps reset learning phase and spike CPA temporarily.</p>
+                    </div>
+                    
+                    <div class="decision-tree">
+                        <div class="decision-node">
+                            <div class="decision-condition">If CPA below $20 and stable for 3+ days</div>
+                            <div class="decision-action"><span class="tag tag-success">Scale</span> Increase budget 20-30%</div>
+                        </div>
+                        <div class="decision-node">
+                            <div class="decision-condition">If CPA $20-28 and ROAS above 2X</div>
+                            <div class="decision-action"><span class="tag tag-warning">Hold</span> Maintain, monitor 48hrs</div>
+                        </div>
+                        <div class="decision-node">
+                            <div class="decision-condition">If CPA above $30 for 48+ hours</div>
+                            <div class="decision-action"><span class="tag tag-danger">Cut</span> Reduce budget 30% or pause</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 style="font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; margin-bottom: 1.25rem;">Horizontal Scaling (Duplication)</h3>
+                    
+                    <div class="card" style="margin-bottom: 1rem;">
+                        <h4 class="card-title">When to Duplicate</h4>
+                        <p class="card-text">When vertical scaling hits a ceiling and CPA rises with each increase, duplicate the winning ad group with fresh budget. New ad group starts fresh learning.</p>
+                    </div>
+                    
+                    <div class="card">
+                        <h4 class="card-title">Duplication Protocol</h4>
+                        <ul class="checklist">
+                            <li><span class="icon">1.</span> Duplicate winning ad group exactly</li>
+                            <li><span class="icon">2.</span> Set budget at original level ($50/day)</li>
+                            <li><span class="icon">3.</span> Let it run 48hrs before judging</li>
+                            <li><span class="icon">4.</span> If duplicate matches original, you've found scale ceiling</li>
+                            <li><span class="icon">5.</span> If duplicate fails, original had audience-specific magic</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <h3 style="font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; margin-top: 2.5rem; margin-bottom: 1.25rem;">Budget Progression (Illustrative)*</h3>
+
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Phase</th>
+                        <th>Timeline</th>
+                        <th>Daily Budget</th>
+                        <th>Weekly Spend</th>
+                        <th>ROAS Target</th>
+                        <th>Decision Criteria</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Test</strong></td>
+                        <td>Week 1-3</td>
+                        <td>$100</td>
+                        <td>$700</td>
+                        <td>1.5-2.0X</td>
+                        <td>Pixel learning, creative validation</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Validate</strong></td>
+                        <td>Week 4-5</td>
+                        <td>$130-150</td>
+                        <td>$900-1,050</td>
+                        <td>2.0-2.5X</td>
+                        <td>Consistent CPA below $28, winning creative identified</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Scale</strong></td>
+                        <td>Week 6-8</td>
+                        <td>$175-250</td>
+                        <td>$1,225-1,750</td>
+                        <td>2.5X+</td>
+                        <td>Retargeting profitable, creative pipeline active</td>
+                    </tr>
+                    <tr style="background: rgba(201,162,39,0.1);">
+                        <td><strong>Mature</strong></td>
+                        <td>Week 9+</td>
+                        <td>$300+</td>
+                        <td>$2,100+</td>
+                        <td>2.5-3.0X</td>
+                        <td>Channel proven, blended MER healthy</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <p style="font-size: 0.8rem; color: var(--text-secondary); margin-top: 1rem; font-style: italic;">*All budget figures are illustrative examples showing advised levels based on platform requirements. Final budget to be discussed and agreed upon.</p>
+        </div>
+    </section>
+
+    <!-- Slide 9: Diagnostic Framework -->
+    <section class="slide" id="diagnostics">
+        <div class="slide-content">
+            <span class="section-number">08 // Diagnostic Framework</span>
+            <h2 class="section-title">When Things Aren't Working</h2>
+            <p class="section-subtitle">
+                A systematic troubleshooting guide. If performance drops, here's what to check and in what order.
+            </p>
+
+            <div class="cards-grid-2">
+                <div class="card">
+                    <h3 class="card-title">Problem: High CPM (above $15)</h3>
+                    <div style="margin-top: 1rem;">
+                        <p class="card-text" style="margin-bottom: 0.5rem;"><strong>Check:</strong></p>
+                        <ul class="checklist">
+                            <li><span class="icon">→</span> Audience too narrow? Expand or go broad.</li>
+                            <li><span class="icon">→</span> Ad frequency too high? Check 7-day frequency.</li>
+                            <li><span class="icon">→</span> Seasonal competition? CPMs spike during holidays.</li>
+                            <li><span class="icon">→</span> Low relevance score? Creative isn't resonating.</li>
+                        </ul>
+                        <p class="card-text" style="margin-top: 0.75rem;"><strong>Fix:</strong> Broaden targeting, refresh creative, check ad quality.</p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3 class="card-title">Problem: Low CTR (below 0.8%)</h3>
+                    <div style="margin-top: 1rem;">
+                        <p class="card-text" style="margin-bottom: 0.5rem;"><strong>Check:</strong></p>
+                        <ul class="checklist">
+                            <li><span class="icon">→</span> Hook rate okay but CTR low? Body content issue.</li>
+                            <li><span class="icon">→</span> Hook rate also low? Opening isn't stopping scroll.</li>
+                            <li><span class="icon">→</span> CTA clear? Users don't know what to do.</li>
+                            <li><span class="icon">→</span> Audience mismatch? Content not resonating with target.</li>
+                        </ul>
+                        <p class="card-text" style="margin-top: 0.75rem;"><strong>Fix:</strong> Test new hooks, stronger CTA, check audience alignment.</p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3 class="card-title">Problem: High CPA (above $35)</h3>
+                    <div style="margin-top: 1rem;">
+                        <p class="card-text" style="margin-bottom: 0.5rem;"><strong>Check:</strong></p>
+                        <ul class="checklist">
+                            <li><span class="icon">→</span> CTR good but CPA high? Landing page issue.</li>
+                            <li><span class="icon">→</span> Check page speed (must be under 3s).</li>
+                            <li><span class="icon">→</span> Mobile experience broken? Test on phone.</li>
+                            <li><span class="icon">→</span> Pixel firing correctly? Verify in Events Manager.</li>
+                            <li><span class="icon">→</span> Check Triple Whale. Is TikTok under-reporting?</li>
+                        </ul>
+                        <p class="card-text" style="margin-top: 0.75rem;"><strong>Fix:</strong> Audit landing page, verify tracking, check true CPA in Triple Whale.</p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3 class="card-title">Problem: Sudden Performance Drop</h3>
+                    <div style="margin-top: 1rem;">
+                        <p class="card-text" style="margin-bottom: 0.5rem;"><strong>Check:</strong></p>
+                        <ul class="checklist">
+                            <li><span class="icon">→</span> Creative fatigue? Check frequency and days running.</li>
+                            <li><span class="icon">→</span> Budget change? Recent scaling can reset learning.</li>
+                            <li><span class="icon">→</span> Audience exhaustion? LAL may have peaked.</li>
+                            <li><span class="icon">→</span> Platform changes? TikTok algorithm updates happen.</li>
+                            <li><span class="icon">→</span> Competitor activity? Increased auction competition.</li>
+                        </ul>
+                        <p class="card-text" style="margin-top: 0.75rem;"><strong>Fix:</strong> Refresh creative, test new audiences, check for external factors.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-box warning" style="margin-top: 2rem;">
+                <h4>The 72-Hour Rule</h4>
+                <p>Before making major changes like killing campaigns or massive budget cuts, wait 72 hours of consistent data. TikTok has high day-to-day variance. One bad day isn't a trend. Three bad days is a signal. Exception: If Hook Rate is below 15% or CTR is below 0.5% after $20 spend, kill immediately because that creative won't recover.</p>
+            </div>
+
+            <div class="info-box tiktok" style="margin-top: 1rem;">
+                <h4>Weekly Health Check</h4>
+                <p>Every Monday, review: Frequency by ad group where anything above 6 needs attention, creative performance to see if any winners are fatiguing, audience overlap to see if ad groups are competing, attribution gap between TikTok and Triple Whale, and blended MER to see TikTok's impact on overall business.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 10: Timeline -->
+    <section class="slide" id="timeline">
+        <div class="slide-content">
+            <span class="section-number">09 // Execution Timeline</span>
+            <h2 class="section-title">8-Week Launch Plan</h2>
+            <p class="section-subtitle">
+                Structured phases with clear decision points and go/no-go criteria.
+            </p>
+
+            <div class="two-col">
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-phase">Week 0 // Pre-Launch</div>
+                        <div class="timeline-title">Foundation Setup</div>
+                        <div class="timeline-text">
+                            Install pixel + Events API via Shopify<br>
+                            Upload customer list, create 1-3% LALs<br>
+                            Connect TikTok to Triple Whale<br>
+                            Start organic posting (3x/week)<br>
+                            Adapt top 4-6 Meta videos with TikTok hooks
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-phase">Week 1-2 // Learning</div>
+                        <div class="timeline-title">Controlled Launch</div>
+                        <div class="timeline-text">
+                            Launch at $100/day (2 ad groups)<br>
+                            Spark Ads from organic posts<br>
+                            NO optimization changes, let it learn<br>
+                            Monitor Hook Rate, CTR, CPA<br>
+                            Target 40-50 conversions total
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-phase">Week 3-4 // Optimize + Retarget</div>
+                        <div class="timeline-title">First Refinements</div>
+                        <div class="timeline-text">
+                            Kill ads with CTR below 0.8%<br>
+                            Scale winners by 20%<br>
+                            Launch retargeting campaign ($40/day)<br>
+                            Introduce 2-3 new hook variations<br>
+                            <strong>Decision: Continue if CPA below $30</strong>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-phase">Week 5-8 // Scale</div>
+                        <div class="timeline-title">Growth Phase</div>
+                        <div class="timeline-text">
+                            Scale prospecting to $150-200/day<br>
+                            Scale retargeting proportionally<br>
+                            Test horizontal scaling (duplication)<br>
+                            Fresh creative every 2 weeks<br>
+                            Target 2.5X blended ROAS
+                        </div>
+                    </div>
+                </div>
+                
+                <div>
+                    <div class="card" style="background: linear-gradient(135deg, rgba(201,162,39,0.1) 0%, rgba(139,105,20,0.05) 100%); border-color: rgba(201,162,39,0.3); margin-bottom: 1.5rem;">
+                        <h3 class="card-title" style="color: var(--accent-gold);">Illustrative Test Investment*</h3>
+                        <div style="margin-top: 1rem;">
+                            <div class="benchmark-row">
+                                <span class="benchmark-label">Week 1-2</span>
+                                <span class="benchmark-value">$1,400</span>
+                            </div>
+                            <div class="benchmark-row">
+                                <span class="benchmark-label">Week 3-4</span>
+                                <span class="benchmark-value">$1,960</span>
+                            </div>
+                            <div class="benchmark-row">
+                                <span class="benchmark-label">Week 5-8</span>
+                                <span class="benchmark-value">$5,600-7,000</span>
+                            </div>
+                            <div class="benchmark-row" style="border-top: 2px solid var(--accent-gold); margin-top: 0.5rem; padding-top: 1rem;">
+                                <span class="benchmark-label"><strong>8-Week Total</strong></span>
+                                <span class="benchmark-value">$8,960-10,360</span>
+                            </div>
+                        </div>
+                        <p style="font-size: 0.75rem; color: var(--text-secondary); margin-top: 1rem; font-style: italic;">*All budget figures are illustrative examples showing recommended levels, not committed amounts. Final budget to be agreed upon.</p>
+                    </div>
+
+                    <h3 style="font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; margin-bottom: 1rem;">Go/No-Go Criteria</h3>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Week 4 Result</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>ROAS above 2.5X</td>
+                                <td><span class="tag tag-success">Aggressive scale</span></td>
+                            </tr>
+                            <tr>
+                                <td>ROAS 1.5-2.5X</td>
+                                <td><span class="tag tag-warning">Continue, optimize</span></td>
+                            </tr>
+                            <tr>
+                                <td>ROAS below 1.5X</td>
+                                <td><span class="tag tag-danger">Pause, diagnose</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 11: Next Steps -->
+    <section class="slide" id="action">
+        <div class="slide-content" style="text-align: center;">
+            <span class="section-number" style="justify-content: center;">10 // Next Steps</span>
+            <h2 class="section-title">Let's Build This Channel</h2>
+            <p class="section-subtitle" style="margin-left: auto; margin-right: auto;">
+                What I need from you to launch TikTok properly.
+            </p>
+
+            <div class="cta-box">
+                <h3 class="cta-title">Action Items for Todd</h3>
+                <p class="cta-text">Confirm the following to kick off TikTok launch.</p>
+                <div class="cta-items" style="flex-direction: column; align-items: flex-start; max-width: 450px; margin: 0 auto;">
+                    <div class="cta-item">
+                        <span class="check">☐</span>
+                        <span>Agree on weekly test budget (illustrated at $700/week)</span>
+                    </div>
+                    <div class="cta-item">
+                        <span class="check">☐</span>
+                        <span>Grant TikTok Business Center admin access</span>
+                    </div>
+                    <div class="cta-item">
+                        <span class="check">☐</span>
+                        <span>Export customer email + phone list for LALs</span>
+                    </div>
+                    <div class="cta-item">
+                        <span class="check">☐</span>
+                        <span>Confirm @chattanoogabeardco TikTok profile access</span>
+                    </div>
+                    <div class="cta-item">
+                        <span class="check">☐</span>
+                        <span>Commit to 3 organic posts/week for Spark Ads</span>
+                    </div>
+                    <div class="cta-item">
+                        <span class="check">☐</span>
+                        <span>Assign someone for daily comment monitoring</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cards-grid-3" style="margin-top: 2.5rem; text-align: left;">
+                <div class="card">
+                    <div class="card-icon">📊</div>
+                    <h3 class="card-title">Weekly Reporting</h3>
+                    <p class="card-text">Same format as Meta with spend, revenue, ROAS, CPA, top creative, Triple Whale comparison, and next week's plan.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🎬</div>
+                    <h3 class="card-title">Creative Pipeline</h3>
+                    <p class="card-text">Plan for 2-3 new video variations every 2 weeks. Your existing filming workflow feeds both Meta and TikTok.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🎯</div>
+                    <h3 class="card-title">Decision Point</h3>
+                    <p class="card-text">Week 4 check-in: If ROAS above 1.5X, we scale. If below, we diagnose before committing more budget.</p>
+                </div>
+            </div>
+
+            <div class="info-box" style="margin-top: 2.5rem; text-align: left;">
+                <h4>Bottom Line</h4>
+                <p>TikTok isn't a magic bullet, but it's a real opportunity to add incremental revenue and reduce Meta dependency. Your authentic, founder-driven content is exactly what wins on this platform. With Spark Ads, proper attribution via Triple Whale, consolidated structure that respects learning phase requirements, full-funnel retargeting, and a systematic approach to creative testing and scaling, we can build TikTok into a meaningful channel for Chattanooga Beard Co.</p>
+            </div>
+        </div>
+    </section>
+
+</body>
+</html>
