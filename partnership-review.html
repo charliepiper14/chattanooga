@@ -1,0 +1,1297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chattanooga Beard Co | Final Partnership Performance Review</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0f0f1a;
+            --bg-secondary: #1a1a2e;
+            --bg-card: #16162a;
+            --bg-card-hover: #1e1e3a;
+            --border: rgba(255,255,255,0.06);
+            --accent-green: #00d9a5;
+            --accent-green-dim: rgba(0, 217, 165, 0.15);
+            --accent-purple: #8b5cf6;
+            --accent-purple-dim: rgba(139, 92, 246, 0.15);
+            --accent-blue: #3b82f6;
+            --accent-pink: #ec4899;
+            --accent-red: #ef4444;
+            --accent-orange: #f59e0b;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0b8;
+            --text-muted: #6b6b80;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            font-size: 15px;
+        }
+        .slide {
+            min-height: 100vh;
+            padding: 48px 64px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            border-bottom: 1px solid var(--border);
+        }
+        .slide-number {
+            position: absolute;
+            top: 24px;
+            right: 32px;
+            font-size: 13px;
+            color: var(--text-muted);
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+        .slide-tag {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--accent-green);
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+        h1 {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 52px;
+            font-weight: 700;
+            line-height: 1.15;
+            margin-bottom: 16px;
+        }
+        h2 {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 28px;
+        }
+        h3 { font-size: 18px; font-weight: 600; margin-bottom: 16px; }
+        h4 { font-size: 14px; font-weight: 600; margin-bottom: 8px; }
+        p { font-size: 15px; color: var(--text-secondary); max-width: 720px; }
+        .subtitle {
+            font-size: 18px;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin-bottom: 32px;
+        }
+        .cover {
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: radial-gradient(ellipse at 50% 30%, rgba(139, 92, 246, 0.08) 0%, transparent 50%),
+                        radial-gradient(ellipse at 80% 80%, rgba(0, 217, 165, 0.05) 0%, transparent 40%);
+        }
+        .cover h1 { font-size: 56px; }
+        .cover .meta {
+            margin-top: 48px;
+            display: flex;
+            gap: 48px;
+            font-size: 13px;
+            color: var(--text-secondary);
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .cover .meta span {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: var(--bg-card);
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 16px;
+            margin: 32px 0;
+        }
+        .metrics-grid.four-col { grid-template-columns: repeat(4, 1fr); }
+        .metrics-grid.three-col { grid-template-columns: repeat(3, 1fr); }
+        .metric-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px 24px;
+        }
+        .metric-card.green { border-top: 3px solid var(--accent-green); }
+        .metric-card.purple { border-top: 3px solid var(--accent-purple); }
+        .metric-card.red { border-top: 3px solid var(--accent-red); }
+        .metric-card.orange { border-top: 3px solid var(--accent-orange); }
+        .metric-label {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        .metric-value {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 32px;
+            font-weight: 700;
+            line-height: 1.1;
+        }
+        .metric-value.large { font-size: 40px; }
+        .metric-change { font-size: 12px; margin-top: 8px; font-weight: 600; display: flex; align-items: center; gap: 4px; }
+        .metric-change.up { color: var(--accent-green); }
+        .metric-change.down { color: var(--accent-red); }
+        .metric-change.neutral { color: var(--text-muted); }
+        .data-table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 13px; }
+        .data-table th {
+            text-align: left; padding: 12px 16px; background: var(--bg-card);
+            font-weight: 600; font-size: 11px; text-transform: uppercase;
+            letter-spacing: 0.5px; color: var(--text-muted); border-bottom: 1px solid var(--border);
+        }
+        .data-table td { padding: 12px 16px; border-bottom: 1px solid var(--border); color: var(--text-secondary); }
+        .data-table tr:hover td { background: var(--bg-card-hover); }
+        .data-table .highlight { color: var(--text-primary); font-weight: 500; }
+        .data-table .green { color: var(--accent-green); font-weight: 600; }
+        .data-table .red { color: var(--accent-red); font-weight: 600; }
+        .data-table .purple { color: var(--accent-purple); font-weight: 600; }
+        .data-table .orange { color: var(--accent-orange); font-weight: 600; }
+        .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-top: 32px; }
+        .three-col { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 32px; }
+        .insight-box {
+            background: var(--bg-card);
+            border-left: 3px solid var(--accent-green);
+            padding: 20px 24px;
+            margin: 24px 0;
+            border-radius: 0 12px 12px 0;
+        }
+        .insight-box.purple { border-left-color: var(--accent-purple); }
+        .insight-box.red { border-left-color: var(--accent-red); }
+        .insight-box h4 {
+            color: var(--accent-green);
+            margin-bottom: 8px;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .insight-box.purple h4 { color: var(--accent-purple); }
+        .insight-box.red h4 { color: var(--accent-red); }
+        .insight-box p { color: var(--text-secondary); font-size: 14px; line-height: 1.7; }
+        .progress-container { margin: 12px 0; }
+        .progress-label { display: flex; justify-content: space-between; margin-bottom: 6px; font-size: 13px; color: var(--text-secondary); }
+        .progress-label .value { color: var(--text-primary); font-weight: 600; }
+        .progress-bar { height: 6px; background: rgba(255,255,255,0.06); border-radius: 3px; overflow: hidden; }
+        .progress-fill { height: 100%; border-radius: 3px; background: linear-gradient(90deg, var(--accent-purple) 0%, var(--accent-green) 100%); }
+        .progress-fill.green { background: var(--accent-green); }
+        .progress-fill.purple { background: var(--accent-purple); }
+        .progress-fill.red { background: var(--accent-red); }
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+        }
+        .tag {
+            display: inline-block; padding: 4px 10px;
+            background: var(--accent-purple-dim); border-radius: 6px;
+            font-size: 10px; font-weight: 600; color: var(--accent-purple);
+            margin-right: 6px; margin-bottom: 6px;
+            text-transform: uppercase; letter-spacing: 0.5px;
+        }
+        .tag.green { background: var(--accent-green-dim); color: var(--accent-green); }
+        .tag.red { background: rgba(239, 68, 68, 0.15); color: var(--accent-red); }
+        .tag.orange { background: rgba(245, 158, 11, 0.15); color: var(--accent-orange); }
+        .check-list { list-style: none; margin: 16px 0; }
+        .check-list li {
+            padding: 8px 0; padding-left: 24px; position: relative;
+            color: var(--text-secondary); font-size: 14px;
+        }
+        .check-list li::before {
+            content: ''; position: absolute; left: 0; top: 12px;
+            width: 8px; height: 8px; border-radius: 2px; background: var(--accent-green);
+        }
+        .check-list li.red::before { background: var(--accent-red); }
+        .timeline { position: relative; padding-left: 32px; margin: 24px 0; }
+        .timeline::before {
+            content: ''; position: absolute; left: 8px; top: 4px; bottom: 4px;
+            width: 2px; background: linear-gradient(to bottom, var(--accent-purple), var(--accent-green)); border-radius: 1px;
+        }
+        .timeline-item { position: relative; margin-bottom: 28px; }
+        .timeline-item::before {
+            content: ''; position: absolute; left: -28px; top: 4px;
+            width: 10px; height: 10px; border-radius: 50%;
+            background: var(--accent-purple); border: 2px solid var(--bg-primary);
+        }
+        .timeline-month {
+            font-size: 11px; text-transform: uppercase; letter-spacing: 1.5px;
+            color: var(--accent-green); margin-bottom: 6px; font-weight: 600;
+        }
+        .slide-footer {
+            margin-top: auto; padding-top: 32px; font-size: 11px;
+            color: var(--text-muted); display: flex; justify-content: space-between; align-items: center;
+        }
+        .comparison {
+            display: grid; grid-template-columns: 1fr 80px 1fr;
+            gap: 24px; align-items: center; margin: 32px 0;
+        }
+        .comparison-box {
+            padding: 28px; border-radius: 12px; text-align: center;
+            background: var(--bg-card); border: 1px solid var(--border);
+        }
+        .comparison-box.old { border-color: rgba(239, 68, 68, 0.3); }
+        .comparison-box.new { border-color: rgba(0, 217, 165, 0.3); }
+        .comparison-vs {
+            font-family: 'DM Sans', sans-serif; font-size: 18px;
+            font-weight: 700; color: var(--text-muted); text-align: center;
+        }
+        .divider {
+            width: 100%; height: 1px; background: var(--border);
+            margin: 32px 0;
+        }
+        @media print { .slide { page-break-after: always; } }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--bg-primary); }
+        ::-webkit-scrollbar-thumb { background: var(--bg-card); border-radius: 4px; }
+    </style>
+</head>
+<body>
+
+<!-- SLIDE 1: Cover -->
+<section class="slide cover">
+    <img src="https://res.cloudinary.com/dcnabm5nc/image/upload/v1754585626/lead-guru-new-logo-W-450_oyvumx.webp" alt="Lead Guru" style="width: 180px; margin-bottom: 48px; opacity: 0.9;">
+    <div class="slide-tag">Final Partnership Review</div>
+    <h1>Chattanooga Beard Co.</h1>
+    <p class="subtitle">Complete Performance Review: September 2025 to March 2026</p>
+    <div class="meta">
+        <span>March 30, 2026</span>
+        <span>6+ Month Partnership</span>
+        <span>$44,059 Total Ad Spend</span>
+        <span>1,461 Total Purchases Tracked</span>
+    </div>
+</section>
+
+<!-- SLIDE 2: Last 7 Days Overview -->
+<section class="slide">
+    <span class="slide-number">02 / 11</span>
+    <div class="slide-tag">Past 7 Days | March 23 - 29, 2026</div>
+    <h2>This Week at a Glance</h2>
+    
+    <div class="metrics-grid">
+        <div class="metric-card green">
+            <div class="metric-label">Total Spend</div>
+            <div class="metric-value">$927.53</div>
+            <div class="metric-change neutral">Across 2 campaigns</div>
+        </div>
+        <div class="metric-card green">
+            <div class="metric-label">Total Purchases</div>
+            <div class="metric-value">55</div>
+            <div class="metric-change up">+ 8 Shops-assisted</div>
+        </div>
+        <div class="metric-card green">
+            <div class="metric-label">Revenue (Meta)</div>
+            <div class="metric-value">$2,564.55</div>
+            <div class="metric-change up">Website tracked</div>
+        </div>
+        <div class="metric-card purple">
+            <div class="metric-label">Blended ROAS</div>
+            <div class="metric-value">2.76x</div>
+            <div class="metric-change up">Meta-reported</div>
+        </div>
+        <div class="metric-card green">
+            <div class="metric-label">True ROAS (est.)</div>
+            <div class="metric-value">4.2x</div>
+            <div class="metric-change up">Inc. Shops + attribution gap</div>
+        </div>
+    </div>
+
+    <div class="two-col">
+        <div>
+            <h3>Campaign Breakdown</h3>
+            <table class="data-table">
+                <thead>
+                    <tr><th>Campaign</th><th>Spend</th><th>Purchases</th><th>Revenue</th><th>ROAS</th></tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="highlight">Advantage+ Evergreen</td>
+                        <td>$569.69</td>
+                        <td>25</td>
+                        <td>$1,084.70</td>
+                        <td class="green">1.90x</td>
+                    </tr>
+                    <tr>
+                        <td class="highlight">March Flash Sale</td>
+                        <td>$357.84</td>
+                        <td>30</td>
+                        <td>$1,479.85</td>
+                        <td class="green">4.14x</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div>
+            <h3>Key Metrics</h3>
+            <table class="data-table">
+                <tr><td>Average Order Value</td><td class="green">$46.60</td></tr>
+                <tr><td>Cost Per Purchase</td><td class="highlight">$16.86</td></tr>
+                <tr><td>Shops-Assisted Purchases</td><td class="purple">8 additional</td></tr>
+                <tr><td>Shops-Assisted Revenue</td><td class="green">$366.60</td></tr>
+                <tr><td>Total Combined Revenue</td><td class="green">$2,931.15</td></tr>
+                <tr><td>Combined ROAS (All Sources)</td><td class="green">3.16x</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="insight-box">
+        <h4>Week Summary</h4>
+        <p>Both campaigns delivered profitable returns. Flash Sale outperformed at 4.14x ROAS on $357 spend, confirming the BOGO 50% off mechanic protects AOV ($49.33 avg) while driving volume. Evergreen continued at 1.90x Meta-reported, likely 3x+ true once attribution gap is factored in. Cost per purchase held at $16.86 blended, well within the $50 max allowable CAC based on $83 LTV.</p>
+    </div>
+
+    <div class="slide-footer">
+        <img src="https://res.cloudinary.com/dcnabm5nc/image/upload/v1754585626/lead-guru-new-logo-W-450_oyvumx.webp" alt="Lead Guru" style="height: 24px; opacity: 0.6;">
+        <span>Chattanooga Beard Co. | Final Partnership Review</span>
+        <span>02 / 11</span>
+    </div>
+</section>
+
+<!-- SLIDE 3: Flash Sale Deep Dive -->
+<section class="slide">
+    <span class="slide-number">03 / 11</span>
+    <div class="slide-tag">Flash Sale Performance | March 27-28</div>
+    <h2>BOGO 50% Off Flash Sale Results</h2>
+
+    <div class="metrics-grid four-col">
+        <div class="metric-card green">
+            <div class="metric-label">Total Spend</div>
+            <div class="metric-value">$357.84</div>
+            <div class="metric-change neutral">48-hour campaign</div>
+        </div>
+        <div class="metric-card green">
+            <div class="metric-label">Purchases</div>
+            <div class="metric-value">30</div>
+            <div class="metric-change up">+ 5 Shops-assisted</div>
+        </div>
+        <div class="metric-card green">
+            <div class="metric-label">Revenue</div>
+            <div class="metric-value">$1,479.85</div>
+            <div class="metric-change up">+ $261.04 Shops</div>
+        </div>
+        <div class="metric-card green">
+            <div class="metric-label">Meta ROAS</div>
+            <div class="metric-value large">4.14x</div>
+            <div class="metric-change up">Above 3.5x breakeven</div>
+        </div>
+    </div>
+
+    <h3 style="margin-top: 32px;">Ad-Level Performance</h3>
+    <table class="data-table">
+        <thead>
+            <tr><th>Ad Name</th><th>Ad Set</th><th>Spend</th><th>Purchases</th><th>Revenue</th><th>ROAS</th><th>Status</th></tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="highlight">Flash Sale RTG Static 1</td>
+                <td>Retargeting</td>
+                <td>$11.30</td>
+                <td>4 (+2 Shops)</td>
+                <td>$223.27 (+$77.42)</td>
+                <td class="green">19.76x</td>
+                <td><span class="tag green">Top</span></td>
+            </tr>
+            <tr>
+                <td class="highlight">Flash Sale Video 1</td>
+                <td>Prospecting</td>
+                <td>$10.58</td>
+                <td>2 (+1 Shops)</td>
+                <td>$164.27 (+$125.12)</td>
+                <td class="green">15.53x</td>
+                <td><span class="tag green">Top</span></td>
+            </tr>
+            <tr>
+                <td class="highlight">Flash Sale RTG Static 2</td>
+                <td>Retargeting</td>
+                <td>$5.40</td>
+                <td>1</td>
+                <td>$35.50</td>
+                <td class="green">6.57x</td>
+                <td><span class="tag green">Winner</span></td>
+            </tr>
+            <tr>
+                <td class="highlight">Flash Sale Video 3</td>
+                <td>Prospecting</td>
+                <td>$89.84</td>
+                <td>9 (+1 Shops)</td>
+                <td>$464.70 (+$36.50)</td>
+                <td class="green">5.17x</td>
+                <td><span class="tag green">Winner</span></td>
+            </tr>
+            <tr>
+                <td class="highlight">Flash Sale Static 1</td>
+                <td>Prospecting</td>
+                <td>$92.10</td>
+                <td>9 (+1 Shops)</td>
+                <td>$397.09 (+$22)</td>
+                <td class="green">4.31x</td>
+                <td><span class="tag green">Winner</span></td>
+            </tr>
+            <tr>
+                <td class="highlight">Flash Sale Static 2</td>
+                <td>Prospecting</td>
+                <td>$34.60</td>
+                <td>2</td>
+                <td>$84.06</td>
+                <td class="green">2.43x</td>
+                <td><span class="tag">Solid</span></td>
+            </tr>
+            <tr>
+                <td class="highlight">Flash Sale Video 2</td>
+                <td>Prospecting</td>
+                <td>$34.74</td>
+                <td>2</td>
+                <td>$75.46</td>
+                <td class="green">2.17x</td>
+                <td><span class="tag">Solid</span></td>
+            </tr>
+            <tr>
+                <td>Flash Sale RTG Video 3</td>
+                <td>Retargeting</td>
+                <td>$23.01</td>
+                <td>1</td>
+                <td>$35.50</td>
+                <td class="orange">1.54x</td>
+                <td><span class="tag orange">Paused</span></td>
+            </tr>
+            <tr>
+                <td>Flash Sale Static 3</td>
+                <td>Prospecting</td>
+                <td>$28.53</td>
+                <td>0</td>
+                <td>$0</td>
+                <td class="red">0.00x</td>
+                <td><span class="tag red">Paused</span></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="insight-box">
+        <h4>Flash Sale Verdict</h4>
+        <p>BOGO 50% off delivered 4.14x Meta ROAS (likely 6x+ true), proving the offer mechanic works over BOGO free. AOV held at $49.33, up from $41 baseline. 7 of 11 ads were profitable. Underperformers (Static 3 prospecting, RTG Video 1, RTG Static 3) were paused mid-flight on Day 2, preventing margin bleed. Urgency ad using Video 1 creative with "Last Day" hook was deployed on Day 2. Retargeting RTG Static 1 was the standout at 19.76x ROAS on just $11 spend.</p>
+    </div>
+
+    <div class="slide-footer">
+        <img src="https://res.cloudinary.com/dcnabm5nc/image/upload/v1754585626/lead-guru-new-logo-W-450_oyvumx.webp" alt="Lead Guru" style="height: 24px; opacity: 0.6;">
+        <span></span>
+        <span>03 / 11</span>
+    </div>
+</section>
+
+<!-- SLIDE 4: Obsidian Launch Performance -->
+<section class="slide">
+    <span class="slide-number">04 / 11</span>
+    <div class="slide-tag">Product Launch | Obsidian Range</div>
+    <h2>Obsidian Launch Performance</h2>
+    <p class="subtitle" style="margin-bottom: 24px;">Launched March 20, 2026 (Last Day of Winter). Teasers ran from March 16.</p>
+
+    <div class="metrics-grid four-col">
+        <div class="metric-card green">
+            <div class="metric-label">Total Spend</div>
+            <div class="metric-value">$273.86</div>
+            <div class="metric-change neutral">Since launch</div>
+        </div>
+        <div class="metric-card green">
+            <div class="metric-label">Purchases</div>
+            <div class="metric-value">27</div>
+            <div class="metric-change up">+ 4 Shops-assisted</div>
+        </div>
+        <div class="metric-card green">
+            <div class="metric-label">Revenue</div>
+            <div class="metric-value">$1,300.82</div>
+            <div class="metric-change up">+ $207.56 Shops</div>
+        </div>
+        <div class="metric-card green">
+            <div class="metric-label">Meta ROAS</div>
+            <div class="metric-value large">4.75x</div>
+            <div class="metric-change up">Strongest launch ever</div>
+        </div>
+    </div>
+
+    <h3 style="margin-top: 32px;">Obsidian Ad Breakdown</h3>
+    <table class="data-table">
+        <thead>
+            <tr><th>Ad Name</th><th>Spend</th><th>Purchases</th><th>Revenue</th><th>ROAS</th><th>AOV</th><th>Status</th></tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="highlight">Obsidian Launch Static 3</td>
+                <td>$8.09</td>
+                <td>3</td>
+                <td>$127.00</td>
+                <td class="green">15.70x</td>
+                <td>$42.33</td>
+                <td><span class="tag green">Top</span></td>
+            </tr>
+            <tr>
+                <td class="highlight">Obsidian Teaser Vid 1</td>
+                <td>$20.08</td>
+                <td>5</td>
+                <td>$237.32</td>
+                <td class="green">11.82x</td>
+                <td>$47.46</td>
+                <td><span class="tag green">Top</span></td>
+            </tr>
+            <tr>
+                <td class="highlight">Obsidian Launch Vid 1</td>
+                <td>$218.34</td>
+                <td>19 (+4 Shops)</td>
+                <td>$936.50 (+$207.56)</td>
+                <td class="green">4.29x</td>
+                <td>$49.29</td>
+                <td><span class="tag green">Scale</span></td>
+            </tr>
+            <tr>
+                <td>Obsidian Launch Vid 2</td>
+                <td>$10.62</td>
+                <td>0</td>
+                <td>$0</td>
+                <td class="red">0.00x</td>
+                <td>-</td>
+                <td><span class="tag orange">Low spend</span></td>
+            </tr>
+            <tr>
+                <td>Obsidian Launch Vid 3</td>
+                <td>$12.24</td>
+                <td>0</td>
+                <td>$0</td>
+                <td class="red">0.00x</td>
+                <td>-</td>
+                <td><span class="tag red">Paused</span></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="two-col" style="margin-top: 24px;">
+        <div class="insight-box">
+            <h4>Launch Success</h4>
+            <p>Obsidian is the highest-performing product launch in the partnership. 4.75x Meta ROAS on $274 spend means true ROAS is likely 7x+ with the standard attribution gap. The teaser strategy (4-5 days pre-launch warm-up) gave the algorithm early signal before the cart opened. Vid 1 (the main launch video) absorbed 80% of spend and maintained 4.29x ROAS at scale, a strong sign of creative durability.</p>
+        </div>
+        <div class="insight-box purple">
+            <h4>Product AOV Signal</h4>
+            <p>Obsidian AOV held at $48.18 across all purchases, above the $41 account baseline. The 4 Shops-assisted purchases added another $207.56 in revenue that Meta does not track. This line has clear runway for continued evergreen scaling.</p>
+        </div>
+    </div>
+
+    <div class="slide-footer">
+        <img src="https://res.cloudinary.com/dcnabm5nc/image/upload/v1754585626/lead-guru-new-logo-W-450_oyvumx.webp" alt="Lead Guru" style="height: 24px; opacity: 0.6;">
+        <span></span>
+        <span>04 / 11</span>
+    </div>
+</section>
+
+<!-- SLIDE 5: March Month-to-Date -->
+<section class="slide">
+    <span class="slide-number">05 / 11</span>
+    <div class="slide-tag">March 2026 Month-to-Date</div>
+    <h2>March Performance vs February</h2>
+
+    <div class="metrics-grid">
+        <div class="metric-card green">
+            <div class="metric-label">March Spend</div>
+            <div class="metric-value">$2,022</div>
+            <div class="metric-change neutral">-2% vs Feb spend</div>
+        </div>
+        <div class="metric-card green">
+            <div class="metric-label">March Purchases</div>
+            <div class="metric-value">118</div>
+            <div class="metric-change up">+66 vs Feb (+127%)</div>
+        </div>
+        <div class="metric-card green">
+            <div class="metric-label">March Revenue</div>
+            <div class="metric-value">$5,701</div>
+            <div class="metric-change up">+$2,707 vs Feb (+90%)</div>
+        </div>
+        <div class="metric-card purple">
+            <div class="metric-label">March Meta ROAS</div>
+            <div class="metric-value">2.82x</div>
+            <div class="metric-change up">Blended all campaigns</div>
+        </div>
+        <div class="metric-card green">
+            <div class="metric-label">True ROAS (est.)</div>
+            <div class="metric-value">4.2x</div>
+            <div class="metric-change up">With 40-60% attribution gap</div>
+        </div>
+    </div>
+
+    <div class="two-col">
+        <div>
+            <h3>March Campaign Performance</h3>
+            <table class="data-table">
+                <thead>
+                    <tr><th>Campaign</th><th>Spend</th><th>Purch.</th><th>Rev.</th><th>ROAS</th></tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="highlight">Advantage+ Evergreen</td>
+                        <td>$1,539.65</td>
+                        <td>84</td>
+                        <td>$4,078.90</td>
+                        <td class="green">2.65x</td>
+                    </tr>
+                    <tr>
+                        <td class="highlight">March Flash Sale</td>
+                        <td>$357.84</td>
+                        <td>30</td>
+                        <td>$1,479.85</td>
+                        <td class="green">4.14x</td>
+                    </tr>
+                    <tr>
+                        <td>Catalogue (winding down)</td>
+                        <td>$124.51</td>
+                        <td>4</td>
+                        <td>$142.45</td>
+                        <td class="orange">1.14x</td>
+                    </tr>
+                    <tr style="font-weight: 600; border-top: 2px solid var(--border);">
+                        <td class="highlight">TOTAL MARCH</td>
+                        <td>$2,022.00</td>
+                        <td>118</td>
+                        <td>$5,701.20</td>
+                        <td class="green">2.82x</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div>
+            <h3>Month-over-Month Trend</h3>
+            <table class="data-table">
+                <thead>
+                    <tr><th>Metric</th><th>Feb</th><th>Mar</th><th>Change</th></tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Total Spend</td>
+                        <td>$2,065</td>
+                        <td>$2,022</td>
+                        <td class="green">-2% (controlled)</td>
+                    </tr>
+                    <tr>
+                        <td>Total Purchases</td>
+                        <td>52</td>
+                        <td>118</td>
+                        <td class="green">+127%</td>
+                    </tr>
+                    <tr>
+                        <td>Revenue</td>
+                        <td>$2,995</td>
+                        <td>$5,701</td>
+                        <td class="green">+90%</td>
+                    </tr>
+                    <tr>
+                        <td>Blended ROAS</td>
+                        <td>1.45x</td>
+                        <td>2.82x</td>
+                        <td class="green">+94%</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div class="insight-box" style="margin-top: 16px;">
+                <h4>March Context</h4>
+                <p>March nearly doubled revenue on similar spend vs February. The Advantage+ evergreen (including Obsidian, Copy Test, and Winners ad sets) delivered 2.65x Meta ROAS across 84 purchases. Combined with the Flash Sale at 4.14x, the account hit its strongest month-to-date ROAS of the entire partnership at 2.82x. With attribution gap, true ROAS is likely 4.2x+.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="slide-footer">
+        <img src="https://res.cloudinary.com/dcnabm5nc/image/upload/v1754585626/lead-guru-new-logo-W-450_oyvumx.webp" alt="Lead Guru" style="height: 24px; opacity: 0.6;">
+        <span></span>
+        <span>05 / 11</span>
+    </div>
+</section>
+
+<!-- SLIDE 6: Full Partnership Performance -->
+<section class="slide">
+    <span class="slide-number">06 / 11</span>
+    <div class="slide-tag">Shopify Source of Truth | March 2026</div>
+    <h2>Shopify Performance: The Real Numbers</h2>
+
+    <div class="metrics-grid">
+        <div class="metric-card green">
+            <div class="metric-label">Gross Sales</div>
+            <div class="metric-value large">$15,240</div>
+            <div class="metric-change up">+56% YoY</div>
+        </div>
+        <div class="metric-card green">
+            <div class="metric-label">Total Orders</div>
+            <div class="metric-value">333</div>
+            <div class="metric-change up">+38% YoY</div>
+        </div>
+        <div class="metric-card green">
+            <div class="metric-label">MER</div>
+            <div class="metric-value">7.54x</div>
+            <div class="metric-change up">$15,240 / $2,022 spend</div>
+        </div>
+        <div class="metric-card purple">
+            <div class="metric-label">Returning Rate</div>
+            <div class="metric-value">70.28%</div>
+            <div class="metric-change up">+42% YoY</div>
+        </div>
+        <div class="metric-card green">
+            <div class="metric-label">Conversion Rate</div>
+            <div class="metric-value">5.38%</div>
+            <div class="metric-change up">+7% YoY</div>
+        </div>
+    </div>
+
+    <div class="two-col">
+        <div>
+            <h3>Shopify Sales Breakdown</h3>
+            <table class="data-table">
+                <tr><td>Gross Sales</td><td class="green">$15,239.96</td><td class="green">+56%</td></tr>
+                <tr><td>Discounts</td><td class="red">-$1,523.98</td><td class="orange">+112%</td></tr>
+                <tr><td>Returns</td><td>-$16.00</td><td>+96%</td></tr>
+                <tr><td>Net Sales</td><td class="green">$13,679.98</td><td class="green">+59%</td></tr>
+                <tr><td>Shipping Charges</td><td>$1,322.00</td><td>+26%</td></tr>
+                <tr><td>Taxes</td><td>$574.71</td><td>+67%</td></tr>
+                <tr style="font-weight: 600; border-top: 2px solid var(--border);">
+                    <td class="highlight">Total Sales</td>
+                    <td class="green">$15,576.69</td>
+                    <td class="green">+55% YoY</td>
+                </tr>
+            </table>
+
+            <h3 style="margin-top: 24px;">Customer Breakdown</h3>
+            <table class="data-table">
+                <tr><td>New Customers</td><td class="highlight">98</td><td class="orange">-5.8% vs prior</td></tr>
+                <tr><td>Returning Customers</td><td class="green">227</td><td class="green">+39.3% vs prior</td></tr>
+                <tr><td>AOV</td><td class="highlight">$41.04</td><td class="orange">-9% YoY</td></tr>
+                <tr><td>Sessions</td><td class="highlight">5,090</td><td class="green">+29% YoY</td></tr>
+            </table>
+        </div>
+        <div>
+            <h3>The Obsidian Effect on Daily Revenue</h3>
+            <div class="card" style="margin-bottom: 16px;">
+                <h4>Pre-Obsidian (Mar 1-19)</h4>
+                <div class="metric-value" style="font-size: 28px;">$361/day avg</div>
+                <p style="font-size: 13px; margin-top: 8px;">19 days, $6,858 total gross sales</p>
+            </div>
+            <div class="card" style="margin-bottom: 16px; border-color: rgba(0, 217, 165, 0.3);">
+                <h4 style="color: var(--accent-green);">Post-Obsidian (Mar 20-29)</h4>
+                <div class="metric-value" style="font-size: 28px; color: var(--accent-green);">$836/day avg</div>
+                <p style="font-size: 13px; margin-top: 8px;">10 days, $8,362 total gross sales. +132% daily avg vs pre-launch.</p>
+            </div>
+            <div class="card" style="margin-bottom: 16px;">
+                <h4>Flash Sale Spike (Mar 27-28)</h4>
+                <div class="metric-value" style="font-size: 28px;">$2,868</div>
+                <p style="font-size: 13px; margin-top: 8px;">$1,556 + $1,312 across 2 days. Highest 2-day revenue of the month.</p>
+            </div>
+
+            <h3 style="margin-top: 24px;">Top Landing Pages</h3>
+            <table class="data-table" style="font-size: 12px;">
+                <tr><td class="highlight">Homepage</td><td>3,090</td><td class="green">+71%</td></tr>
+                <tr><td class="highlight">/obsidian-is-here</td><td>229</td><td class="purple">NEW</td></tr>
+                <tr><td class="highlight">/obsidian-oil</td><td>154</td><td class="purple">NEW</td></tr>
+                <tr><td>/beard-oils</td><td>153</td><td class="green">+21%</td></tr>
+                <tr><td>/beard-balms</td><td>131</td><td class="green">+43%</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="insight-box">
+        <h4>Why MER Matters More Than Meta ROAS</h4>
+        <p>Meta reports 2.82x ROAS for March. Shopify shows $15,240 in gross sales on $2,022 ad spend, a 7.54x MER. That is a 2.67x multiplier between what Meta reports and what the business actually earned. The Obsidian launch drove a 132% lift in daily revenue. The 70.28% returning customer rate (up 42% YoY) means customers acquired through ads are coming back without additional ad spend. Facebook social referrer revenue is up 653% YoY, a direct result of Meta ad activity.</p>
+    </div>
+
+    <div class="slide-footer">
+        <img src="https://res.cloudinary.com/dcnabm5nc/image/upload/v1754585626/lead-guru-new-logo-W-450_oyvumx.webp" alt="Lead Guru" style="height: 24px; opacity: 0.6;">
+        <span></span>
+        <span>06 / 11</span>
+    </div>
+</section>
+
+<!-- SLIDE 7: Full Partnership Performance -->
+<section class="slide">
+    <span class="slide-number">07 / 11</span>
+    <div class="slide-tag">Full Partnership | Sep 19, 2025 - Mar 30, 2026</div>
+    <h2>Complete Partnership Performance</h2>
+
+    <div class="metrics-grid">
+        <div class="metric-card green">
+            <div class="metric-label">Total Ad Spend</div>
+            <div class="metric-value large">$44,059</div>
+            <div class="metric-change neutral">6+ months</div>
+        </div>
+        <div class="metric-card green">
+            <div class="metric-label">Meta Revenue</div>
+            <div class="metric-value">$68,544</div>
+            <div class="metric-change up">Website tracked</div>
+        </div>
+        <div class="metric-card purple">
+            <div class="metric-label">Meta ROAS</div>
+            <div class="metric-value">1.56x</div>
+            <div class="metric-change neutral">Blended all campaigns</div>
+        </div>
+        <div class="metric-card green">
+            <div class="metric-label">Total Purchases</div>
+            <div class="metric-value">1,461</div>
+            <div class="metric-change up">Meta-attributed</div>
+        </div>
+        <div class="metric-card green">
+            <div class="metric-label">Shops Revenue</div>
+            <div class="metric-value">$4,901</div>
+            <div class="metric-change up">Additional tracked</div>
+        </div>
+    </div>
+
+    <h3 style="margin-top: 32px;">Campaign Performance Over Partnership</h3>
+    <table class="data-table">
+        <thead>
+            <tr><th>Campaign</th><th>Spend</th><th>Revenue</th><th>Purchases</th><th>ROAS</th><th>Status</th></tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="highlight">Advantage+ Evergreen (Main)</td>
+                <td>$20,562</td>
+                <td>$29,478</td>
+                <td>601</td>
+                <td class="green">1.43x</td>
+                <td><span class="tag green">Active</span></td>
+            </tr>
+            <tr>
+                <td class="highlight">Black Friday 2025</td>
+                <td>$11,662</td>
+                <td>$20,275</td>
+                <td>465</td>
+                <td class="green">1.74x</td>
+                <td><span class="tag">Completed</span></td>
+            </tr>
+            <tr>
+                <td class="highlight">Catalogue (AD+)</td>
+                <td>$6,360</td>
+                <td>$9,318</td>
+                <td>207</td>
+                <td class="green">1.47x</td>
+                <td><span class="tag orange">Wind-down</span></td>
+            </tr>
+            <tr>
+                <td class="highlight">Cyber Monday BOGO</td>
+                <td>$3,330</td>
+                <td>$3,353</td>
+                <td>74</td>
+                <td class="orange">1.01x</td>
+                <td><span class="tag red">Lesson learned</span></td>
+            </tr>
+            <tr>
+                <td class="highlight">Halloween Flash Sale *</td>
+                <td>$950</td>
+                <td>$2,536</td>
+                <td>47</td>
+                <td class="green">2.67x</td>
+                <td><span class="tag green">Completed</span></td>
+            </tr>
+            <tr>
+                <td class="highlight">Valentine's Valet Drop</td>
+                <td>$581</td>
+                <td>$1,369</td>
+                <td>18</td>
+                <td class="green">2.36x</td>
+                <td><span class="tag green">Completed</span></td>
+            </tr>
+            <tr>
+                <td class="highlight">March Flash Sale (BOGO 50%)</td>
+                <td>$358</td>
+                <td>$1,480</td>
+                <td>30</td>
+                <td class="green">4.14x</td>
+                <td><span class="tag green">Completed</span></td>
+            </tr>
+            <tr>
+                <td class="highlight">Christmas Flash Sale</td>
+                <td>$208</td>
+                <td>$736</td>
+                <td>19</td>
+                <td class="green">3.54x</td>
+                <td><span class="tag green">Completed</span></td>
+            </tr>
+            <tr>
+                <td class="highlight">Valentine's ABO Test</td>
+                <td>$49</td>
+                <td>$0</td>
+                <td>0</td>
+                <td class="red">0.00x</td>
+                <td><span class="tag red">Paused fast</span></td>
+            </tr>
+        </tbody>
+    </table>
+    <p style="font-size: 11px; color: var(--text-muted); margin-top: 8px;">* Halloween Flash Sale ran as an ad set within the Advantage+ Evergreen campaign, not as a standalone campaign. Broken out here to show its performance separately. Evergreen totals above exclude Halloween.</p>
+
+    <div class="insight-box">
+        <h4>Full Picture</h4>
+        <p>Meta-reported ROAS across the entire partnership is 1.56x. With the well-documented 40-60% attribution gap (verified through Hyros, Triple Whale, and Shopify MER cross-referencing), true ROAS is likely 2.3x to 2.5x. The account's strongest periods were flash sales and targeted launches, while the weakest was the Cyber Monday BOGO free campaign and the January overspend period on underperforming prospecting ads.</p>
+    </div>
+
+    <div class="slide-footer">
+        <img src="https://res.cloudinary.com/dcnabm5nc/image/upload/v1754585626/lead-guru-new-logo-W-450_oyvumx.webp" alt="Lead Guru" style="height: 24px; opacity: 0.6;">
+        <span></span>
+        <span>07 / 11</span>
+    </div>
+</section>
+
+<!-- SLIDE 7: The Journey - Timeline -->
+<section class="slide">
+    <span class="slide-number">08 / 11</span>
+    <div class="slide-tag">Partnership Timeline</div>
+    <h2>The Journey: Key Milestones</h2>
+
+    <div class="two-col">
+        <div>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-month">September 2025</div>
+                    <h4>Account Handover</h4>
+                    <p style="font-size: 13px;">Inherited Advantage+ campaign with catalogue ads dominating spend. Split catalogue into separate campaign. Started new video creatives. Todd filming content for the first time.</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-month">October 2025</div>
+                    <h4>Halloween Flash Sale</h4>
+                    <p style="font-size: 13px;">Halloween ad hit 10.77x ROAS on $113 spend. Proved the flash sale model. Fresh ASC with concentrated spend outperformed everything in the account. Established the flash sale blueprint.</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-month">November 2025</div>
+                    <h4>Black Friday and Cyber Monday</h4>
+                    <p style="font-size: 13px;">Black Friday Teaser: 5.74x ROAS. BF TOF: 1.16x. Total BF/CM period: $14,992 spend, $23,628 Meta revenue. Cyber Monday BOGO free at 1.01x was the miss, crushing AOV to $41. Lesson applied to all future promotions.</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-month">December 2025</div>
+                    <h4>Christmas Push and Cleanup</h4>
+                    <p style="font-size: 13px;">Christmas Flash Sale: 3.54x ROAS. Christmas evergreen ads tested 8 new creatives. Christmas Video 3 and Static 3 both above 3x. Began scaling packing/BTS content that became the winning format.</p>
+                </div>
+            </div>
+        </div>
+        <div>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-month">January 2026</div>
+                    <h4>The Tough Month</h4>
+                    <p style="font-size: 13px;">$6,478 spend, $9,991 revenue. VIDEOAD1 ran too long at sub-1x ROAS. Interests a/b test and ABO test creatives burned budget. The account hit crisis point. Todd raised legitimate concerns about spend vs returns. Hard lessons on stop-loss discipline enforced going forward.</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-month">February 2026</div>
+                    <h4>Rebuild and Reset</h4>
+                    <p style="font-size: 13px;">Paused all underperformers. Dropped spend to prove efficiency. Valentine's Valet Drop: 2.36x ROAS on $581. Sold 19 of 20 limited bundles. MER held at 4.79x. New customer rate climbed 14% week on week. Trust rebuild started.</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-month">March 2026</div>
+                    <h4>Obsidian Launch and Flash Sale</h4>
+                    <p style="font-size: 13px;">Obsidian product launch: 4.75x ROAS. BOGO 50% flash sale: 4.14x ROAS. Copy test framework established with new Craig UGC and static angles. Account trending in the right direction with proven creative formats and disciplined spend.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="slide-footer">
+        <img src="https://res.cloudinary.com/dcnabm5nc/image/upload/v1754585626/lead-guru-new-logo-W-450_oyvumx.webp" alt="Lead Guru" style="height: 24px; opacity: 0.6;">
+        <span></span>
+        <span>08 / 11</span>
+    </div>
+</section>
+
+<!-- SLIDE 8: Top Ads of All Time -->
+<section class="slide">
+    <span class="slide-number">09 / 11</span>
+    <div class="slide-tag">Creative Analysis</div>
+    <h2>Top Performing Ads Across Partnership</h2>
+
+    <table class="data-table">
+        <thead>
+            <tr><th>Ad Name</th><th>Campaign</th><th>Spend</th><th>Purch.</th><th>Revenue</th><th>ROAS</th><th>Format</th></tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="highlight">Flash Sale RTG Static 1</td>
+                <td>March Flash Sale</td>
+                <td>$11.30</td>
+                <td>4+2</td>
+                <td>$300.69</td>
+                <td class="green">19.76x</td>
+                <td><span class="tag">Static</span></td>
+            </tr>
+            <tr>
+                <td class="highlight">Obsidian Launch Static 3</td>
+                <td>Obsidian Launch</td>
+                <td>$8.09</td>
+                <td>3</td>
+                <td>$127.00</td>
+                <td class="green">15.70x</td>
+                <td><span class="tag">Static</span></td>
+            </tr>
+            <tr>
+                <td class="highlight">Flash Sale Video 1</td>
+                <td>March Flash Sale</td>
+                <td>$10.58</td>
+                <td>2+1</td>
+                <td>$289.39</td>
+                <td class="green">15.53x</td>
+                <td><span class="tag">Video</span></td>
+            </tr>
+            <tr>
+                <td class="highlight">BF Teaser Video 3</td>
+                <td>Black Friday Teaser</td>
+                <td>$23.93</td>
+                <td>5</td>
+                <td>$292.10</td>
+                <td class="green">12.21x</td>
+                <td><span class="tag">Video</span></td>
+            </tr>
+            <tr>
+                <td class="highlight">Obsidian Teaser Vid 1</td>
+                <td>Obsidian Launch</td>
+                <td>$20.08</td>
+                <td>5</td>
+                <td>$237.32</td>
+                <td class="green">11.82x</td>
+                <td><span class="tag">Video</span></td>
+            </tr>
+            <tr>
+                <td class="highlight">BF Teaser Video 2</td>
+                <td>Black Friday Teaser</td>
+                <td>$70.73</td>
+                <td>18</td>
+                <td>$711.54</td>
+                <td class="green">10.06x</td>
+                <td><span class="tag">Video</span></td>
+            </tr>
+            <tr>
+                <td class="highlight">Ad 1 RMT Video (Xmas)</td>
+                <td>Christmas Flash Sale</td>
+                <td>$6.98</td>
+                <td>1</td>
+                <td>$61.56</td>
+                <td class="green">8.82x</td>
+                <td><span class="tag">Video</span></td>
+            </tr>
+            <tr>
+                <td class="highlight">BF Teaser Static 1</td>
+                <td>Black Friday Teaser</td>
+                <td>$39.12</td>
+                <td>6+2</td>
+                <td>$477.37</td>
+                <td class="green">8.41x</td>
+                <td><span class="tag">Static</span></td>
+            </tr>
+            <tr>
+                <td class="highlight">Halloween Ad 1 (30/10)</td>
+                <td>Halloween Flash Sale</td>
+                <td>$113.32</td>
+                <td>17</td>
+                <td>$867.05</td>
+                <td class="green">7.65x</td>
+                <td><span class="tag">Video</span></td>
+            </tr>
+            <tr>
+                <td class="highlight">BF Teaser Static 2</td>
+                <td>Black Friday Teaser</td>
+                <td>$86.15</td>
+                <td>14+4</td>
+                <td>$818.25</td>
+                <td class="green">7.78x</td>
+                <td><span class="tag">Static</span></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="three-col" style="margin-top: 32px;">
+        <div class="card" style="border-top: 3px solid var(--accent-green);">
+            <h4>What Won</h4>
+            <ul class="check-list" style="font-size: 13px;">
+                <li>Flash sales with fresh campaigns always outperformed evergreen</li>
+                <li>Teaser content with scarcity built pre-launch momentum</li>
+                <li>Todd on camera, authentic and raw, outperformed polished content every time</li>
+                <li>Packing/BTS/ASMR label printing formats drove 5-9x historically</li>
+                <li>Retargeting warm audiences on static creatives during sales events</li>
+            </ul>
+        </div>
+        <div class="card" style="border-top: 3px solid var(--accent-purple);">
+            <h4>What We Learned</h4>
+            <ul class="check-list" style="font-size: 13px;">
+                <li>BOGO 50% off protects AOV. BOGO free crushes it to $41 and kills margin</li>
+                <li>Meta ROAS understates by 40-60% vs Shopify MER, always cross-reference</li>
+                <li>Fresh campaigns for events, never bolt onto existing campaigns</li>
+                <li>Stop-loss rules must be enforced. January proved what happens without them</li>
+                <li>CAC:LTV (4.14x ratio) gives far more headroom than ROAS alone suggests</li>
+            </ul>
+        </div>
+        <div class="card" style="border-top: 3px solid var(--accent-red);">
+            <h4>What to Avoid</h4>
+            <ul class="check-list" style="font-size: 13px;">
+                <li class="red">Letting underperformers run past $50-75 without conversions</li>
+                <li class="red">BOGO free on any future promotion</li>
+                <li class="red">Fragmented ad sets splitting budget across too many audiences</li>
+                <li class="red">Broad interest targeting without strong creative backing it</li>
+                <li class="red">Editing live ads, always introduce new assets via new ad sets</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="slide-footer">
+        <img src="https://res.cloudinary.com/dcnabm5nc/image/upload/v1754585626/lead-guru-new-logo-W-450_oyvumx.webp" alt="Lead Guru" style="height: 24px; opacity: 0.6;">
+        <span></span>
+        <span>09 / 11</span>
+    </div>
+</section>
+
+<!-- SLIDE 9: Unit Economics and LTV -->
+<section class="slide">
+    <span class="slide-number">10 / 11</span>
+    <div class="slide-tag">Unit Economics</div>
+    <h2>The Bigger Picture: CAC to LTV</h2>
+
+    <div class="comparison">
+        <div class="comparison-box old">
+            <h4 style="color: var(--accent-red); margin-bottom: 12px;">What Meta Reports</h4>
+            <div class="metric-value" style="font-size: 36px;">1.56x</div>
+            <p style="font-size: 13px; margin-top: 12px; color: var(--text-muted);">Blended ROAS across all campaigns</p>
+            <p style="font-size: 13px; color: var(--accent-red); margin-top: 8px;">Below 3.5x breakeven target</p>
+        </div>
+        <div class="comparison-vs">vs</div>
+        <div class="comparison-box new">
+            <h4 style="color: var(--accent-green); margin-bottom: 12px;">What Shopify Shows</h4>
+            <div class="metric-value" style="font-size: 36px;">7.54x</div>
+            <p style="font-size: 13px; margin-top: 12px; color: var(--text-muted);">March MER (Shopify $15,240 / $2,022 spend)</p>
+            <p style="font-size: 13px; color: var(--accent-green); margin-top: 8px;">+ 70% returning customer rate</p>
+        </div>
+    </div>
+
+    <div class="two-col">
+        <div class="card">
+            <h3>Customer Economics (Unchanged)</h3>
+            <table class="data-table" style="margin: 16px 0 0 0;">
+                <tr><td>Average Order Value</td><td class="highlight">$41.04</td></tr>
+                <tr><td>Orders per Customer (12mo)</td><td class="highlight">2.0x</td></tr>
+                <tr><td>Returning Customer Rate (March)</td><td class="green">70.28%</td></tr>
+                <tr><td>12-Month LTV</td><td class="green">$83.08</td></tr>
+                <tr><td>Max Allowable CAC</td><td class="green">$49.85</td></tr>
+                <tr><td>Actual Blended CAC (Partnership)</td><td class="green">$30.16</td></tr>
+                <tr><td>CAC:LTV Ratio</td><td class="green">2.75x</td></tr>
+            </table>
+        </div>
+        <div class="card">
+            <h3>The Attribution Reality (Shopify Verified)</h3>
+            <p style="font-size: 14px; line-height: 1.8; color: var(--text-secondary); margin-bottom: 16px;">
+                March Shopify data proves the gap conclusively. $15,240 gross sales on $2,022 ad spend = 7.54x MER vs Meta's 2.82x reported ROAS. A 2.67x multiplier.
+            </p>
+            <div class="progress-container">
+                <div class="progress-label">
+                    <span>Shopify Gross Sales (March)</span>
+                    <span class="value" style="color: var(--accent-green);">$15,240 (7.54x MER)</span>
+                </div>
+                <div class="progress-bar" style="height: 10px;"><div class="progress-fill green" style="width: 100%"></div></div>
+            </div>
+            <div class="progress-container">
+                <div class="progress-label">
+                    <span>Meta-Reported Revenue (March)</span>
+                    <span class="value" style="color: var(--accent-purple);">$5,701 (2.82x ROAS)</span>
+                </div>
+                <div class="progress-bar" style="height: 10px;"><div class="progress-fill purple" style="width: 37%"></div></div>
+            </div>
+            <p style="font-size: 12px; color: var(--text-muted); margin-top: 16px;">
+                Meta captures only 37% of actual Shopify revenue. Facebook social referrer revenue is up 653% YoY, directly proving ad-driven traffic is converting. The 70.28% returning customer rate (up 42% YoY) means customers acquired through ads are coming back organically.
+            </p>
+        </div>
+    </div>
+
+    <div class="insight-box">
+        <h4>What This Means Going Forward</h4>
+        <p>Every customer acquired through Meta ads has an $83 lifetime value against a $30.16 blended CAC. That means for every dollar spent acquiring a customer, the business makes $2.75 back over 12 months. March's 70.28% returning customer rate (up 42% YoY) is the engine that makes this work. Shopify shows $15,240 in gross sales on $2,022 ad spend, a 7.54x MER. The ads are driving real business growth well beyond what Meta reports on its own. Any future ad management should measure success through MER and CAC:LTV, not Meta ROAS alone.</p>
+    </div>
+
+    <div class="slide-footer">
+        <img src="https://res.cloudinary.com/dcnabm5nc/image/upload/v1754585626/lead-guru-new-logo-W-450_oyvumx.webp" alt="Lead Guru" style="height: 24px; opacity: 0.6;">
+        <span></span>
+        <span>10 / 11</span>
+    </div>
+</section>
+
+<!-- SLIDE 10: Handover and Closing -->
+<section class="slide">
+    <span class="slide-number">11 / 11</span>
+    <div class="slide-tag">Handover and Forward Look</div>
+    <h2>What's in Place for CBC Going Forward</h2>
+
+    <div class="three-col">
+        <div class="card" style="border-top: 3px solid var(--accent-green);">
+            <h3>Active and Working</h3>
+            <ul class="check-list" style="font-size: 13px;">
+                <li>Adv+ Winners ad set: proven evergreen performers (V4, IMG v2, UGC-REV-AD6)</li>
+                <li>Obsidian Launch ad set: 4.75x ROAS, Vid 1 and Static 3 scaling</li>
+                <li>Copy Test ad set: CBC-IMG-A1 Product Fight performing at 2.88x</li>
+                <li>Flash sale blueprint: fresh ASC, BOGO 50% off, concentrated spend</li>
+                <li>Triple Whale attribution tracking live</li>
+            </ul>
+        </div>
+
+        <div class="card" style="border-top: 3px solid var(--accent-purple);">
+            <h3>Proven Playbook</h3>
+            <ul class="check-list" style="font-size: 13px;">
+                <li><strong>Flash sales:</strong> Fresh campaigns, 80/20 prospecting/retargeting split, 48-hour window</li>
+                <li><strong>Product launches:</strong> 4-5 day teaser pre-launch, then full creative rotation</li>
+                <li><strong>Scaling rules:</strong> 3-4 consecutive days at 2x+ before scaling. Never scale into unproven creative</li>
+                <li><strong>Stop-loss:</strong> $50-75 spend with zero purchases = immediate pause</li>
+                <li><strong>Creative:</strong> Todd on camera, packing/BTS, ASMR label printing. Raw over polished</li>
+            </ul>
+        </div>
+
+        <div class="card" style="border-top: 3px solid var(--accent-orange);">
+            <h3>Opportunities Left on Table</h3>
+            <ul class="check-list" style="font-size: 13px;">
+                <li>Interest-based ABO testing for Obsidian (bikers, musicians, outdoors, truckers)</li>
+                <li>Catalogue campaign relaunch once Obsidian proves evergreen</li>
+                <li>Female gift buyer targeting for seasonal campaigns</li>
+                <li>Post-purchase upsell flow for wash/conditioner cross-sell</li>
+                <li>Hook testing on proven footage (same content, different intros)</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="two-col" style="margin-top: 32px;">
+        <div>
+            <h3>Account Assets and Access</h3>
+            <table class="data-table">
+                <tr><td>Ad Account ID</td><td class="highlight">264018168950434</td></tr>
+                <tr><td>Website</td><td class="highlight">chattanoogabeard.co</td></tr>
+                <tr><td>Attribution Tool</td><td class="highlight">Triple Whale</td></tr>
+                <tr><td>Website Analytics</td><td class="highlight">Microsoft Clarity</td></tr>
+                <tr><td>Brand Voice Guide</td><td class="green">In project files</td></tr>
+                <tr><td>Creative Folder</td><td class="green">Google Drive (shared)</td></tr>
+                <tr><td>Copy Document</td><td class="green">Google Docs (shared)</td></tr>
+            </table>
+        </div>
+        <div>
+            <h3>Key Rules to Carry Forward</h3>
+            <div class="card" style="border-left: 3px solid var(--accent-green); border-radius: 0 12px 12px 0;">
+                <ul class="check-list" style="font-size: 13px;">
+                    <li><strong>Breakeven:</strong> 3.5x Meta ROAS, but true performance is always 40-60% higher</li>
+                    <li><strong>MER:</strong> Shopify gross revenue / total ad spend. The real number.</li>
+                    <li><strong>CAC ceiling:</strong> $50 max based on $83 LTV</li>
+                    <li><strong>Never scale before proof:</strong> 3-4 days at 2x+ minimum</li>
+                    <li><strong>Flash sales:</strong> Always fresh campaigns. Never bolt onto existing</li>
+                    <li><strong>BOGO:</strong> 50% off only. Never BOGO free again</li>
+                    <li><strong>Creative:</strong> Authentic Todd content beats polished production every time</li>
+                    <li><strong>Evening hours (6-10 PM):</strong> Historically the strongest conversion window</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="insight-box" style="margin-top: 32px; border-left-color: var(--accent-green); background: linear-gradient(135deg, rgba(0, 217, 165, 0.1) 0%, rgba(0, 217, 165, 0.03) 100%);">
+        <h4>Final Note</h4>
+        <p>Todd, it has been a pleasure working on this account. Chattanooga Beard Co. has a real product, a loyal customer base, and a founder who cares about every order down to the handwritten notes. The Obsidian launch showed what happens with the right creative, the right offer, and disciplined execution. The unit economics support profitable scaling, and the playbook is here for whoever picks it up next. All the best to you and CBC going forward.</p>
+    </div>
+
+    <div class="slide-footer">
+        <img src="https://res.cloudinary.com/dcnabm5nc/image/upload/v1754585626/lead-guru-new-logo-W-450_oyvumx.webp" alt="Lead Guru" style="height: 24px; opacity: 0.6;">
+        <span>Chattanooga Beard Co. | Final Partnership Review</span>
+        <span>Prepared March 30, 2026</span>
+    </div>
+</section>
+
+</body>
+</html>
