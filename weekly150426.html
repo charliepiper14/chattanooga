@@ -1,0 +1,975 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CBC Performance Review: Apr 14, 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cbc-orange: #F58220;
+  --cbc-orange-dim: rgba(245, 130, 32, 0.12);
+  --cbc-orange-mid: rgba(245, 130, 32, 0.25);
+  --lg-navy: #162642;
+  --lg-orange: #cc5b27;
+  --bg: #0e1117;
+  --bg-card: #161b24;
+  --bg-card-hover: #1c2230;
+  --text: #e8eaed;
+  --text-dim: #8b919a;
+  --text-muted: #5a6170;
+  --green: #34d399;
+  --green-dim: rgba(52, 211, 153, 0.12);
+  --red: #f87171;
+  --red-dim: rgba(248, 113, 113, 0.12);
+  --yellow: #fbbf24;
+  --yellow-dim: rgba(251, 191, 36, 0.12);
+  --border: rgba(255,255,255,0.06);
+  --border-accent: rgba(245, 130, 32, 0.2);
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+.slide {
+  min-height: 100vh;
+  padding: 60px 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  border-bottom: 1px solid var(--border);
+}
+.slide::before {
+  content: '';
+  position: absolute;
+  top: 0; right: 0;
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, rgba(245,130,32,0.04) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.nav {
+  position: fixed;
+  right: 30px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.nav a {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  background: var(--text-muted);
+  transition: all 0.3s;
+  display: block;
+}
+.nav a:hover, .nav a.active {
+  background: var(--cbc-orange);
+  transform: scale(1.4);
+}
+
+.slide-num {
+  position: absolute;
+  top: 30px; left: 80px;
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  color: var(--text-muted);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+h1 {
+  font-size: 52px;
+  font-weight: 700;
+  letter-spacing: -1.5px;
+  line-height: 1.1;
+  margin-bottom: 12px;
+}
+h1 span { color: var(--cbc-orange); }
+h2 {
+  font-size: 36px;
+  font-weight: 700;
+  letter-spacing: -1px;
+  line-height: 1.15;
+  margin-bottom: 24px;
+}
+h2 span { color: var(--cbc-orange); }
+h3 {
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: var(--cbc-orange);
+  margin-bottom: 16px;
+}
+p { color: var(--text-dim); font-size: 16px; max-width: 680px; }
+.subtitle {
+  font-size: 18px;
+  color: var(--text-dim);
+  margin-bottom: 48px;
+  max-width: 600px;
+}
+
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  margin: 32px 0;
+}
+.metric-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 24px;
+  transition: all 0.25s;
+}
+.metric-card:hover {
+  border-color: var(--border-accent);
+  background: var(--bg-card-hover);
+}
+.metric-label {
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+.metric-value {
+  font-family: 'DM Mono', monospace;
+  font-size: 32px;
+  font-weight: 500;
+  color: var(--text);
+  line-height: 1;
+}
+.metric-value.large { font-size: 42px; }
+.metric-delta {
+  font-family: 'DM Mono', monospace;
+  font-size: 13px;
+  margin-top: 8px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 8px;
+  border-radius: 6px;
+}
+.metric-delta.up { color: var(--green); background: var(--green-dim); }
+.metric-delta.down { color: var(--red); background: var(--red-dim); }
+.metric-delta.neutral { color: var(--yellow); background: var(--yellow-dim); }
+
+.ad-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 24px 0;
+  font-size: 14px;
+}
+.ad-table th {
+  text-align: left;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--text-muted);
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border);
+}
+.ad-table td {
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--border);
+  color: var(--text-dim);
+  font-family: 'DM Mono', monospace;
+  font-size: 13px;
+}
+.ad-table tr:hover td { background: var(--bg-card); }
+.ad-table .ad-name {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 600;
+  color: var(--text);
+  font-size: 14px;
+}
+.ad-table .ad-set-tag {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px;
+  color: var(--text-muted);
+  background: rgba(255,255,255,0.04);
+  padding: 2px 8px;
+  border-radius: 4px;
+  display: inline-block;
+  margin-top: 4px;
+}
+.roas-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 13px;
+}
+.roas-badge.good { color: var(--green); background: var(--green-dim); }
+.roas-badge.warn { color: var(--yellow); background: var(--yellow-dim); }
+.roas-badge.bad { color: var(--red); background: var(--red-dim); }
+
+.insight-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin: 24px 0;
+}
+.insight-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 28px;
+  border-left: 3px solid var(--cbc-orange);
+}
+.insight-card.green { border-left-color: var(--green); }
+.insight-card.red { border-left-color: var(--red); }
+.insight-card.yellow { border-left-color: var(--yellow); }
+.insight-card h4 {
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: var(--text);
+}
+.insight-card p {
+  font-size: 14px;
+  color: var(--text-dim);
+  line-height: 1.55;
+}
+
+.action-list { list-style: none; margin: 20px 0; }
+.action-list li {
+  padding: 18px 24px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  transition: all 0.2s;
+}
+.action-list li:hover { border-color: var(--border-accent); }
+.action-icon {
+  width: 32px; height: 32px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.action-icon.do { background: var(--green-dim); color: var(--green); }
+.action-icon.kill { background: var(--red-dim); color: var(--red); }
+.action-icon.watch { background: var(--yellow-dim); color: var(--yellow); }
+.action-icon.brief { background: var(--cbc-orange-dim); color: var(--cbc-orange); }
+.action-content h4 {
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+.action-content p {
+  font-size: 13px;
+  color: var(--text-dim);
+  line-height: 1.5;
+}
+
+.divider {
+  width: 60px;
+  height: 3px;
+  background: var(--cbc-orange);
+  border-radius: 2px;
+  margin: 24px 0;
+}
+
+.title-slide {
+  justify-content: flex-end;
+  padding-bottom: 100px;
+}
+.title-slide .brand-tag {
+  font-family: 'DM Mono', monospace;
+  font-size: 13px;
+  color: var(--cbc-orange);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 24px;
+}
+.title-slide .date-tag {
+  font-family: 'DM Mono', monospace;
+  font-size: 14px;
+  color: var(--text-muted);
+  margin-top: 8px;
+}
+.title-meta {
+  display: flex;
+  gap: 40px;
+  margin-top: 40px;
+}
+.title-meta-item {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+.title-meta-item strong {
+  display: block;
+  color: var(--text-dim);
+  font-size: 14px;
+  margin-top: 2px;
+}
+
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  margin-top: 8px;
+}
+.two-col p { max-width: 100%; }
+
+.verdict {
+  background: linear-gradient(135deg, rgba(245,130,32,0.08), rgba(245,130,32,0.02));
+  border: 1px solid var(--border-accent);
+  border-radius: 16px;
+  padding: 36px 40px;
+  margin: 32px 0;
+}
+.verdict h4 {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+.verdict p { font-size: 15px; max-width: 100%; }
+
+.adset-compare {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin: 28px 0;
+}
+.adset-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 28px;
+}
+.adset-card.obsidian { border-top: 3px solid var(--cbc-orange); }
+.adset-card.winners { border-top: 3px solid var(--green); }
+.adset-card h4 {
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-bottom: 20px;
+}
+.adset-card.obsidian h4 { color: var(--cbc-orange); }
+.adset-card.winners h4 { color: var(--green); }
+.adset-stat {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+}
+.adset-stat:last-child { border-bottom: none; }
+.adset-stat-label { font-size: 13px; color: var(--text-muted); }
+.adset-stat-value { font-family: 'DM Mono', monospace; font-size: 15px; color: var(--text); font-weight: 500; }
+
+.freq-bar-wrap { margin: 8px 0 4px; }
+.freq-bar-track {
+  width: 100%;
+  height: 6px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 3px;
+  overflow: hidden;
+  margin-top: 4px;
+}
+.freq-bar-fill {
+  height: 100%;
+  border-radius: 3px;
+}
+.freq-label {
+  display: flex;
+  justify-content: space-between;
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+@media (max-width: 900px) {
+  .slide { padding: 40px 32px; }
+  h1 { font-size: 36px; }
+  h2 { font-size: 28px; }
+  .metrics-grid { grid-template-columns: 1fr 1fr; }
+  .insight-grid { grid-template-columns: 1fr; }
+  .two-col { grid-template-columns: 1fr; gap: 24px; }
+  .adset-compare { grid-template-columns: 1fr; }
+  .nav { display: none; }
+  .slide-num { left: 32px; }
+  .ad-table { font-size: 12px; }
+  .ad-table th, .ad-table td { padding: 10px 8px; }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.slide > * {
+  animation: fadeUp 0.6s ease-out both;
+}
+.slide > *:nth-child(1) { animation-delay: 0.05s; }
+.slide > *:nth-child(2) { animation-delay: 0.12s; }
+.slide > *:nth-child(3) { animation-delay: 0.19s; }
+.slide > *:nth-child(4) { animation-delay: 0.26s; }
+.slide > *:nth-child(5) { animation-delay: 0.33s; }
+.slide > *:nth-child(6) { animation-delay: 0.40s; }
+</style>
+</head>
+<body>
+
+<nav class="nav" id="nav"></nav>
+
+<!-- SLIDE 1: TITLE -->
+<section class="slide title-slide" id="s1">
+  <div class="brand-tag">Chattanooga Beard Co.</div>
+  <h1>Weekly Performance<br>& <span>Strategy Review</span></h1>
+  <div class="date-tag">Apr 8 to Apr 14, 2026</div>
+  <div class="title-meta">
+    <div class="title-meta-item">Prepared by<strong>Charles</strong></div>
+    <div class="title-meta-item">Account<strong>264018168950434</strong></div>
+    <div class="title-meta-item">Breakeven Target<strong>3.5x ROAS</strong></div>
+  </div>
+</section>
+
+<!-- SLIDE 2: TOP LINE -->
+<section class="slide" id="s2">
+  <div class="slide-num">02: Top Line</div>
+  <h2>Week at a <span>Glance</span></h2>
+  <div class="metrics-grid">
+    <div class="metric-card">
+      <div class="metric-label">Meta Spend</div>
+      <div class="metric-value">$270</div>
+      <div class="metric-delta up">▲ 9.2% WoW</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Meta ROAS</div>
+      <div class="metric-value" style="color: var(--green);">4.52x</div>
+      <div class="metric-delta up">▲ from 3.51x</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Shopify Gross</div>
+      <div class="metric-value">$3,124</div>
+      <div class="metric-delta up">▲ 8.1% WoW</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">MER</div>
+      <div class="metric-value" style="color: var(--green);">11.57x</div>
+      <div class="metric-delta neutral">Stable WoW</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Purchases (Meta)</div>
+      <div class="metric-value">26</div>
+      <div class="metric-delta up">▲ 44.4% WoW</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">CPP</div>
+      <div class="metric-value">$10.39</div>
+      <div class="metric-delta up">▼ from $13.74</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">AOV (Meta)</div>
+      <div class="metric-value">$46.94</div>
+      <div class="metric-delta up">▲ 12.5% WoW</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Returning Rate</div>
+      <div class="metric-value">71.1%</div>
+      <div class="metric-delta up">▲ from 63.5%</div>
+    </div>
+  </div>
+  <p>ROAS is above breakeven for the first time in several weeks. The account crossed 3.5x target on both Meta reporting and blended business performance. The Obsidian launch set and the Founder Talk creative are doing the heavy lifting.</p>
+</section>
+
+<!-- SLIDE 3: META vs SHOPIFY -->
+<section class="slide" id="s3">
+  <div class="slide-num">03: The Gap</div>
+  <h2>Meta ROAS vs <span>True MER</span></h2>
+  <div class="two-col">
+    <div>
+      <div class="divider"></div>
+      <h3>What Meta reports</h3>
+      <div class="metric-card" style="margin-bottom: 16px;">
+        <div class="metric-label">Meta-Attributed Revenue</div>
+        <div class="metric-value">$1,220</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Meta ROAS</div>
+        <div class="metric-value" style="color: var(--green);">4.52x</div>
+      </div>
+      <p style="margin-top: 16px;">26 purchases at $46.94 avg. conversion value. First time above the 3.5x breakeven target in the current reporting window. A meaningful milestone for scaling confidence.</p>
+    </div>
+    <div>
+      <div class="divider" style="background: var(--green);"></div>
+      <h3>What the business actually did</h3>
+      <div class="metric-card" style="margin-bottom: 16px;">
+        <div class="metric-label">Shopify Gross Sales</div>
+        <div class="metric-value">$3,124</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">True MER</div>
+        <div class="metric-value" style="color: var(--green);">11.57x</div>
+      </div>
+      <p style="margin-top: 16px;">76 total customers across the week. Returning customer rate climbed to 71.1% (54 of 76). Strong restock behaviour continuing off the Obsidian launch. Meta is only capturing a fraction of the revenue the brand is generating.</p>
+    </div>
+  </div>
+  <div class="verdict" style="margin-top: 40px;">
+    <h4>The read this week:</h4>
+    <p>The business is running well. Meta ROAS at 4.52x clears breakeven for the first time in weeks. MER at 11.57x is consistent with last week's 11.69x. The returning customer engine is stable and strong. The question now shifts from "are the ads working?" to "how fast can we scale without destabilising what's working?"</p>
+  </div>
+</section>
+
+<!-- SLIDE 4: AD SET COMPARISON -->
+<section class="slide" id="s4">
+  <div class="slide-num">04: Ad Set Split</div>
+  <h2>Obsidian vs <span>Adv+ Winners</span></h2>
+  <p style="margin-bottom: 8px;">Both ad sets are now above breakeven. A first for the account in this campaign window. Obsidian is leading. Adv+ Winners has recovered off the consolidation work done last week.</p>
+  <div class="adset-compare">
+    <div class="adset-card obsidian">
+      <h4>Obsidian Launch: March 2026</h4>
+      <div class="adset-stat">
+        <span class="adset-stat-label">Spend</span>
+        <span class="adset-stat-value">$120.73</span>
+      </div>
+      <div class="adset-stat">
+        <span class="adset-stat-label">Purchases</span>
+        <span class="adset-stat-value">13</span>
+      </div>
+      <div class="adset-stat">
+        <span class="adset-stat-label">Revenue</span>
+        <span class="adset-stat-value">$641.76</span>
+      </div>
+      <div class="adset-stat">
+        <span class="adset-stat-label">ROAS</span>
+        <span class="adset-stat-value" style="color: var(--cbc-orange);">5.32x</span>
+      </div>
+      <div class="adset-stat">
+        <span class="adset-stat-label">CPP</span>
+        <span class="adset-stat-value">$9.29</span>
+      </div>
+      <div style="margin-top: 16px;">
+        <div class="adset-stat-label" style="margin-bottom: 6px;">Frequency signal</div>
+        <div class="freq-bar-track">
+          <div class="freq-bar-fill" style="width: 32%; background: var(--cbc-orange);"></div>
+        </div>
+        <div class="freq-label"><span>Low: fresh audience</span><span style="color: var(--green);">1.5–2.0 avg</span></div>
+      </div>
+    </div>
+    <div class="adset-card winners">
+      <h4>Adv+ Winners</h4>
+      <div class="adset-stat">
+        <span class="adset-stat-label">Spend</span>
+        <span class="adset-stat-value">$149.35</span>
+      </div>
+      <div class="adset-stat">
+        <span class="adset-stat-label">Purchases</span>
+        <span class="adset-stat-value">13</span>
+      </div>
+      <div class="adset-stat">
+        <span class="adset-stat-label">Revenue</span>
+        <span class="adset-stat-value">$578.61</span>
+      </div>
+      <div class="adset-stat">
+        <span class="adset-stat-label">ROAS</span>
+        <span class="adset-stat-value" style="color: var(--green);">3.87x</span>
+      </div>
+      <div class="adset-stat">
+        <span class="adset-stat-label">CPP</span>
+        <span class="adset-stat-value">$11.49</span>
+      </div>
+      <div style="margin-top: 16px;">
+        <div class="adset-stat-label" style="margin-bottom: 6px;">Frequency warning</div>
+        <div class="freq-bar-track">
+          <div class="freq-bar-fill" style="width: 86%; background: var(--red);"></div>
+        </div>
+        <div class="freq-label"><span>Saturation risk</span><span style="color: var(--red);">5.22x avg</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="insight-grid" style="margin-top: 4px;">
+    <div class="insight-card green">
+      <h4>Both ad sets above breakeven</h4>
+      <p>First time this campaign window both sets are clearing 3.5x simultaneously. The consolidation of Adv+ Winners behind the stronger UGC copy has worked. 3.87x is a real recovery from 2.22x last week.</p>
+    </div>
+    <div class="insight-card red">
+      <h4>Adv+ Winners frequency at 5.22x</h4>
+      <p>This is past the danger zone. The remaining ads in this set are reaching a saturated audience. Even strong creative fatigues at this frequency level. New creative injection is urgent. This set will start declining within 1–2 weeks without it.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 5: AD PERFORMANCE TABLE -->
+<section class="slide" id="s5">
+  <div class="slide-num">05: Ad Performance</div>
+  <h2>Ad-Level <span>Breakdown</span></h2>
+  <p style="margin-bottom: 24px;">Current week (Apr 8–14). Reporting-start filtered to avoid double-counting. Campaign total used as ground truth: $270.08 spend, 26 purchases, $1,220.37 revenue.</p>
+  <table class="ad-table">
+    <thead>
+      <tr>
+        <th style="width: 32%;">Ad</th>
+        <th>Spend</th>
+        <th>Rev</th>
+        <th>Purch</th>
+        <th>ROAS</th>
+        <th>CPP</th>
+        <th>Freq</th>
+        <th>Verdict</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr style="background: rgba(245,130,32,0.04);">
+        <td>
+          <div class="ad-name">Founder Talk ★</div>
+          <div class="ad-set-tag">ADV+ WINNERS</div>
+        </td>
+        <td>$47.93</td>
+        <td>$237.95</td>
+        <td>5</td>
+        <td><span class="roas-badge good">4.96x</span></td>
+        <td>$9.59</td>
+        <td>3.15</td>
+        <td style="font-family:'DM Sans';font-size:13px;color:var(--green);">Star: protect</td>
+      </tr>
+      <tr>
+        <td>
+          <div class="ad-name">HM IMG v2 Review</div>
+          <div class="ad-set-tag">ADV+ WINNERS</div>
+        </td>
+        <td>$14.93</td>
+        <td>$55.98</td>
+        <td>1</td>
+        <td><span class="roas-badge good">3.75x</span></td>
+        <td>$14.93</td>
+        <td>2.21</td>
+        <td style="font-family:'DM Sans';font-size:13px;color:var(--yellow);">Holding: monitor</td>
+      </tr>
+      <tr>
+        <td>
+          <div class="ad-name">Obsidian Vid 1</div>
+          <div class="ad-set-tag">OBSYDIAN LAUNCH</div>
+        </td>
+        <td>$29.41</td>
+        <td>$170.80</td>
+        <td>5</td>
+        <td><span class="roas-badge good">5.81x</span></td>
+        <td>$5.88</td>
+        <td>1.52</td>
+        <td style="font-family:'DM Sans';font-size:13px;color:var(--green);">Strong: scale</td>
+      </tr>
+      <tr>
+        <td>
+          <div class="ad-name">Obsidian Static 2</div>
+          <div class="ad-set-tag">OBSYDIAN LAUNCH</div>
+        </td>
+        <td>$11.82</td>
+        <td>$57.00</td>
+        <td>1</td>
+        <td><span class="roas-badge good">4.82x</span></td>
+        <td>$11.82</td>
+        <td>2.04</td>
+        <td style="font-family:'DM Sans';font-size:13px;color:var(--green);">Solid: keep</td>
+      </tr>
+      <tr>
+        <td>
+          <div class="ad-name">Video 1 P12 V4 Copy</div>
+          <div class="ad-set-tag">ADV+ WINNERS</div>
+        </td>
+        <td>$12.32</td>
+        <td>$0</td>
+        <td>0</td>
+        <td><span class="roas-badge bad">0.00x</span></td>
+        <td>—</td>
+        <td>2.10</td>
+        <td style="font-family:'DM Sans';font-size:13px;color:var(--yellow);">Watch: low vol</td>
+      </tr>
+      <tr>
+        <td>
+          <div class="ad-name">Obsidian Ingredient Vid</div>
+          <div class="ad-set-tag">OBSYDIAN LAUNCH</div>
+        </td>
+        <td>$4.04</td>
+        <td>$0</td>
+        <td>0</td>
+        <td><span class="roas-badge warn">—</span></td>
+        <td>—</td>
+        <td>2.23</td>
+        <td style="font-family:'DM Sans';font-size:13px;color:var(--text-muted);">Too early: let run</td>
+      </tr>
+      <tr>
+        <td>
+          <div class="ad-name">Founder Unbox Vid</div>
+          <div class="ad-set-tag">ADV+ WINNERS</div>
+        </td>
+        <td>$5.68</td>
+        <td>$0</td>
+        <td>0</td>
+        <td><span class="roas-badge warn">—</span></td>
+        <td>—</td>
+        <td>1.74</td>
+        <td style="font-family:'DM Sans';font-size:13px;color:var(--text-muted);">Too early: let run</td>
+      </tr>
+    </tbody>
+  </table>
+  <p style="font-size: 13px; margin-top: 8px;">Remaining $144 in campaign spend is distributed across additional Adv+ Winners creatives (incl. UGC Rev Ad6 copies). Campaign-level 26 total purchases reconciled against ad set totals. Ad-level rows above account for the top performers. Remaining spend at blended 3.87x ad set ROAS.</p>
+</section>
+
+<!-- SLIDE 6: FREQUENCY DEEP DIVE -->
+<section class="slide" id="s6">
+  <div class="slide-num">06: Frequency Risk</div>
+  <h2>The <span>Fatigue Signal</span></h2>
+  <p style="margin-bottom: 32px;">The account has two distinct frequency stories this week. Obsidian is healthy. Adv+ Winners is a ticking clock. Last week's comms flagged Obsidian at 3.19x. Check where it's moved.</p>
+  <div class="insight-grid">
+    <div class="insight-card green">
+      <h4>Obsidian set: still fresh</h4>
+      <p>Individual Obsidian ads showing frequency of 1.52x (Vid 1) and 2.04x (Static 2). New creative (Ingredient Vid) at 2.23x is getting distribution. The audience hasn't seen these ads enough to tune out. The problem here is sustaining this freshness, not the frequency itself.</p>
+    </div>
+    <div class="insight-card red">
+      <h4>Adv+ Winners: 5.22x is critical</h4>
+      <p>The full ad set is averaging 5.22x frequency. Even the Founder Talk creative at 4.96x ROAS is showing 3.15x on its own, up from the 3.19x flagged on Obsidian last week. The audience is starting to see this repeatedly. Performance will decline even on winning creatives at this cadence.</p>
+    </div>
+    <div class="insight-card yellow">
+      <h4>What 5.22x actually means</h4>
+      <p>The average person in your target audience has seen an Adv+ Winners ad over 5 times in 7 days. CPMs will rise as Meta works harder to find unconvinced users. Click-through rates will compress. This is the exact pattern that preceded the Winners set decline in previous periods.</p>
+    </div>
+    <div class="insight-card">
+      <h4>The creative pipeline is the fix</h4>
+      <p>Frequency can't be solved by pausing ads. It's solved by introducing fresh creative. New ads reset the delivery algorithm to find fresh users. The Founder Unbox and Ingredient videos launched this week are the right instinct. They need to prove themselves by Wednesday.</p>
+    </div>
+  </div>
+  <div class="verdict" style="margin-top: 24px;">
+    <h4>Frequency action threshold:</h4>
+    <p>Flag at 3.0x. Act at 4.0x. At 5.22x for Adv+ Winners, we're past both thresholds. The Founder Talk ad at 3.15x individual frequency needs a creative variant launched this week to share the load before it tips into decline.</p>
+  </div>
+</section>
+
+<!-- SLIDE 7: RETURNING CUSTOMER ENGINE -->
+<section class="slide" id="s7">
+  <div class="slide-num">07: Customer Behaviour</div>
+  <h2>The Returning <span>Engine</span></h2>
+  <div class="metrics-grid" style="margin-bottom: 32px;">
+    <div class="metric-card">
+      <div class="metric-label">Returning Rate (Apr 8–14)</div>
+      <div class="metric-value" style="color: var(--green);">71.1%</div>
+      <div class="metric-delta up">▲ from 63.5% prev wk</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Returning Customers</div>
+      <div class="metric-value">54</div>
+      <div class="metric-delta up">▲ 35% WoW</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">New Customers</div>
+      <div class="metric-value">22</div>
+      <div class="metric-delta neutral">Flat WoW (23 prev)</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Total Shopify Customers</div>
+      <div class="metric-value">76</div>
+      <div class="metric-delta up">▲ 21% WoW</div>
+    </div>
+  </div>
+  <div class="two-col">
+    <div>
+      <div class="divider"></div>
+      <h3>What's happening</h3>
+      <p>The Obsidian launch triggered a strong restock cycle. Customers who bought during the March 20 launch and the March 27-28 BOGO sale are coming back. 71.1% returning rate confirms this. The handwritten notes, product quality, and repeat purchase behaviour Todd has built over time are compounding. Meta ads are the top-of-funnel tap, but the business retains on its own merits.</p>
+    </div>
+    <div>
+      <div class="divider" style="background: var(--yellow);"></div>
+      <h3>The growth constraint</h3>
+      <p>New customer acquisition is flat at 22 this week. With $270 Meta spend, that's $12.27 CAC, well inside the $83 LTV threshold. But the volume is thin. If returning customers are 71% of revenue, that means roughly $2,218 of the $3,124 gross this week came from existing customers. The ads are the acquisition engine, and that engine needs more fuel to grow the new customer pool.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 8: DIAGNOSIS -->
+<section class="slide" id="s8">
+  <div class="slide-num">08: Diagnosis</div>
+  <h2>What Needs <span>Attention</span></h2>
+  <div class="insight-grid">
+    <div class="insight-card green">
+      <h4>ROAS above target: first time in weeks</h4>
+      <p>4.52x clears the 3.5x breakeven. The consolidation of Adv+ Winners behind stronger copy paid off. Obsidian continues performing above expectation at 5.32x ad set ROAS. This is the first clean week to start the scaling conversation from a position of strength.</p>
+    </div>
+    <div class="insight-card red">
+      <h4>Adv+ Winners frequency is unsustainable</h4>
+      <p>5.22x ad set frequency with individual ads at 3.15x. The Founder Talk creative, currently the best performer at 4.96x, is showing early fatigue signals. If new creative doesn't start generating purchases within the week, this set will retrace. History in this account shows fast drops once frequency passes 4x.</p>
+    </div>
+    <div class="insight-card yellow">
+      <h4>New creative still unproven</h4>
+      <p>Founder Unbox (5.68 spend, 0 purchases) and Obsidian Ingredient (4.04 spend, 0 purchases) are both in early delivery. These are the right formats based on past CBC performance data. But they need spend volume to show signal. $5-10 isn't enough to judge. Give them through Wednesday at minimum.</p>
+    </div>
+    <div class="insight-card yellow">
+      <h4>Scaling window is open but narrow</h4>
+      <p>Three consecutive days above 3.5x ROAS is the scaling trigger per Todd's standing rule. This week cleared it at 4.52x. The window to incrementally increase budget is now. But frequency in Winners means we're scaling into a deteriorating audience if we don't move quickly on creative refresh.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 9: STRATEGY -->
+<section class="slide" id="s9">
+  <div class="slide-num">09: Strategy</div>
+  <h2>Next Week <span>Actions</span></h2>
+  <h3 style="margin-top: 8px;">Immediate: this week</h3>
+  <ul class="action-list">
+    <li>
+      <div class="action-icon do">▲</div>
+      <div class="action-content">
+        <h4>Evaluate new creative by Wednesday: scale or pause</h4>
+        <p>Founder Unbox and Obsidian Ingredient are in early delivery. By Wednesday they'll have enough spend (target $15–20 each) to show signal. If either generates purchases at 2x+ ROAS, keep. If neither fires, pause and redeploy the budget to Founder Talk and Obsidian Vid 1. The proven performers.</p>
+      </div>
+    </li>
+    <li>
+      <div class="action-icon brief">2</div>
+      <div class="action-content">
+        <h4>Brief a creative variant for Founder Talk</h4>
+        <p>Founder Talk is the current Adv+ Winners workhorse at 4.96x. At 3.15x frequency, it needs a companion creative in the same format to share audience load. Brief a second founder-to-camera piece. Same rawness, different angle. Focus on the "why I made Obsidian" story if not already used, or the ingredient specificity angle (almond, jojoba, argan). Phone filmed, under 30 seconds.</p>
+      </div>
+    </li>
+    <li>
+      <div class="action-icon do">▲</div>
+      <div class="action-content">
+        <h4>Incremental budget increase on Obsidian ad set</h4>
+        <p>Obsidian Vid 1 at 5.81x ROAS with 1.52x frequency has significant headroom. Low frequency means the algorithm can find new audiences efficiently. Increase Obsidian ad set budget by 20% and monitor for 48 hours. Do not touch Adv+ Winners budget until frequency drops or new creative starts converting.</p>
+      </div>
+    </li>
+    <li>
+      <div class="action-icon watch">◉</div>
+      <div class="action-content">
+        <h4>Monitor HM IMG v2 Review closely</h4>
+        <p>3.75x ROAS on low volume (1 purchase, $14.93 spend). Frequency at 2.21x is still manageable. This ad has room to run. But with the full Adv+ set at 5.22x, its audience pool is being depleted by other ads. If ROAS drops below 2.5x by mid-week, pause and redirect spend to fresh creative.</p>
+      </div>
+    </li>
+  </ul>
+</section>
+
+<!-- SLIDE 10: BUDGET & SCALING -->
+<section class="slide" id="s10">
+  <div class="slide-num">10: Budget & Scaling</div>
+  <h2>Budget <span>Approach</span></h2>
+  <div class="verdict">
+    <h4>The scaling window is open. Move carefully.</h4>
+    <p>ROAS cleared 3.5x this week. Todd's rule: no scaling before 2x+ sustained for 3–4 consecutive days. We're there. The 20% incremental increase applies, but only to the Obsidian set where frequency is low and audience is fresh. Adv+ Winners doesn't get more budget until fresh creative is generating purchases. Scale the winner. Stabilise the fatiguing set first.</p>
+  </div>
+  <div class="two-col" style="margin-top: 32px;">
+    <div>
+      <h3>Current state</h3>
+      <div class="metric-card" style="margin-bottom: 12px;">
+        <div class="metric-label">Daily spend (avg)</div>
+        <div class="metric-value">$38/day</div>
+      </div>
+      <p>Conservative but clearing breakeven. The MER at 11.57x shows the business is running efficiently. The constraint on growth is creative freshness in Adv+ Winners, not spend capacity in Obsidian.</p>
+    </div>
+    <div>
+      <h3>Scaling trigger met</h3>
+      <div class="metric-card" style="margin-bottom: 12px;">
+        <div class="metric-label">Meta ROAS this week</div>
+        <div class="metric-value" style="color: var(--green);">4.52x</div>
+      </div>
+      <p>Above the 3.5x target. Apply 20% budget increase to Obsidian ad set only. If Obsidian holds above 4x for 3+ days post-increase, apply a second 20% increment. Monitor CPP. Target under $15 before further scaling.</p>
+    </div>
+  </div>
+  <div class="insight-grid" style="margin-top: 32px;">
+    <div class="insight-card green">
+      <h4>CAC:LTV supports aggressive acquisition</h4>
+      <p>Obsidian Vid 1 at $5.88 CPP against an $83 LTV is a 1:14 ratio. Even at 2x the current CPP, acquisition is strongly profitable on a lifetime basis. The case for pushing budget on the top Obsidian ads is strong.</p>
+    </div>
+    <div class="insight-card yellow">
+      <h4>Don't scale into frequency degradation</h4>
+      <p>Increasing Adv+ Winners budget with 5.22x frequency will accelerate audience burn. More spend = more impressions to the same saturated pool = faster CPM inflation and ROAS decline. Frequency must come down first. That means new creative, not more budget.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 11: CREATIVE PIPELINE -->
+<section class="slide" id="s11">
+  <div class="slide-num">11: Creative Pipeline</div>
+  <h2>What to <span>Brief Next</span></h2>
+  <p style="margin-bottom: 8px;">With Adv+ Winners frequency at 5.22x, the pipeline needs to move fast. Two new creatives are in early delivery. Two more need to be briefed this week.</p>
+  <ul class="action-list">
+    <li>
+      <div class="action-icon brief">1</div>
+      <div class="action-content">
+        <h4>Founder Talk variant: different angle, same format</h4>
+        <p>The Founder Talk format (raw, phone-filmed, under 30 sec) is the current top performer at 4.96x. Brief a second execution. Suggested angle: Todd walks through the specific ingredients in Obsidian and why each one is there. Almond oil for absorption, jojoba for mimicking skin sebum, argan for shine without grease. Specific, educational, founder-voiced. Not a pitch. This format aligns directly with the brand voice guide. Ingredient specificity, conviction without hype.</p>
+      </div>
+    </li>
+    <li>
+      <div class="action-icon brief">2</div>
+      <div class="action-content">
+        <h4>Packing / ASMR video: Obsidian edition</h4>
+        <p>Historically CBC's highest-performing creative format: label printing, order packing sequences, ASMR close-ups. Past executions hit 5–9x ROAS. This account hasn't had a fresh packing video since before the Obsidian launch. Have Todd film a packing sequence featuring the Obsidian bottles specifically. New product + proven format = double hook. This is the priority brief for next week if the current new creatives don't fully replace Winners fatigue.</p>
+      </div>
+    </li>
+    <li>
+      <div class="action-icon watch">3</div>
+      <div class="action-content">
+        <h4>Watch Founder Unbox & Obsidian Ingredient through Wednesday</h4>
+        <p>Both live and in early delivery. Founder Unbox at $5.68 and Ingredient at $4.04. Both need $15-20 minimum spend before a read is valid. If either generates 2+ purchases by Wednesday, they get budget. If neither fires by Thursday, pause and use the brief slots above to replace them. Don't make the decision early.</p>
+      </div>
+    </li>
+  </ul>
+</section>
+
+<!-- SLIDE 12: SUMMARY -->
+<section class="slide" id="s12">
+  <div class="slide-num">12: Summary</div>
+  <h2>Bottom <span>Line</span></h2>
+  <div class="divider"></div>
+  <div style="max-width: 700px; margin-top: 16px;">
+    <p style="font-size: 18px; color: var(--text); line-height: 1.7; margin-bottom: 24px;">4.52x ROAS. $3,124 in gross sales. 71.1% returning rate. This is the best consolidated week the account has posted in the current campaign window. The Obsidian launch is performing. Vid 1 at 5.81x and Static 2 at 4.82x are genuinely strong numbers.</p>
+    <p style="font-size: 18px; color: var(--text); line-height: 1.7; margin-bottom: 24px;">The Adv+ Winners recovery to 3.87x off the UGC consolidation work is the other good story. Founder Talk at 4.96x is carrying that set. But 5.22x ad set frequency is the clock ticking in the background. It needs fresh creative this week, not next.</p>
+    <p style="font-size: 18px; color: var(--text); line-height: 1.7; margin-bottom: 24px;">The scaling window is open. Obsidian set gets a 20% budget increment. Adv+ Winners stays at current budget until new creative proves itself. Brief the Founder Talk variant and Packing video immediately. Evaluate Founder Unbox and Ingredient by Wednesday.</p>
+    <p style="font-size: 18px; color: var(--cbc-orange); line-height: 1.7; font-weight: 600;">Scale Obsidian. Refresh Winners. Brief two new creatives this week. That's the play.</p>
+  </div>
+  <div class="title-meta" style="margin-top: 48px; padding-top: 32px; border-top: 1px solid var(--border);">
+    <div class="title-meta-item">Prepared by<strong>Charles</strong></div>
+    <div class="title-meta-item">Date<strong>April 15, 2026</strong></div>
+    <div class="title-meta-item">Account<strong>Chattanooga Beard Co.</strong></div>
+  </div>
+</section>
+
+<script>
+const slides = document.querySelectorAll('.slide');
+const nav = document.getElementById('nav');
+slides.forEach((s, i) => {
+  const a = document.createElement('a');
+  a.href = '#s' + (i + 1);
+  a.title = 'Slide ' + (i + 1);
+  nav.appendChild(a);
+});
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const id = entry.target.id;
+      const idx = parseInt(id.replace('s', '')) - 1;
+      nav.querySelectorAll('a').forEach((a, i) => {
+        a.classList.toggle('active', i === idx);
+      });
+    }
+  });
+}, { threshold: 0.4 });
+
+slides.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>
