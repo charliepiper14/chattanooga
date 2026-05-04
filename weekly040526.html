@@ -1,0 +1,1257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CBC Performance Review: Apr 26 to May 2, 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cbc-orange: #F58220;
+  --cbc-orange-dim: rgba(245, 130, 32, 0.12);
+  --cbc-orange-mid: rgba(245, 130, 32, 0.25);
+  --bg: #0e1117;
+  --bg-card: #161b24;
+  --bg-card-hover: #1c2230;
+  --text: #e8eaed;
+  --text-dim: #8b919a;
+  --text-muted: #5a6170;
+  --green: #34d399;
+  --green-dim: rgba(52, 211, 153, 0.12);
+  --red: #f87171;
+  --red-dim: rgba(248, 113, 113, 0.12);
+  --yellow: #fbbf24;
+  --yellow-dim: rgba(251, 191, 36, 0.12);
+  --border: rgba(255,255,255,0.06);
+  --border-accent: rgba(245, 130, 32, 0.2);
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+.slide {
+  min-height: 100vh;
+  padding: 60px 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  border-bottom: 1px solid var(--border);
+}
+.slide::before {
+  content: '';
+  position: absolute;
+  top: 0; right: 0;
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, rgba(245,130,32,0.04) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.nav {
+  position: fixed;
+  right: 30px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.nav a {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  background: var(--text-muted);
+  transition: all 0.3s;
+  display: block;
+}
+.nav a:hover, .nav a.active {
+  background: var(--cbc-orange);
+  transform: scale(1.4);
+}
+
+.slide-num {
+  position: absolute;
+  top: 30px; left: 80px;
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  color: var(--text-muted);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+h1 {
+  font-size: 52px;
+  font-weight: 700;
+  letter-spacing: -1.5px;
+  line-height: 1.1;
+  margin-bottom: 12px;
+}
+h1 span { color: var(--cbc-orange); }
+h2 {
+  font-size: 36px;
+  font-weight: 700;
+  letter-spacing: -1px;
+  line-height: 1.15;
+  margin-bottom: 24px;
+}
+h2 span { color: var(--cbc-orange); }
+h3 {
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: var(--cbc-orange);
+  margin-bottom: 16px;
+}
+p { color: var(--text-dim); font-size: 16px; max-width: 680px; }
+.subtitle {
+  font-size: 18px;
+  color: var(--text-dim);
+  margin-bottom: 48px;
+  max-width: 600px;
+}
+
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  margin: 32px 0;
+}
+.metric-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 24px;
+  transition: all 0.25s;
+}
+.metric-card:hover {
+  border-color: var(--border-accent);
+  background: var(--bg-card-hover);
+}
+.metric-label {
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+.metric-value {
+  font-family: 'DM Mono', monospace;
+  font-size: 32px;
+  font-weight: 500;
+  color: var(--text);
+  line-height: 1;
+}
+.metric-value.large { font-size: 42px; }
+.metric-delta {
+  font-family: 'DM Mono', monospace;
+  font-size: 13px;
+  margin-top: 8px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 8px;
+  border-radius: 6px;
+}
+.metric-delta.up { color: var(--green); background: var(--green-dim); }
+.metric-delta.down { color: var(--red); background: var(--red-dim); }
+.metric-delta.neutral { color: var(--yellow); background: var(--yellow-dim); }
+
+.ad-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 24px 0;
+  font-size: 14px;
+}
+.ad-table th {
+  text-align: left;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--text-muted);
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border);
+}
+.ad-table td {
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--border);
+  color: var(--text-dim);
+  font-family: 'DM Mono', monospace;
+  font-size: 13px;
+}
+.ad-table tr:hover td { background: var(--bg-card); }
+.ad-table .ad-name {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 600;
+  color: var(--text);
+  font-size: 14px;
+}
+.ad-table .ad-set-tag {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px;
+  color: var(--text-muted);
+  background: rgba(255,255,255,0.04);
+  padding: 2px 8px;
+  border-radius: 4px;
+  display: inline-block;
+  margin-top: 4px;
+}
+.roas-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 13px;
+}
+.roas-badge.good { color: var(--green); background: var(--green-dim); }
+.roas-badge.warn { color: var(--yellow); background: var(--yellow-dim); }
+.roas-badge.bad { color: var(--red); background: var(--red-dim); }
+
+.insight-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin: 24px 0;
+}
+.insight-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 28px;
+  border-left: 3px solid var(--cbc-orange);
+}
+.insight-card.green { border-left-color: var(--green); }
+.insight-card.red { border-left-color: var(--red); }
+.insight-card.yellow { border-left-color: var(--yellow); }
+.insight-card h4 {
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: var(--text);
+}
+.insight-card p {
+  font-size: 14px;
+  color: var(--text-dim);
+  line-height: 1.55;
+}
+
+.action-list { list-style: none; margin: 20px 0; }
+.action-list li {
+  padding: 18px 24px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  transition: all 0.2s;
+}
+.action-list li:hover { border-color: var(--border-accent); }
+.action-icon {
+  width: 32px; height: 32px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  flex-shrink: 0;
+  margin-top: 2px;
+  font-weight: 600;
+}
+.action-icon.do { background: var(--green-dim); color: var(--green); }
+.action-icon.kill { background: var(--red-dim); color: var(--red); }
+.action-icon.watch { background: var(--yellow-dim); color: var(--yellow); }
+.action-icon.brief { background: var(--cbc-orange-dim); color: var(--cbc-orange); }
+.action-content h4 {
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+.action-content p {
+  font-size: 13px;
+  color: var(--text-dim);
+  line-height: 1.5;
+}
+
+.divider {
+  width: 60px;
+  height: 3px;
+  background: var(--cbc-orange);
+  border-radius: 2px;
+  margin: 24px 0;
+}
+
+.title-slide {
+  justify-content: center;
+  padding: 80px;
+  position: relative;
+}
+.title-slide::after {
+  content: '';
+  position: absolute;
+  top: 80px;
+  left: 80px;
+  right: 80px;
+  height: 1px;
+  background: linear-gradient(to right, var(--cbc-orange-mid), transparent);
+}
+.title-header {
+  position: absolute;
+  top: 80px;
+  left: 80px;
+  right: 80px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 16px;
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+.title-header .header-left { color: var(--cbc-orange); font-weight: 500; }
+.title-header .header-right { color: var(--text-muted); }
+.title-slide .brand-tag {
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  color: var(--cbc-orange);
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  margin-bottom: 32px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.title-slide .brand-tag::before {
+  content: '';
+  width: 32px;
+  height: 1px;
+  background: var(--cbc-orange);
+  display: inline-block;
+}
+.title-slide h1 {
+  font-size: 76px;
+  letter-spacing: -2.5px;
+  line-height: 1.02;
+  margin-bottom: 36px;
+  max-width: 900px;
+}
+.title-slide .date-tag {
+  font-family: 'DM Mono', monospace;
+  font-size: 15px;
+  color: var(--text);
+  margin-top: 0;
+  padding-top: 28px;
+  border-top: 1px solid var(--border);
+  display: inline-block;
+  letter-spacing: 0.5px;
+}
+.title-slide .title-meta {
+  position: absolute;
+  bottom: 80px;
+  left: 80px;
+  right: 80px;
+  margin-top: 0;
+  padding-top: 28px;
+  border-top: 1px solid var(--border);
+  gap: 56px;
+}
+.title-slide .title-meta-item {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+.title-slide .title-meta-item strong {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 16px;
+  letter-spacing: -0.2px;
+  text-transform: none;
+  color: var(--text);
+  font-weight: 600;
+  margin-top: 6px;
+}
+.title-meta {
+  display: flex;
+  gap: 40px;
+  margin-top: 40px;
+  flex-wrap: wrap;
+}
+.title-meta-item {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+.title-meta-item strong {
+  display: block;
+  color: var(--text-dim);
+  font-size: 14px;
+  margin-top: 2px;
+}
+
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  margin-top: 8px;
+}
+.two-col p { max-width: 100%; }
+
+.verdict {
+  background: linear-gradient(135deg, rgba(245,130,32,0.08), rgba(245,130,32,0.02));
+  border: 1px solid var(--border-accent);
+  border-radius: 16px;
+  padding: 36px 40px;
+  margin: 32px 0;
+}
+.verdict h4 {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+.verdict p { font-size: 15px; max-width: 100%; }
+
+.adset-compare {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin: 28px 0;
+}
+.adset-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 28px;
+}
+.adset-card.obsidian { border-top: 3px solid var(--cbc-orange); }
+.adset-card.winners { border-top: 3px solid var(--yellow); }
+.adset-card h4 {
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-bottom: 20px;
+}
+.adset-card.obsidian h4 { color: var(--cbc-orange); }
+.adset-card.winners h4 { color: var(--yellow); }
+.adset-stat {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+}
+.adset-stat:last-child { border-bottom: none; }
+.adset-stat-label { font-size: 13px; color: var(--text-muted); }
+.adset-stat-value { font-family: 'DM Mono', monospace; font-size: 15px; color: var(--text); font-weight: 500; }
+
+.freq-bar-track {
+  width: 100%;
+  height: 6px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 3px;
+  overflow: hidden;
+  margin-top: 4px;
+}
+.freq-bar-fill {
+  height: 100%;
+  border-radius: 3px;
+}
+.freq-label {
+  display: flex;
+  justify-content: space-between;
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+.trend-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin: 28px 0;
+}
+.trend-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 18px 20px;
+}
+.trend-card .trend-label {
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+}
+.trend-card .trend-flow {
+  font-family: 'DM Mono', monospace;
+  font-size: 14px;
+  color: var(--text);
+}
+.trend-card .trend-flow .arrow {
+  color: var(--text-muted);
+  margin: 0 6px;
+}
+.trend-card .trend-flow .end {
+  color: var(--red);
+  font-weight: 600;
+}
+.trend-card.up .trend-flow .end {
+  color: var(--green);
+}
+
+@media (max-width: 900px) {
+  .slide { padding: 40px 32px; }
+  h1 { font-size: 36px; }
+  h2 { font-size: 28px; }
+  .metrics-grid { grid-template-columns: 1fr 1fr; }
+  .insight-grid { grid-template-columns: 1fr; }
+  .two-col { grid-template-columns: 1fr; gap: 24px; }
+  .adset-compare { grid-template-columns: 1fr; }
+  .trend-row { grid-template-columns: 1fr 1fr; }
+  .nav { display: none; }
+  .slide-num { left: 32px; }
+  .ad-table { font-size: 12px; }
+  .ad-table th, .ad-table td { padding: 10px 8px; }
+  .title-slide { padding: 56px 32px; }
+  .title-slide h1 { font-size: 44px; letter-spacing: -1.2px; }
+  .title-header { left: 32px; right: 32px; top: 40px; font-size: 10px; letter-spacing: 1.5px; }
+  .title-slide::after { left: 32px; right: 32px; top: 40px; }
+  .title-slide .title-meta { left: 32px; right: 32px; bottom: 40px; gap: 24px; flex-wrap: wrap; }
+  .title-slide .brand-tag { font-size: 11px; letter-spacing: 2.5px; }
+  .title-slide .brand-tag::before { width: 20px; }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.slide > * {
+  animation: fadeUp 0.6s ease-out both;
+}
+.slide > *:nth-child(1) { animation-delay: 0.05s; }
+.slide > *:nth-child(2) { animation-delay: 0.12s; }
+.slide > *:nth-child(3) { animation-delay: 0.19s; }
+.slide > *:nth-child(4) { animation-delay: 0.26s; }
+.slide > *:nth-child(5) { animation-delay: 0.33s; }
+.slide > *:nth-child(6) { animation-delay: 0.40s; }
+</style>
+</head>
+<body>
+
+<nav class="nav" id="nav"></nav>
+
+<!-- SLIDE 1: TITLE -->
+<section class="slide title-slide" id="s1">
+  <div class="title-header">
+    <span class="header-left">Performance Report / 14</span>
+    <span class="header-right">Week 18 / May 2026</span>
+  </div>
+  <div class="brand-tag">Chattanooga Beard Co.</div>
+  <h1>Weekly Performance<br>& <span>Strategy Review</span></h1>
+  <div class="date-tag">Reporting period: Apr 26 to May 2, 2026</div>
+  <div class="title-meta">
+    <div class="title-meta-item">Prepared by<strong>Charles</strong></div>
+    <div class="title-meta-item">Account<strong>264018168950434</strong></div>
+    <div class="title-meta-item">Breakeven Target<strong>3.5x ROAS</strong></div>
+  </div>
+</section>
+
+<!-- SLIDE 2: TOP LINE -->
+<section class="slide" id="s2">
+  <div class="slide-num">02: Top Line</div>
+  <h2>Week at a <span>Glance</span></h2>
+  <div class="metrics-grid">
+    <div class="metric-card">
+      <div class="metric-label">Meta Spend</div>
+      <div class="metric-value">$272.53</div>
+      <div class="metric-delta neutral">Flat WoW</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Meta ROAS</div>
+      <div class="metric-value" style="color: var(--red);">2.81x</div>
+      <div class="metric-delta down">▼ from 3.41x</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Shopify Gross</div>
+      <div class="metric-value">$2,638</div>
+      <div class="metric-delta down">▼ 21.7% WoW</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Blended MER</div>
+      <div class="metric-value" style="color: var(--green);">9.68x</div>
+      <div class="metric-delta down">▼ from 12.36x</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Purchases (Meta)</div>
+      <div class="metric-value">14</div>
+      <div class="metric-delta down">▼ from 18</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">CPP</div>
+      <div class="metric-value" style="color: var(--red);">$19.47</div>
+      <div class="metric-delta down">▲ from $15.13</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">AOV (Meta)</div>
+      <div class="metric-value">$54.71</div>
+      <div class="metric-delta up">▲ 5.9% WoW</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Returning Rate</div>
+      <div class="metric-value">66.0%</div>
+      <div class="metric-delta down">▼ from 72.6%</div>
+    </div>
+  </div>
+  <p>Meta ROAS dropped below the 3.5x breakeven target for the first time in three weeks. The frequency warning flagged on Apr 14 has now landed in the numbers. Shopify gross down 21.7% week over week. The blended MER is still 9.68x which keeps the business profitable, but the Meta side cooled and the new Obsidian Scale ads are now the only thing keeping the floor in place.</p>
+</section>
+
+<!-- SLIDE 3: META vs MER -->
+<section class="slide" id="s3">
+  <div class="slide-num">03: The Gap</div>
+  <h2>Meta ROAS vs <span>True MER</span></h2>
+  <div class="two-col">
+    <div>
+      <div class="divider" style="background: var(--red);"></div>
+      <h3>What Meta reports</h3>
+      <div class="metric-card" style="margin-bottom: 16px;">
+        <div class="metric-label">Meta Attributed Revenue</div>
+        <div class="metric-value">$765.93</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Meta ROAS</div>
+        <div class="metric-value" style="color: var(--red);">2.81x</div>
+      </div>
+      <p style="margin-top: 16px;">14 purchases at $54.71 average order value. Below the 3.5x breakeven target. The first time in this campaign window that Meta has fallen below threshold on flat spend. CPP rose to $19.47 from $15.13 last week.</p>
+    </div>
+    <div>
+      <div class="divider" style="background: var(--green);"></div>
+      <h3>What the business actually did</h3>
+      <div class="metric-card" style="margin-bottom: 16px;">
+        <div class="metric-label">Shopify Gross Sales</div>
+        <div class="metric-value">$2,638</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">True MER</div>
+        <div class="metric-value" style="color: var(--green);">9.68x</div>
+      </div>
+      <p style="margin-top: 16px;">53 total customers across the week. 35 returning, 18 new. The blended MER stays well above the 3.5x breakeven on full business performance, but the trajectory cooled from 12.36x last week. The returning customer engine softened a little but is still the dominant revenue driver.</p>
+    </div>
+  </div>
+  <div class="verdict" style="margin-top: 40px;">
+    <h4>The read this week:</h4>
+    <p>This is a fatigue week, not a structural break. Meta dropped because creative refresh did not land fast enough between the launch peak and the new tests going live. The blended MER staying above 9x confirms the brand and the returning engine are intact. The fix is creative refresh and reallocation, which is what's already in motion. Holding spend flat at $272 was the right call given the conditions.</p>
+  </div>
+</section>
+
+<!-- SLIDE 4: AD SET COMPARISON -->
+<section class="slide" id="s4">
+  <div class="slide-num">04: Ad Set Split</div>
+  <h2>Both Sets <span>Below Breakeven</span></h2>
+  <p style="margin-bottom: 8px;">First time in three weeks that both ad sets ran below the 3.5x target. Obsidian gave back its lead off the launch tailwind. Adv+ Winners stayed flat from last week's recovery.</p>
+  <div class="adset-compare">
+    <div class="adset-card obsidian">
+      <h4>Obsidian Launch: March 2026</h4>
+      <div class="adset-stat">
+        <span class="adset-stat-label">Spend</span>
+        <span class="adset-stat-value">$125.97</span>
+      </div>
+      <div class="adset-stat">
+        <span class="adset-stat-label">Purchases</span>
+        <span class="adset-stat-value">7</span>
+      </div>
+      <div class="adset-stat">
+        <span class="adset-stat-label">Revenue</span>
+        <span class="adset-stat-value">$368.83</span>
+      </div>
+      <div class="adset-stat">
+        <span class="adset-stat-label">ROAS</span>
+        <span class="adset-stat-value" style="color: var(--yellow);">2.93x</span>
+      </div>
+      <div class="adset-stat">
+        <span class="adset-stat-label">CPP</span>
+        <span class="adset-stat-value">$18.00</span>
+      </div>
+      <div class="adset-stat">
+        <span class="adset-stat-label">WoW ROAS</span>
+        <span class="adset-stat-value" style="color: var(--red);">▼ from 5.39x</span>
+      </div>
+      <div style="margin-top: 16px;">
+        <div class="adset-stat-label" style="margin-bottom: 6px;">Ad set frequency</div>
+        <div class="freq-bar-track">
+          <div class="freq-bar-fill" style="width: 52%; background: var(--yellow);"></div>
+        </div>
+        <div class="freq-label"><span>Approaching threshold</span><span style="color: var(--yellow);">3.88x avg</span></div>
+      </div>
+    </div>
+    <div class="adset-card winners">
+      <h4>Adv+ Winners</h4>
+      <div class="adset-stat">
+        <span class="adset-stat-label">Spend</span>
+        <span class="adset-stat-value">$146.56</span>
+      </div>
+      <div class="adset-stat">
+        <span class="adset-stat-label">Purchases</span>
+        <span class="adset-stat-value">7</span>
+      </div>
+      <div class="adset-stat">
+        <span class="adset-stat-label">Revenue</span>
+        <span class="adset-stat-value">$397.10</span>
+      </div>
+      <div class="adset-stat">
+        <span class="adset-stat-label">ROAS</span>
+        <span class="adset-stat-value" style="color: var(--yellow);">2.71x</span>
+      </div>
+      <div class="adset-stat">
+        <span class="adset-stat-label">CPP</span>
+        <span class="adset-stat-value">$20.94</span>
+      </div>
+      <div class="adset-stat">
+        <span class="adset-stat-label">WoW ROAS</span>
+        <span class="adset-stat-value" style="color: var(--green);">▲ from 1.72x</span>
+      </div>
+      <div style="margin-top: 16px;">
+        <div class="adset-stat-label" style="margin-bottom: 6px;">Frequency saturation</div>
+        <div class="freq-bar-track">
+          <div class="freq-bar-fill" style="width: 84%; background: var(--red);"></div>
+        </div>
+        <div class="freq-label"><span>Critical zone</span><span style="color: var(--red);">5.04x avg</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="insight-grid" style="margin-top: 4px;">
+    <div class="insight-card yellow">
+      <h4>Obsidian gave back the launch tailwind</h4>
+      <p>5.39x to 2.93x is a steep drop, but it tracks. STATIC 3 carried that ad set for weeks and finally cooled. The new OBSYDIAN SCALE batch went live mid-week and is rebuilding the floor. Frequency climbed to 3.88x ad-set average which is approaching the 4x action threshold flagged in last week's deck.</p>
+    </div>
+    <div class="insight-card green">
+      <h4>Adv+ Winners held its recovery</h4>
+      <p>2.71x is up from 1.72x last week. The set is still below breakeven on Meta numbers, but it's no longer collapsing. FOUNDER UNBOX scaled here this week and now carries 61% of the set's spend. V4 ITCH INTERVENTION is the bright spot at 10.27x ROAS but on tiny volume.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 5: FATIGUE PREDICTED -->
+<section class="slide" id="s5">
+  <div class="slide-num">05: The Predicted Fatigue</div>
+  <h2>Last Week's <span>Warning Landed</span></h2>
+  <p style="margin-bottom: 28px;">The Apr 14 deck flagged Adv+ Winners frequency at 5.22x as the key risk. That risk has now materialised across the campaign. Every fatigue indicator moved in the wrong direction this week.</p>
+  <div class="trend-row">
+    <div class="trend-card">
+      <div class="trend-label">Campaign Frequency</div>
+      <div class="trend-flow">5.19x<span class="arrow">→</span><span class="end">5.83x</span></div>
+    </div>
+    <div class="trend-card">
+      <div class="trend-label">Campaign CPM</div>
+      <div class="trend-flow">$8.59<span class="arrow">→</span><span class="end">$9.31</span></div>
+    </div>
+    <div class="trend-card">
+      <div class="trend-label">Campaign CTR</div>
+      <div class="trend-flow">0.79%<span class="arrow">→</span><span class="end">0.66%</span></div>
+    </div>
+    <div class="trend-card">
+      <div class="trend-label">Cost per Purchase</div>
+      <div class="trend-flow">$15.13<span class="arrow">→</span><span class="end">$19.47</span></div>
+    </div>
+  </div>
+  <div class="insight-grid" style="margin-top: 28px;">
+    <div class="insight-card red">
+      <h4>Frequency 5.83x is past every action threshold</h4>
+      <p>Flag level is 3.0x. Action level is 4.0x. The campaign is now at 5.83x. The average person in the target audience saw a CBC ad nearly six times in the last seven days. CPMs rose 8.4% and CTR fell 15.5% in the same window. This is textbook fatigue, not a creative quality issue.</p>
+    </div>
+    <div class="insight-card yellow">
+      <h4>The signal that confirms it: AOV held</h4>
+      <p>Average order value actually rose to $54.71 from $51.67. The customers who did buy spent more. That rules out an offer or pricing problem. The shrinkage was at the top of the funnel: fewer impressions converted to clicks, fewer clicks converted to carts. That is a creative saturation pattern.</p>
+    </div>
+    <div class="insight-card red">
+      <h4>STATIC 3 cooled, FOUNDER TALK paused</h4>
+      <p>Two of the three ads carrying spend last week stopped contributing. STATIC 3 dropped from 5.69x to 1.25x as residual spend, then was paused. FOUNDER TALK was paused mid-week at 3.67x frequency. The pipeline did exactly what it was supposed to do, but the replacements need a few more days to ramp.</p>
+    </div>
+    <div class="insight-card green">
+      <h4>The Obsidian Scale batch is the floor</h4>
+      <p>Four new Obsidian-themed ads went live this week. Combined they spent $68.97, generated 5 purchases and $281.77 in revenue. Blended ROAS 4.09x. Frequency averaging 2.17x. These are the ads that prevented this week from being a 1.5x story. The architecture is working.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 6: AD TABLE -->
+<section class="slide" id="s6">
+  <div class="slide-num">06: Ad Performance</div>
+  <h2>Ad-Level <span>Breakdown</span></h2>
+  <p style="margin-bottom: 24px;">Current week (Apr 26 to May 2). Reporting-start filtered to avoid double-counting. Campaign-level totals reconciled: $272.53 spend, 14 purchases, $765.93 revenue, 5.83x frequency.</p>
+  <table class="ad-table">
+    <thead>
+      <tr>
+        <th style="width: 32%;">Ad</th>
+        <th>Spend</th>
+        <th>Rev</th>
+        <th>Purch</th>
+        <th>ROAS</th>
+        <th>Freq</th>
+        <th>Verdict</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr style="background: rgba(245,130,32,0.04);">
+        <td>
+          <div class="ad-name">V4: Itch Intervention ★</div>
+          <div class="ad-set-tag">ADV+ WINNERS</div>
+        </td>
+        <td>$12.25</td>
+        <td>$125.82</td>
+        <td>2</td>
+        <td><span class="roas-badge good">10.27x</span></td>
+        <td>1.79</td>
+        <td style="font-family:'DM Sans';font-size:13px;color:var(--green);">Star: scale</td>
+      </tr>
+      <tr style="background: rgba(245,130,32,0.04);">
+        <td>
+          <div class="ad-name">Obsydian Scale: We Heard You ★</div>
+          <div class="ad-set-tag">OBSYDIAN LAUNCH</div>
+        </td>
+        <td>$8.28</td>
+        <td>$70.24</td>
+        <td>1</td>
+        <td><span class="roas-badge good">8.48x</span></td>
+        <td>1.76</td>
+        <td style="font-family:'DM Sans';font-size:13px;color:var(--green);">New star: scale</td>
+      </tr>
+      <tr>
+        <td>
+          <div class="ad-name">Obsydian Scale: Quiet Craftsman</div>
+          <div class="ad-set-tag">OBSYDIAN LAUNCH</div>
+        </td>
+        <td>$31.73</td>
+        <td>$150.33</td>
+        <td>3</td>
+        <td><span class="roas-badge good">4.74x</span></td>
+        <td>2.74</td>
+        <td style="font-family:'DM Sans';font-size:13px;color:var(--green);">Strong: hold pace</td>
+      </tr>
+      <tr>
+        <td>
+          <div class="ad-name">Obsydian Scale: Wife Buyer</div>
+          <div class="ad-set-tag">OBSYDIAN LAUNCH</div>
+        </td>
+        <td>$21.33</td>
+        <td>$61.20</td>
+        <td>1</td>
+        <td><span class="roas-badge warn">2.87x</span></td>
+        <td>2.33</td>
+        <td style="font-family:'DM Sans';font-size:13px;color:var(--yellow);">Holding: monitor</td>
+      </tr>
+      <tr>
+        <td>
+          <div class="ad-name">Founder Talk 03</div>
+          <div class="ad-set-tag">ADV+ WINNERS</div>
+        </td>
+        <td>$22.90</td>
+        <td>$58.00</td>
+        <td>1</td>
+        <td><span class="roas-badge warn">2.53x</span></td>
+        <td>1.83</td>
+        <td style="font-family:'DM Sans';font-size:13px;color:var(--yellow);">Paused: variant briefed</td>
+      </tr>
+      <tr>
+        <td>
+          <div class="ad-name">Founder Unbox 05</div>
+          <div class="ad-set-tag">ADV+ WINNERS</div>
+        </td>
+        <td>$89.09</td>
+        <td>$213.28</td>
+        <td>4</td>
+        <td><span class="roas-badge warn">2.39x</span></td>
+        <td>4.17</td>
+        <td style="font-family:'DM Sans';font-size:13px;color:var(--yellow);">Fatiguing: hook swap</td>
+      </tr>
+      <tr>
+        <td>
+          <div class="ad-name">Obsidian Launch Vid 1</div>
+          <div class="ad-set-tag">OBSYDIAN LAUNCH</div>
+        </td>
+        <td>$33.66</td>
+        <td>$62.06</td>
+        <td>1</td>
+        <td><span class="roas-badge bad">1.84x</span></td>
+        <td>1.67</td>
+        <td style="font-family:'DM Sans';font-size:13px;color:var(--red);">Cooling: refresh hook</td>
+      </tr>
+      <tr>
+        <td>
+          <div class="ad-name">Obsidian Static 3 (residual)</div>
+          <div class="ad-set-tag">OBSYDIAN LAUNCH</div>
+        </td>
+        <td>$19.93</td>
+        <td>$25.00</td>
+        <td>1</td>
+        <td><span class="roas-badge bad">1.25x</span></td>
+        <td>1.58</td>
+        <td style="font-family:'DM Sans';font-size:13px;color:var(--red);">Paused: replaced</td>
+      </tr>
+      <tr>
+        <td>
+          <div class="ad-name">Holycow Ingredient 04</div>
+          <div class="ad-set-tag">ADV+ WINNERS</div>
+        </td>
+        <td>$15.84</td>
+        <td>$0</td>
+        <td>0</td>
+        <td><span class="roas-badge bad">0.00x</span></td>
+        <td>2.66</td>
+        <td style="font-family:'DM Sans';font-size:13px;color:var(--red);">Pause this week</td>
+      </tr>
+      <tr>
+        <td>
+          <div class="ad-name">Obsydian Scale: Skeptic</div>
+          <div class="ad-set-tag">OBSYDIAN LAUNCH</div>
+        </td>
+        <td>$7.63</td>
+        <td>$0</td>
+        <td>0</td>
+        <td><span class="roas-badge warn">N/A</span></td>
+        <td>1.86</td>
+        <td style="font-family:'DM Sans';font-size:13px;color:var(--text-muted);">Too early: hold</td>
+      </tr>
+    </tbody>
+  </table>
+  <p style="font-size: 13px; margin-top: 8px;">Remaining $9.59 split across HECAUGHTIT, RANGE LINEUP, UGC REV AD6 and inactive Obsidian static residuals. Star markers indicate ROAS above 8x with positive purchase volume. The campaign earned 14 purchases on $272.53 spend at 2.81x blended ROAS. Five of those purchases came from the four new Obsydian Scale ads alone.</p>
+</section>
+
+<!-- SLIDE 7: BRIGHT SPOT -->
+<section class="slide" id="s7">
+  <div class="slide-num">07: The Bright Spot</div>
+  <h2>The New Obsydian <span>Scale Batch</span></h2>
+  <p style="margin-bottom: 24px;">Four new Obsidian-themed ads went live during the week. Combined they account for 5 of the 14 purchases on the account, generated $281.77 of the $765.93 in Meta revenue, and blended at 4.09x ROAS. They are the reason this week is a 2.81x story instead of a 1.5x story.</p>
+  <div class="metrics-grid" style="margin-bottom: 32px;">
+    <div class="metric-card">
+      <div class="metric-label">Combined Spend</div>
+      <div class="metric-value">$68.97</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Combined Revenue</div>
+      <div class="metric-value">$281.77</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Blended ROAS</div>
+      <div class="metric-value" style="color: var(--green);">4.09x</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Avg Frequency</div>
+      <div class="metric-value">2.17x</div>
+    </div>
+  </div>
+  <div class="insight-grid">
+    <div class="insight-card green">
+      <h4>We Heard You: 8.48x ROAS</h4>
+      <p>Single purchase on $8.28 spend, but the signal is real. Frequency 1.76x. CTR 0.74%. The "Obsidian stays" angle resonates. Worth scaling spend on this one specifically and watching for a hook swap variant once it hits 2.5x frequency.</p>
+    </div>
+    <div class="insight-card green">
+      <h4>Quiet Craftsman: 4.74x ROAS</h4>
+      <p>Three purchases on $31.73 spend at $150.33 revenue. The biggest contributor of the new batch. Frequency 2.74x and rising fast. Needs a hook swap variant in the queue before frequency hits 3.5x to keep this going.</p>
+    </div>
+    <div class="insight-card yellow">
+      <h4>Wife Buyer: 2.87x</h4>
+      <p>One purchase on $21.33 spend. Below breakeven but generating add-to-carts at a $21.33 cost (only one purchase though). Holding for now. If by Wednesday no second purchase, it gets paused and the budget moves to the two stronger ads above.</p>
+    </div>
+    <div class="insight-card yellow">
+      <h4>Skeptic: too early to call</h4>
+      <p>$7.63 spend, no purchases yet. Frequency 1.86x. CTR 0.49% which is low compared to its peers. Holding through Thursday for a clean read. Either it converts or the creative is rebuilt with a stronger opening.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 8: FOUNDER UNBOX DRAG -->
+<section class="slide" id="s8">
+  <div class="slide-num">08: The Drag</div>
+  <h2>Founder Unbox <span>Hit a Wall</span></h2>
+  <p style="margin-bottom: 28px;">The biggest single-ad story this week. Last week Founder Unbox was a small spend at high ROAS. This week it scaled hard, took the largest share of campaign spend, and ROAS halved.</p>
+  <div class="trend-row">
+    <div class="trend-card">
+      <div class="trend-label">Spend</div>
+      <div class="trend-flow">$8.47<span class="arrow">→</span><span class="end" style="color: var(--yellow);">$89.09</span></div>
+    </div>
+    <div class="trend-card">
+      <div class="trend-label">ROAS</div>
+      <div class="trend-flow">5.55x<span class="arrow">→</span><span class="end">2.39x</span></div>
+    </div>
+    <div class="trend-card">
+      <div class="trend-label">Frequency</div>
+      <div class="trend-flow">2.19<span class="arrow">→</span><span class="end">4.17</span></div>
+    </div>
+    <div class="trend-card">
+      <div class="trend-label">CTR</div>
+      <div class="trend-flow">0.10%<span class="arrow">→</span><span class="end">0.64%</span></div>
+    </div>
+  </div>
+  <div class="insight-grid" style="margin-top: 28px;">
+    <div class="insight-card yellow">
+      <h4>What happened</h4>
+      <p>Founder Unbox spent $89.09 this week, more than any other ad. It carried 61% of Adv+ Winners spend. Four purchases, $213.28 revenue, 2.39x ROAS. The CTR rebuilt to a healthy 0.64% but frequency climbed to 4.17x in seven days, which is past the 3.5x ad-level fatigue line.</p>
+    </div>
+    <div class="insight-card red">
+      <h4>Why it matters</h4>
+      <p>Founder Unbox is now the largest single drag on Adv+ Winners. The other ads in the set blended at 3.20x ROAS on the remaining $57.47 spend. The lever isn't to pause the ad, it's to refresh the hook before the frequency line crosses into critical territory.</p>
+    </div>
+    <div class="insight-card green">
+      <h4>The fix already in motion</h4>
+      <p>Hook swap variant briefed for end of week. Same body, same proof beats, fresh opening three seconds. This is the play that worked on STATIC 3 in March before it was paused. New hooks reset Meta's exploration phase without throwing away production work that converts.</p>
+    </div>
+    <div class="insight-card">
+      <h4>The cost of doing nothing</h4>
+      <p>If Founder Unbox keeps running unchanged, frequency will pass 5x within the next 4 to 6 days. CTR will compress. CPP will rise from $22.27 to north of $30. The ad set will retrace toward last week's 1.72x. The hook swap is the cheapest insurance we can buy right now.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 9: CUSTOMER ENGINE -->
+<section class="slide" id="s9">
+  <div class="slide-num">09: Customer Engine</div>
+  <h2>The Returning <span>Engine Cooled</span></h2>
+  <div class="metrics-grid" style="margin-bottom: 32px;">
+    <div class="metric-card">
+      <div class="metric-label">Returning Rate</div>
+      <div class="metric-value" style="color: var(--yellow);">66.0%</div>
+      <div class="metric-delta down">▼ from 72.6%</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Returning Customers</div>
+      <div class="metric-value">35</div>
+      <div class="metric-delta down">▼ from 53</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">New Customers</div>
+      <div class="metric-value">18</div>
+      <div class="metric-delta neutral">▼ from 20</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Total Customers</div>
+      <div class="metric-value">53</div>
+      <div class="metric-delta down">▼ from 73</div>
+    </div>
+  </div>
+  <div class="two-col">
+    <div>
+      <div class="divider"></div>
+      <h3>What's happening</h3>
+      <p>The Apr 25 sales spike of $1,308 in last week's window came from a concentrated Saturday driven by repeat-buyer behaviour. That tailwind faded this week. Returning customer count fell from 53 to 35. New customers held nearly flat at 18 versus 20. The acquisition engine is steady. The retention pulse softened, which is normal between launch waves.</p>
+    </div>
+    <div>
+      <div class="divider" style="background: var(--green);"></div>
+      <h3>30-day picture</h3>
+      <p>Across April: 287 total customers, 203 returning, 84 new. 70.7% returning rate for the month. The CAC:LTV ratio holds at roughly 1:7.6 on $11 to $13 blended CAC against $83 LTV. Even at this week's elevated $19.47 Meta CPP, the cohort math still supports aggressive acquisition into the next launch wave.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 10: DIAGNOSIS -->
+<section class="slide" id="s10">
+  <div class="slide-num">10: Diagnosis</div>
+  <h2>What's Actually <span>Wrong</span></h2>
+  <div class="insight-grid">
+    <div class="insight-card red">
+      <h4>Creative concentration risk</h4>
+      <p>For three weeks the campaign rode two ads: STATIC 3 in Obsidian, and Founder Talk in Adv+ Winners. Both came offline this week. The new Obsydian Scale batch is healthy but small. The Adv+ Winners side is now leaning entirely on Founder Unbox at 4.17x frequency. The portfolio is too thin.</p>
+    </div>
+    <div class="insight-card red">
+      <h4>Frequency saturation hit the campaign</h4>
+      <p>5.83x campaign frequency. CPMs up 8.4%. CTR down 15.5%. CPP up 28.7%. Every signal points to audience overexposure on the existing creative pool. This is exactly the pattern flagged in the Apr 14 deck and the Apr 27 crib sheet. The fix is fresh creative, not budget changes.</p>
+    </div>
+    <div class="insight-card yellow">
+      <h4>New creative pipeline timing was tight</h4>
+      <p>The Obsydian Scale ads went live mid-week. They needed a few more days of runway to fully replace the spend coming off STATIC 3 and Founder Talk. The handover from old hero ads to new ones happened, but with a small gap that compressed performance for 3 to 4 days.</p>
+    </div>
+    <div class="insight-card green">
+      <h4>What is not wrong</h4>
+      <p>AOV held at $54.71. Blended MER above 9x. New customer acquisition steady at 18 per week. CAC stable at $13 to $15 blended. The product, the offer, the website, and the customer base are all fine. This is purely a creative-rotation timing issue, not a brand or business problem.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 11: ACTIONS TAKEN -->
+<section class="slide" id="s11">
+  <div class="slide-num">11: Already in Motion</div>
+  <h2>Tactical Actions <span>Already Taken</span></h2>
+  <p style="margin-bottom: 8px;">These moves were made during the week as the data developed. They are the reason this week didn't break worse, and they set up the recovery for next week.</p>
+  <ul class="action-list">
+    <li>
+      <div class="action-icon kill">P</div>
+      <div class="action-content">
+        <h4>Paused Static 3 and Founder Talk before they broke the set</h4>
+        <p>STATIC 3 dropped to 1.25x and Founder Talk to 2.53x. Both were paused before they could continue draining spend at sub-breakeven. STATIC 3 alone had been carrying $79.31 of weekly spend at 5.69x just two weeks ago. Letting either run another week would have compounded the ROAS drop.</p>
+      </div>
+    </li>
+    <li>
+      <div class="action-icon do">L</div>
+      <div class="action-content">
+        <h4>Launched four Obsydian Scale ads inside the existing ad set</h4>
+        <p>Quiet Craftsman, Skeptic, Wife Buyer, and We Heard You went live during the week. New ads, same Obsidian ad set, no new learning phase needed. They generated 5 purchases and $281.77 revenue in their first few days. Quiet Craftsman and We Heard You are clear keepers.</p>
+      </div>
+    </li>
+    <li>
+      <div class="action-icon do">H</div>
+      <div class="action-content">
+        <h4>Held campaign budget flat at $39 daily despite the launch tailwind ending</h4>
+        <p>Standing rule from Todd: no scaling without 3 to 4 days of 2x+ ROAS. The week did not clear that bar. Holding spend was the correct call. We protected the runway for the new creative to prove itself rather than scaling into deteriorating audience.</p>
+      </div>
+    </li>
+    <li>
+      <div class="action-icon brief">B</div>
+      <div class="action-content">
+        <h4>Briefed the Founder Unbox hook swap variant</h4>
+        <p>Same body, fresh opening three seconds, alternative angle on the unboxing reveal. Geo has the brief. Target live by end of next week. The hook swap is the proven play from the Hormozi rollout. Frequency reset, learning phase reopens, audience pool refreshes without throwing away production.</p>
+      </div>
+    </li>
+  </ul>
+</section>
+
+<!-- SLIDE 12: NEXT WEEK PLAN -->
+<section class="slide" id="s12">
+  <div class="slide-num">12: Next Week</div>
+  <h2>Strategy <span>Going Forward</span></h2>
+  <h3 style="margin-top: 8px;">By Wednesday</h3>
+  <ul class="action-list">
+    <li>
+      <div class="action-icon kill">1</div>
+      <div class="action-content">
+        <h4>Pause Holycow Ingredient and Wife Buyer if no purchases</h4>
+        <p>Holycow Ingredient spent $15.84 with zero purchases at 2.66x frequency. Pausing this clears spend for the proven new ads. Wife Buyer is on the watchlist with one purchase on $21.33. If no second purchase by Wednesday, it gets paused too and the budget moves to Quiet Craftsman and We Heard You.</p>
+      </div>
+    </li>
+    <li>
+      <div class="action-icon do">2</div>
+      <div class="action-content">
+        <h4>Increase budget on Quiet Craftsman and We Heard You by 25% each</h4>
+        <p>These two ads cleared the scaling threshold this week. Quiet Craftsman at 4.74x with healthy spend volume. We Heard You at 8.48x on small spend. Both have frequency under 2.8x. Both have headroom. The 25% incremental increase is conservative and within Todd's standing scaling rule.</p>
+      </div>
+    </li>
+    <li>
+      <div class="action-icon brief">3</div>
+      <div class="action-content">
+        <h4>Brief one more hook variant for Quiet Craftsman</h4>
+        <p>The ad's frequency is climbing fast at 2.74x already. With increased budget, it will pass 3.5x within 5 to 7 days. A hook swap ready to deploy by Friday is the insurance policy. Same body, alternative opening, alternative scent angle (Obsidian: blackcurrant, pepper, musk).</p>
+      </div>
+    </li>
+  </ul>
+  <h3 style="margin-top: 24px;">Through end of next week</h3>
+  <ul class="action-list">
+    <li>
+      <div class="action-icon do">4</div>
+      <div class="action-content">
+        <h4>Launch the Founder Unbox hook swap variant</h4>
+        <p>Production with Geo this week. Live by Friday or Monday. Drops alongside the existing Founder Unbox to compete for spend. Whichever wins on 7-day ROAS keeps running. The other gets retired. This is how we keep Adv+ Winners producing while frequency cools.</p>
+      </div>
+    </li>
+    <li>
+      <div class="action-icon do">5</div>
+      <div class="action-content">
+        <h4>Brief one fresh packing or ASMR video for Obsidian</h4>
+        <p>The packing format hit 5x to 9x ROAS historically. Obsidian has not had a fresh packing video since before launch. Todd films one short sequence (label printing, bottling, capping, boxing). Geo edits cinematic close-ups. New product plus proven format equals double hook.</p>
+      </div>
+    </li>
+    <li>
+      <div class="action-icon watch">6</div>
+      <div class="action-content">
+        <h4>Watch the Skeptic ad through Thursday</h4>
+        <p>$7.63 spend, no purchases yet, low CTR at 0.49%. Either it generates a purchase by Thursday (signal worth scaling) or it gets retired and replaced with the next angle from the playbook hook library. No hard call until Thursday.</p>
+      </div>
+    </li>
+  </ul>
+</section>
+
+<!-- SLIDE 13: BUDGET & SCALING -->
+<section class="slide" id="s13">
+  <div class="slide-num">13: Budget & Scaling</div>
+  <h2>The Scaling <span>Window</span></h2>
+  <div class="verdict">
+    <h4>Hold spend at $39 daily until ROAS clears 3.5x for 3 consecutive days.</h4>
+    <p>Last week we cleared the threshold and triggered a small Obsidian budget increase. This week the threshold is broken on Meta numbers. The standing rule applies in reverse: do not scale into a fatigue cycle. Spend stays flat through the creative refresh, then the scaling conversation reopens once two new ads sustain above 4x for 3 to 4 days. The MER is still 9.68x so the business is profitable. The Meta side just needs creative oxygen.</p>
+  </div>
+  <div class="two-col" style="margin-top: 32px;">
+    <div>
+      <h3>Current state</h3>
+      <div class="metric-card" style="margin-bottom: 12px;">
+        <div class="metric-label">Daily spend (avg)</div>
+        <div class="metric-value">$39/day</div>
+      </div>
+      <p>Flat with last week. The cost of the holding pattern is roughly $0 of opportunity cost given that scaling into 5.83x frequency would compound the problem. Within ad sets we are reallocating: Obsidian Scale ads gaining share, fatigued Adv+ Winners ads losing share.</p>
+    </div>
+    <div>
+      <h3>Scale trigger conditions</h3>
+      <div class="metric-card" style="margin-bottom: 12px;">
+        <div class="metric-label">Required signal</div>
+        <div class="metric-value" style="color: var(--cbc-orange);">3.5x for 3+ days</div>
+      </div>
+      <p>Once Quiet Craftsman, We Heard You, and the new Founder Unbox variant prove out and frequency stabilises below 4x at ad-set level, we restart the scaling conversation. The 25% increment per ad is conservative. The CAC:LTV math supports much more aggressive scaling once the creative pool is rebuilt.</p>
+    </div>
+  </div>
+  <div class="insight-grid" style="margin-top: 32px;">
+    <div class="insight-card green">
+      <h4>CAC:LTV cushion is intact</h4>
+      <p>Even at this week's elevated $19.47 Meta CPP, the LTV ratio is still better than 1:4 on cohort basis. The 30-day blended CAC is $11 to $13 against $83 LTV. The acquisition headroom is real. The trigger to use it is sustained ROAS, not a single recovery day.</p>
+    </div>
+    <div class="insight-card yellow">
+      <h4>Why we don't pull spend</h4>
+      <p>Pulling spend now compounds the problem. Lower spend means less data, longer learning phases, slower recovery for the new ads. Holding at $39 daily lets the new Obsydian Scale batch get the impressions it needs to lock in performance. The right move is creative refresh, not budget surgery.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 14: SUMMARY -->
+<section class="slide" id="s14">
+  <div class="slide-num">14: Summary</div>
+  <h2>Bottom <span>Line</span></h2>
+  <div class="divider"></div>
+  <div style="max-width: 720px; margin-top: 16px;">
+    <p style="font-size: 18px; color: var(--text); line-height: 1.7; margin-bottom: 24px;">2.81x Meta ROAS. $2,638 in Shopify gross. 9.68x blended MER. The week broke the 3.5x breakeven on Meta for the first time in three weeks. The fatigue warning flagged on Apr 14 landed exactly where predicted. STATIC 3 and Founder Talk came offline. The Obsydian Scale batch went live and rebuilt part of the floor.</p>
+    <p style="font-size: 18px; color: var(--text); line-height: 1.7; margin-bottom: 24px;">The good news: V4 Itch Intervention at 10.27x. We Heard You at 8.48x. Quiet Craftsman at 4.74x. Three new ads carrying their weight already. Founder Unbox at 4.17x frequency is the highest single risk in the portfolio and the hook swap variant is briefed.</p>
+    <p style="font-size: 18px; color: var(--text); line-height: 1.7; margin-bottom: 24px;">The plan: pause Holycow Ingredient and likely Wife Buyer by Wednesday. Increase Quiet Craftsman and We Heard You by 25%. Ship the Founder Unbox hook swap by end of next week. Brief one fresh packing video for Obsidian. Hold campaign budget flat until ROAS clears 3.5x for three consecutive days.</p>
+    <p style="font-size: 18px; color: var(--cbc-orange); line-height: 1.7; font-weight: 600;">Refresh the creative pool. Scale the proven new ads carefully. Hold spend until the floor returns. That's the play.</p>
+  </div>
+  <div class="title-meta" style="margin-top: 48px; padding-top: 32px; border-top: 1px solid var(--border);">
+    <div class="title-meta-item">Prepared by<strong>Charles</strong></div>
+    <div class="title-meta-item">Date<strong>May 4, 2026</strong></div>
+    <div class="title-meta-item">Account<strong>Chattanooga Beard Co.</strong></div>
+  </div>
+</section>
+
+<script>
+const slides = document.querySelectorAll('.slide');
+const nav = document.getElementById('nav');
+slides.forEach((s, i) => {
+  const a = document.createElement('a');
+  a.href = '#s' + (i + 1);
+  a.title = 'Slide ' + (i + 1);
+  nav.appendChild(a);
+});
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const id = entry.target.id;
+      const idx = parseInt(id.replace('s', '')) - 1;
+      nav.querySelectorAll('a').forEach((a, i) => {
+        a.classList.toggle('active', i === idx);
+      });
+    }
+  });
+}, { threshold: 0.4 });
+
+slides.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>
