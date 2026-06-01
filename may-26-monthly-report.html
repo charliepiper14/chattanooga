@@ -1,0 +1,1383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CBC Monthly Performance Review: May 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cbc-orange: #F58220;
+  --cbc-orange-dim: rgba(245, 130, 32, 0.12);
+  --cbc-orange-mid: rgba(245, 130, 32, 0.25);
+  --bg: #0e1117;
+  --bg-card: #161b24;
+  --bg-card-hover: #1c2230;
+  --text: #e8eaed;
+  --text-dim: #8b919a;
+  --text-muted: #5a6170;
+  --green: #34d399;
+  --green-dim: rgba(52, 211, 153, 0.12);
+  --red: #f87171;
+  --red-dim: rgba(248, 113, 113, 0.12);
+  --yellow: #fbbf24;
+  --yellow-dim: rgba(251, 191, 36, 0.12);
+  --border: rgba(255,255,255,0.06);
+  --border-accent: rgba(245, 130, 32, 0.2);
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+.slide {
+  min-height: 100vh;
+  padding: 60px 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  border-bottom: 1px solid var(--border);
+}
+.slide::before {
+  content: '';
+  position: absolute;
+  top: 0; right: 0;
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, rgba(245,130,32,0.04) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.nav {
+  position: fixed;
+  right: 30px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.nav a {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  background: var(--text-muted);
+  transition: all 0.3s;
+  display: block;
+}
+.nav a:hover, .nav a.active {
+  background: var(--cbc-orange);
+  transform: scale(1.4);
+}
+
+.slide-num {
+  position: absolute;
+  top: 30px; left: 80px;
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  color: var(--text-muted);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+h1 {
+  font-size: 52px;
+  font-weight: 700;
+  letter-spacing: -1.5px;
+  line-height: 1.1;
+  margin-bottom: 12px;
+}
+h1 span { color: var(--cbc-orange); }
+h2 {
+  font-size: 36px;
+  font-weight: 700;
+  letter-spacing: -1px;
+  line-height: 1.15;
+  margin-bottom: 24px;
+}
+h2 span { color: var(--cbc-orange); }
+h3 {
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: var(--cbc-orange);
+  margin-bottom: 16px;
+}
+p { color: var(--text-dim); font-size: 16px; max-width: 680px; }
+.subtitle {
+  font-size: 18px;
+  color: var(--text-dim);
+  margin-bottom: 48px;
+  max-width: 600px;
+}
+
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  margin: 32px 0;
+}
+.metric-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 24px;
+  transition: all 0.25s;
+}
+.metric-card:hover {
+  border-color: var(--border-accent);
+  background: var(--bg-card-hover);
+}
+.metric-label {
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+.metric-value {
+  font-family: 'DM Mono', monospace;
+  font-size: 32px;
+  font-weight: 500;
+  color: var(--text);
+  line-height: 1;
+}
+.metric-value.large { font-size: 42px; }
+.metric-delta {
+  font-family: 'DM Mono', monospace;
+  font-size: 13px;
+  margin-top: 8px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 8px;
+  border-radius: 6px;
+}
+.metric-delta.up { color: var(--green); background: var(--green-dim); }
+.metric-delta.down { color: var(--red); background: var(--red-dim); }
+.metric-delta.neutral { color: var(--yellow); background: var(--yellow-dim); }
+
+.ad-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 24px 0;
+  font-size: 14px;
+}
+.ad-table th {
+  text-align: left;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--text-muted);
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border);
+}
+.ad-table td {
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--border);
+  color: var(--text-dim);
+  font-family: 'DM Mono', monospace;
+  font-size: 13px;
+}
+.ad-table tr:hover td { background: var(--bg-card); }
+.ad-table .ad-name {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 600;
+  color: var(--text);
+  font-size: 14px;
+}
+.ad-table .ad-set-tag {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px;
+  color: var(--text-muted);
+  background: rgba(255,255,255,0.04);
+  padding: 2px 8px;
+  border-radius: 4px;
+  display: inline-block;
+  margin-top: 4px;
+}
+.roas-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 13px;
+}
+.roas-badge.good { color: var(--green); background: var(--green-dim); }
+.roas-badge.warn { color: var(--yellow); background: var(--yellow-dim); }
+.roas-badge.bad { color: var(--red); background: var(--red-dim); }
+
+.insight-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin: 24px 0;
+}
+.insight-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 28px;
+  border-left: 3px solid var(--cbc-orange);
+}
+.insight-card.green { border-left-color: var(--green); }
+.insight-card.red { border-left-color: var(--red); }
+.insight-card.yellow { border-left-color: var(--yellow); }
+.insight-card h4 {
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: var(--text);
+}
+.insight-card p {
+  font-size: 14px;
+  color: var(--text-dim);
+  line-height: 1.55;
+}
+
+.action-list { list-style: none; margin: 20px 0; }
+.action-list li {
+  padding: 18px 24px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  transition: all 0.2s;
+}
+.action-list li:hover { border-color: var(--border-accent); }
+.action-icon {
+  width: 32px; height: 32px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  flex-shrink: 0;
+  margin-top: 2px;
+  font-weight: 600;
+}
+.action-icon.do { background: var(--green-dim); color: var(--green); }
+.action-icon.kill { background: var(--red-dim); color: var(--red); }
+.action-icon.watch { background: var(--yellow-dim); color: var(--yellow); }
+.action-icon.brief { background: var(--cbc-orange-dim); color: var(--cbc-orange); }
+.action-content h4 {
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+.action-content p {
+  font-size: 13px;
+  color: var(--text-dim);
+  line-height: 1.5;
+}
+
+.divider {
+  width: 60px;
+  height: 3px;
+  background: var(--cbc-orange);
+  border-radius: 2px;
+  margin: 24px 0;
+}
+
+.title-slide {
+  justify-content: center;
+  padding: 80px;
+  position: relative;
+}
+.title-slide::after {
+  content: '';
+  position: absolute;
+  top: 80px;
+  left: 80px;
+  right: 80px;
+  height: 1px;
+  background: linear-gradient(to right, var(--cbc-orange-mid), transparent);
+}
+.title-header {
+  position: absolute;
+  top: 80px;
+  left: 80px;
+  right: 80px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 16px;
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+.title-header .header-left { color: var(--cbc-orange); font-weight: 500; }
+.title-header .header-right { color: var(--text-muted); }
+.title-slide .brand-tag {
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  color: var(--cbc-orange);
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  margin-bottom: 32px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.title-slide .brand-tag::before {
+  content: '';
+  width: 32px;
+  height: 1px;
+  background: var(--cbc-orange);
+  display: inline-block;
+}
+.title-slide h1 {
+  font-size: 76px;
+  letter-spacing: -2.5px;
+  line-height: 1.02;
+  margin-bottom: 36px;
+  max-width: 900px;
+}
+.title-slide .date-tag {
+  font-family: 'DM Mono', monospace;
+  font-size: 15px;
+  color: var(--text);
+  margin-top: 0;
+  padding-top: 28px;
+  border-top: 1px solid var(--border);
+  display: inline-block;
+  letter-spacing: 0.5px;
+}
+.title-slide .title-meta {
+  position: absolute;
+  bottom: 80px;
+  left: 80px;
+  right: 80px;
+  margin-top: 0;
+  padding-top: 28px;
+  border-top: 1px solid var(--border);
+  gap: 56px;
+}
+.title-slide .title-meta-item {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+.title-slide .title-meta-item strong {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 16px;
+  letter-spacing: -0.2px;
+  text-transform: none;
+  color: var(--text);
+  font-weight: 600;
+  margin-top: 6px;
+}
+.title-meta {
+  display: flex;
+  gap: 40px;
+  margin-top: 40px;
+  flex-wrap: wrap;
+}
+.title-meta-item {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+.title-meta-item strong {
+  display: block;
+  color: var(--text-dim);
+  font-size: 14px;
+  margin-top: 2px;
+}
+
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  margin-top: 8px;
+}
+.two-col p { max-width: 100%; }
+
+.verdict {
+  background: linear-gradient(135deg, rgba(245,130,32,0.08), rgba(245,130,32,0.02));
+  border: 1px solid var(--border-accent);
+  border-radius: 16px;
+  padding: 36px 40px;
+  margin: 32px 0;
+}
+.verdict h4 {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+.verdict p { font-size: 15px; max-width: 100%; }
+
+.adset-compare {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin: 28px 0;
+}
+.adset-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 28px;
+}
+.adset-card.obsidian { border-top: 3px solid var(--cbc-orange); }
+.adset-card.winners { border-top: 3px solid var(--yellow); }
+.adset-card.mirage { border-top: 3px solid var(--green); }
+.adset-card h4 {
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-bottom: 20px;
+}
+.adset-card.obsidian h4 { color: var(--cbc-orange); }
+.adset-card.winners h4 { color: var(--yellow); }
+.adset-card.mirage h4 { color: var(--green); }
+.adset-stat {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+}
+.adset-stat:last-child { border-bottom: none; }
+.adset-stat-label { font-size: 13px; color: var(--text-muted); }
+.adset-stat-value { font-family: 'DM Mono', monospace; font-size: 15px; color: var(--text); font-weight: 500; }
+
+.freq-bar-track {
+  width: 100%;
+  height: 6px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 3px;
+  overflow: hidden;
+  margin-top: 4px;
+}
+.freq-bar-fill {
+  height: 100%;
+  border-radius: 3px;
+}
+.freq-label {
+  display: flex;
+  justify-content: space-between;
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+.trend-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin: 28px 0;
+}
+.trend-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 18px 20px;
+}
+.trend-card .trend-label {
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+}
+.trend-card .trend-flow {
+  font-family: 'DM Mono', monospace;
+  font-size: 14px;
+  color: var(--text);
+}
+.trend-card .trend-flow .arrow {
+  color: var(--text-muted);
+  margin: 0 6px;
+}
+.trend-card .trend-flow .end {
+  color: var(--red);
+  font-weight: 600;
+}
+.trend-card.up .trend-flow .end {
+  color: var(--green);
+}
+
+.qtr-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin: 28px 0;
+}
+.qtr-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 26px;
+  position: relative;
+}
+.qtr-card.may { border-top: 3px solid var(--cbc-orange); }
+.qtr-card .qtr-month {
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 18px;
+}
+.qtr-card.may .qtr-month { color: var(--cbc-orange); }
+.qtr-stat {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border);
+}
+.qtr-stat:last-child { border-bottom: none; }
+.qtr-stat-label { font-size: 12px; color: var(--text-muted); }
+.qtr-stat-value { font-family: 'DM Mono', monospace; font-size: 16px; color: var(--text); font-weight: 500; }
+
+@media (max-width: 900px) {
+  .slide { padding: 40px 32px; }
+  h1 { font-size: 36px; }
+  h2 { font-size: 28px; }
+  .metrics-grid { grid-template-columns: 1fr 1fr; }
+  .insight-grid { grid-template-columns: 1fr; }
+  .two-col { grid-template-columns: 1fr; gap: 24px; }
+  .adset-compare { grid-template-columns: 1fr; }
+  .trend-row { grid-template-columns: 1fr 1fr; }
+  .qtr-row { grid-template-columns: 1fr; }
+  .nav { display: none; }
+  .slide-num { left: 32px; }
+  .ad-table { font-size: 12px; }
+  .ad-table th, .ad-table td { padding: 10px 8px; }
+  .title-slide { padding: 56px 32px; }
+  .title-slide h1 { font-size: 44px; letter-spacing: -1.2px; }
+  .title-header { left: 32px; right: 32px; top: 40px; font-size: 10px; letter-spacing: 1.5px; }
+  .title-slide::after { left: 32px; right: 32px; top: 40px; }
+  .title-slide .title-meta { left: 32px; right: 32px; bottom: 40px; gap: 24px; flex-wrap: wrap; }
+  .title-slide .brand-tag { font-size: 11px; letter-spacing: 2.5px; }
+  .title-slide .brand-tag::before { width: 20px; }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.slide > * {
+  animation: fadeUp 0.6s ease-out both;
+}
+.slide > *:nth-child(1) { animation-delay: 0.05s; }
+.slide > *:nth-child(2) { animation-delay: 0.12s; }
+.slide > *:nth-child(3) { animation-delay: 0.19s; }
+.slide > *:nth-child(4) { animation-delay: 0.26s; }
+.slide > *:nth-child(5) { animation-delay: 0.33s; }
+.slide > *:nth-child(6) { animation-delay: 0.40s; }
+</style>
+</head>
+<body>
+
+<nav class="nav" id="nav"></nav>
+
+<!-- SLIDE 1: TITLE -->
+<section class="slide title-slide" id="s1">
+  <div class="title-header">
+    <span class="header-left">Monthly Report / 16</span>
+    <span class="header-right">May 2026</span>
+  </div>
+  <div class="brand-tag">Chattanooga Beard Co.</div>
+  <h1>Monthly Performance<br>& <span>Strategy Review</span></h1>
+  <div class="date-tag">Reporting period: May 1 to May 31, 2026</div>
+  <div class="title-meta">
+    <div class="title-meta-item">Prepared by<strong>Charles</strong></div>
+    <div class="title-meta-item">Account<strong>264018168950434</strong></div>
+    <div class="title-meta-item">Breakeven Target<strong>3.5x ROAS</strong></div>
+  </div>
+</section>
+
+<!-- SLIDE 2: TOP LINE -->
+<section class="slide" id="s2">
+  <div class="slide-num">02: Top Line</div>
+  <h2>May at a <span>Glance</span></h2>
+  <div class="metrics-grid">
+    <div class="metric-card">
+      <div class="metric-label">Meta Spend</div>
+      <div class="metric-value">$2,406</div>
+      <div class="metric-delta up">▲ 111% MoM</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Meta ROAS</div>
+      <div class="metric-value" style="color: var(--yellow);">3.32x</div>
+      <div class="metric-delta neutral">▼ from 3.89x</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Shopify Gross</div>
+      <div class="metric-value" style="color: var(--green);">$19,639</div>
+      <div class="metric-delta up">▲ 52.9% MoM</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Blended MER</div>
+      <div class="metric-value" style="color: var(--green);">8.16x</div>
+      <div class="metric-delta neutral">▼ from 11.29x</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Purchases (Meta)</div>
+      <div class="metric-value">166</div>
+      <div class="metric-delta up">▲ from 87</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">New Customers</div>
+      <div class="metric-value" style="color: var(--green);">136</div>
+      <div class="metric-delta up">▲ 58.1% MoM</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Blended CPP (Meta)</div>
+      <div class="metric-value">$14.49</div>
+      <div class="metric-delta neutral">▲ from $13.08</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Returning Rate</div>
+      <div class="metric-value">64.4%</div>
+      <div class="metric-delta down">▼ from 69.3%</div>
+    </div>
+  </div>
+  <p>May was the strongest revenue month on the account in the current campaign window. Shopify gross reached $19,639, up 52.9% month over month and 58.3% against the same month last year. We more than doubled Meta spend to fund two events at once: the Mirage line launch in its own standalone campaign and the Memorial Day sale. Meta ROAS settled at 3.32x, just under the 3.5x line, because spend scaled into newer audiences. The blended MER of 8.16x keeps the business well clear of breakeven, and new customer count jumped 58%.</p>
+</section>
+
+<!-- SLIDE 3: META vs MER -->
+<section class="slide" id="s3">
+  <div class="slide-num">03: The Gap</div>
+  <h2>Meta ROAS vs <span>True MER</span></h2>
+  <div class="two-col">
+    <div>
+      <div class="divider" style="background: var(--yellow);"></div>
+      <h3>What Meta reports</h3>
+      <div class="metric-card" style="margin-bottom: 16px;">
+        <div class="metric-label">Meta Attributed Revenue</div>
+        <div class="metric-value">$7,990.07</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Meta ROAS</div>
+        <div class="metric-value" style="color: var(--yellow);">3.32x</div>
+      </div>
+      <p style="margin-top: 16px;">166 purchases at a $48.13 Meta average order value. A touch under the 3.5x breakeven on Meta numbers, which is expected when spend more than doubles in a single month and a fresh launch campaign carries part of the load. Blended CPP held at $14.49.</p>
+    </div>
+    <div>
+      <div class="divider" style="background: var(--green);"></div>
+      <h3>What the business actually did</h3>
+      <div class="metric-card" style="margin-bottom: 16px;">
+        <div class="metric-label">Shopify Gross Sales</div>
+        <div class="metric-value">$19,639</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">True MER</div>
+        <div class="metric-value" style="color: var(--green);">8.16x</div>
+      </div>
+      <p style="margin-top: 16px;">382 customers across the month. 136 new, 246 returning. The MER cooled from April's 11.29x for one clear reason: Meta spend doubled while gross grew 53%, so the ratio compressed even as absolute revenue hit a record. Every dollar fed to Meta still pulled $8.16 of gross.</p>
+    </div>
+  </div>
+  <div class="verdict" style="margin-top: 40px;">
+    <h4>The read this month:</h4>
+    <p>This is a scale month, not a profitability problem. The Meta ROAS dip below 3.5x is the arithmetic of pushing spend up 111% to launch Mirage and run Memorial Day at the same time. Gross sales hit a record, new customer acquisition climbed 58%, and the MER stayed above 8x. The job in June is to tighten the one drag inside the core campaign and let the launch sets keep doing the work.</p>
+  </div>
+</section>
+
+<!-- SLIDE 4: TWO ENGINES -->
+<section class="slide" id="s4">
+  <div class="slide-num">04: Two Engines</div>
+  <h2>Two Campaigns <span>Ran in Parallel</span></h2>
+  <p style="margin-bottom: 8px;">May ran on two separate structures. The core Advantage+ campaign carried the everyday account plus the Memorial Day sale, and the standalone Mirage campaign carried the new line launch. Both cleared their own weight.</p>
+  <div class="adset-compare">
+    <div class="adset-card obsidian">
+      <h4>Core Advantage+ Campaign</h4>
+      <div class="adset-stat">
+        <span class="adset-stat-label">Spend</span>
+        <span class="adset-stat-value">$1,514.72</span>
+      </div>
+      <div class="adset-stat">
+        <span class="adset-stat-label">Purchases</span>
+        <span class="adset-stat-value">100</span>
+      </div>
+      <div class="adset-stat">
+        <span class="adset-stat-label">Revenue</span>
+        <span class="adset-stat-value">$4,937.33</span>
+      </div>
+      <div class="adset-stat">
+        <span class="adset-stat-label">ROAS</span>
+        <span class="adset-stat-value" style="color: var(--yellow);">3.26x</span>
+      </div>
+      <div class="adset-stat">
+        <span class="adset-stat-label">CPP</span>
+        <span class="adset-stat-value">$15.15</span>
+      </div>
+      <div style="margin-top: 16px;">
+        <div class="adset-stat-label" style="margin-bottom: 6px;">Campaign frequency</div>
+        <div class="freq-bar-track">
+          <div class="freq-bar-fill" style="width: 50%; background: var(--yellow);"></div>
+        </div>
+        <div class="freq-label"><span>Watch zone</span><span style="color: var(--yellow);">3.98x</span></div>
+      </div>
+    </div>
+    <div class="adset-card mirage">
+      <h4>Mirage Launch Campaign</h4>
+      <div class="adset-stat">
+        <span class="adset-stat-label">Spend</span>
+        <span class="adset-stat-value">$891.00</span>
+      </div>
+      <div class="adset-stat">
+        <span class="adset-stat-label">Purchases</span>
+        <span class="adset-stat-value">66</span>
+      </div>
+      <div class="adset-stat">
+        <span class="adset-stat-label">Revenue</span>
+        <span class="adset-stat-value">$3,052.74</span>
+      </div>
+      <div class="adset-stat">
+        <span class="adset-stat-label">ROAS</span>
+        <span class="adset-stat-value" style="color: var(--green);">3.43x</span>
+      </div>
+      <div class="adset-stat">
+        <span class="adset-stat-label">CPP</span>
+        <span class="adset-stat-value">$13.50</span>
+      </div>
+      <div style="margin-top: 16px;">
+        <div class="adset-stat-label" style="margin-bottom: 6px;">Campaign frequency</div>
+        <div class="freq-bar-track">
+          <div class="freq-bar-fill" style="width: 88%; background: var(--red);"></div>
+        </div>
+        <div class="freq-label"><span>Saturating fast</span><span style="color: var(--red);">6.22x</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="insight-grid" style="margin-top: 4px;">
+    <div class="insight-card yellow">
+      <h4>Core campaign held the line</h4>
+      <p>$1,514.72 spend at 3.26x with three ad sets inside it: Obsidian Launch, Memorial Day Sale, and Adv+ Winners. Obsidian and Memorial Day both ran above 4x. Adv+ Winners at 2.08x is the single thing pulling the core average down. The fix is concentrated, not broad.</p>
+    </div>
+    <div class="insight-card green">
+      <h4>Mirage launched at breakeven on day one</h4>
+      <p>A brand new line cleared 3.43x in its first 17 days at a $13.50 cost per purchase. That is a healthy opening for a launch. The one flag is frequency at 6.22x, which means the launch audience is being hit hard. That gets addressed with fresh creative before scaling.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 5: AD SET SPLIT -->
+<section class="slide" id="s5">
+  <div class="slide-num">05: Ad Set Split</div>
+  <h2>Four Ad Sets, <span>One Clear Drag</span></h2>
+  <p style="margin-bottom: 24px;">Across both campaigns there were four active ad sets in May. Three of them ran at or above breakeven. The fourth, Adv+ Winners, sat well below it on the back of two tired video ads.</p>
+  <table class="ad-table">
+    <thead>
+      <tr>
+        <th style="width: 28%;">Ad Set</th>
+        <th>Spend</th>
+        <th>Rev</th>
+        <th>Purch</th>
+        <th>ROAS</th>
+        <th>CPP</th>
+        <th>Freq</th>
+        <th>Read</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr style="background: rgba(245,130,32,0.04);">
+        <td><div class="ad-name">Memorial Day Sale</div><div class="ad-set-tag">CORE ASC, completed</div></td>
+        <td>$236.64</td>
+        <td>$1,085.59</td>
+        <td>23</td>
+        <td><span class="roas-badge good">4.59x</span></td>
+        <td>$10.29</td>
+        <td>2.80</td>
+        <td style="font-family:'DM Sans';font-size:13px;color:var(--green);">Top ROAS</td>
+      </tr>
+      <tr style="background: rgba(245,130,32,0.04);">
+        <td><div class="ad-name">Obsidian Launch</div><div class="ad-set-tag">CORE ASC</div></td>
+        <td>$621.36</td>
+        <td>$2,487.21</td>
+        <td>51</td>
+        <td><span class="roas-badge good">4.00x</span></td>
+        <td>$12.18</td>
+        <td>2.66</td>
+        <td style="font-family:'DM Sans';font-size:13px;color:var(--green);">Workhorse</td>
+      </tr>
+      <tr>
+        <td><div class="ad-name">Mirage ASC</div><div class="ad-set-tag">MIRAGE LAUNCH</div></td>
+        <td>$891.00</td>
+        <td>$3,052.74</td>
+        <td>66</td>
+        <td><span class="roas-badge warn">3.43x</span></td>
+        <td>$13.50</td>
+        <td>6.22</td>
+        <td style="font-family:'DM Sans';font-size:13px;color:var(--yellow);">Launch, freq high</td>
+      </tr>
+      <tr>
+        <td><div class="ad-name">Adv+ Winners</div><div class="ad-set-tag">CORE ASC</div></td>
+        <td>$656.72</td>
+        <td>$1,364.53</td>
+        <td>26</td>
+        <td><span class="roas-badge bad">2.08x</span></td>
+        <td>$25.26</td>
+        <td>3.12</td>
+        <td style="font-family:'DM Sans';font-size:13px;color:var(--red);">The drag</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="insight-grid" style="margin-top: 8px;">
+    <div class="insight-card green">
+      <h4>Obsidian remains the most efficient set</h4>
+      <p>$621.36 spend returned $2,487.21 at 4.00x with frequency held at a clean 2.66x. Obsidian Launch Vid 1 alone carried 41 of the set's 51 purchases. This is the format and product pairing that keeps producing month after month.</p>
+    </div>
+    <div class="insight-card red">
+      <h4>Adv+ Winners needs a clear-out</h4>
+      <p>$656.72 spent at 2.08x with a $25.26 cost per purchase, almost double the account average. The set is being held back by V3 The Origin Story, which took $421.71 at 2.08x. That single ad is the largest sub-breakeven spend on the account this month.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 6: MIRAGE DEEP DIVE -->
+<section class="slide" id="s6">
+  <div class="slide-num">06: The Launch</div>
+  <h2>Mirage Out of <span>the Gate</span></h2>
+  <p style="margin-bottom: 24px;">Mirage launched May 14 in its own standalone Advantage+ campaign at $40 daily. In 17 days it generated 66 purchases and $3,052.74 at 3.43x. For a brand new scent line with no prior data, opening at breakeven is a strong start. The reads inside the set are what shape the next move.</p>
+  <div class="metrics-grid" style="margin-bottom: 32px;">
+    <div class="metric-card">
+      <div class="metric-label">Launch Spend</div>
+      <div class="metric-value">$891.00</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Launch Revenue</div>
+      <div class="metric-value">$3,052.74</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Launch ROAS</div>
+      <div class="metric-value" style="color: var(--green);">3.43x</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Frequency</div>
+      <div class="metric-value" style="color: var(--red);">6.22x</div>
+    </div>
+  </div>
+  <div class="insight-grid">
+    <div class="insight-card yellow">
+      <h4>Tropical Set carried the launch, and the risk</h4>
+      <p>The S2 Tropical Set video spent $663.55, which is 74% of all Mirage spend, and returned $2,449.41 at 3.69x with 55 of the 66 purchases. It is the launch. The problem is frequency at 5.19x already. One ad doing this much work is a concentration risk that needs a second hero before scaling.</p>
+    </div>
+    <div class="insight-card green">
+      <h4>The V3 video is the hidden winner</h4>
+      <p>MIRAGE V3 spent only $29.24 and returned $215.35 at 7.36x with 4 purchases and a 1.06% click rate. On small spend it is the most efficient creative in the set. This is the next ad to feed budget into so the launch stops leaning on one video.</p>
+    </div>
+    <div class="insight-card red">
+      <h4>The teasers did their job, then stopped</h4>
+      <p>The three teaser ads (Mystery, Scent Drop, Founder) ran pre-launch to warm the audience. Combined they spent $50.46 for 1 purchase. That is fine for a teaser phase, but they are off now and should not draw spend going forward.</p>
+    </div>
+    <div class="insight-card yellow">
+      <h4>V1 is the weak hero candidate</h4>
+      <p>MIRAGE V1 spent $95.50 at 1.66x with a $31.83 cost per purchase. It is the second largest spend in the set but the weakest return. Before any scale, V1 either gets a hook swap or its budget moves to V3 and S1, which both run above 3.5x.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 7: MEMORIAL DAY -->
+<section class="slide" id="s7">
+  <div class="slide-num">07: The Sale</div>
+  <h2>Memorial Day <span>Closed Strong</span></h2>
+  <p style="margin-bottom: 24px;">The Memorial Day sale ran as its own ad set inside the core campaign and finished as the highest ROAS set of the month at 4.59x. $236.64 spend returned $1,085.59 across 23 purchases at a $10.29 cost per purchase, the lowest of any set in May.</p>
+  <div class="metrics-grid" style="margin-bottom: 32px;">
+    <div class="metric-card">
+      <div class="metric-label">Sale Spend</div>
+      <div class="metric-value">$236.64</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Sale Revenue</div>
+      <div class="metric-value">$1,085.59</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Sale ROAS</div>
+      <div class="metric-value" style="color: var(--green);">4.59x</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Cost per Purchase</div>
+      <div class="metric-value" style="color: var(--green);">$10.29</div>
+    </div>
+  </div>
+  <div class="insight-grid">
+    <div class="insight-card green">
+      <h4>Static 1 was the sale winner</h4>
+      <p>The Static 1 Memorial Day creative spent $72.60 and returned $569.93 at 7.85x with a $63.33 average order value. A still image outperformed video on a price-led offer, which fits the pattern of a sale shopper who already knows the brand and just wants the deal.</p>
+    </div>
+    <div class="insight-card green">
+      <h4>The fresh-campaign rule held up</h4>
+      <p>The sale ran in its own ad set rather than being folded into existing ads, which kept the offer clean and the learning separate. Day one of the sale was the strongest single day of the month. The structure is the reason the read is this clear.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 8: AD TABLE -->
+<section class="slide" id="s8">
+  <div class="slide-num">08: Ad Performance</div>
+  <h2>Ad-Level <span>Breakdown</span></h2>
+  <p style="margin-bottom: 24px;">Full month, ad names aggregated across ad sets. Campaign totals reconciled: $2,405.72 spend, 166 purchases, $7,990.07 revenue across both campaigns. Sorted by spend.</p>
+  <table class="ad-table">
+    <thead>
+      <tr>
+        <th style="width: 30%;">Ad</th>
+        <th>Spend</th>
+        <th>Rev</th>
+        <th>Purch</th>
+        <th>ROAS</th>
+        <th>Freq</th>
+        <th>Verdict</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr style="background: rgba(245,130,32,0.04);">
+        <td><div class="ad-name">Mirage S2: Tropical Set</div><div class="ad-set-tag">MIRAGE</div></td>
+        <td>$663.55</td><td>$2,449.41</td><td>55</td>
+        <td><span class="roas-badge warn">3.69x</span></td><td>5.19</td>
+        <td style="font-family:'DM Sans';font-size:13px;color:var(--green);">Hero: needs backup</td>
+      </tr>
+      <tr style="background: rgba(245,130,32,0.04);">
+        <td><div class="ad-name">Obsidian Launch Vid 1</div><div class="ad-set-tag">OBSIDIAN</div></td>
+        <td>$529.17</td><td>$1,933.79</td><td>41</td>
+        <td><span class="roas-badge good">3.65x</span></td><td>2.25</td>
+        <td style="font-family:'DM Sans';font-size:13px;color:var(--green);">Workhorse: hold</td>
+      </tr>
+      <tr>
+        <td><div class="ad-name">V3: The Origin Story</div><div class="ad-set-tag">ADV+ WINNERS</div></td>
+        <td>$421.71</td><td>$875.18</td><td>17</td>
+        <td><span class="roas-badge bad">2.08x</span></td><td>2.04</td>
+        <td style="font-family:'DM Sans';font-size:13px;color:var(--red);">Biggest drag: cut</td>
+      </tr>
+      <tr>
+        <td><div class="ad-name">Video 1: Morning Routine</div><div class="ad-set-tag">MEMORIAL DAY</div></td>
+        <td>$164.04</td><td>$515.66</td><td>14</td>
+        <td><span class="roas-badge warn">3.14x</span></td><td>1.95</td>
+        <td style="font-family:'DM Sans';font-size:13px;color:var(--yellow);">Sale ad: retired</td>
+      </tr>
+      <tr>
+        <td><div class="ad-name">V4: The Itch Intervention</div><div class="ad-set-tag">ADV+ WINNERS</div></td>
+        <td>$121.56</td><td>$338.35</td><td>6</td>
+        <td><span class="roas-badge warn">2.78x</span></td><td>3.23</td>
+        <td style="font-family:'DM Sans';font-size:13px;color:var(--yellow);">Paused: rotate</td>
+      </tr>
+      <tr>
+        <td><div class="ad-name">Mirage V1</div><div class="ad-set-tag">MIRAGE</div></td>
+        <td>$95.50</td><td>$158.17</td><td>3</td>
+        <td><span class="roas-badge bad">1.66x</span></td><td>2.87</td>
+        <td style="font-family:'DM Sans';font-size:13px;color:var(--red);">Weak: hook swap</td>
+      </tr>
+      <tr style="background: rgba(52,211,153,0.04);">
+        <td><div class="ad-name">Static 1: Memorial Day ★</div><div class="ad-set-tag">MEMORIAL DAY</div></td>
+        <td>$72.60</td><td>$569.93</td><td>9</td>
+        <td><span class="roas-badge good">7.85x</span></td><td>3.70</td>
+        <td style="font-family:'DM Sans';font-size:13px;color:var(--green);">Sale star</td>
+      </tr>
+      <tr style="background: rgba(52,211,153,0.04);">
+        <td><div class="ad-name">Mirage V3 ★</div><div class="ad-set-tag">MIRAGE</div></td>
+        <td>$29.24</td><td>$215.35</td><td>4</td>
+        <td><span class="roas-badge good">7.36x</span></td><td>1.83</td>
+        <td style="font-family:'DM Sans';font-size:13px;color:var(--green);">Scale this</td>
+      </tr>
+      <tr style="background: rgba(52,211,153,0.04);">
+        <td><div class="ad-name">Obsidian Static 3 ★</div><div class="ad-set-tag">OBSIDIAN</div></td>
+        <td>$30.67</td><td>$212.02</td><td>4</td>
+        <td><span class="roas-badge good">6.91x</span></td><td>1.93</td>
+        <td style="font-family:'DM Sans';font-size:13px;color:var(--green);">Strong: hold</td>
+      </tr>
+      <tr style="background: rgba(52,211,153,0.04);">
+        <td><div class="ad-name">Obsidian Scale: Wife Buyer ★</div><div class="ad-set-tag">OBSIDIAN</div></td>
+        <td>$17.42</td><td>$171.20</td><td>3</td>
+        <td><span class="roas-badge good">9.83x</span></td><td>2.06</td>
+        <td style="font-family:'DM Sans';font-size:13px;color:var(--green);">Gift angle: scale</td>
+      </tr>
+      <tr>
+        <td><div class="ad-name">Founder Talk 03</div><div class="ad-set-tag">ADV+ WINNERS</div></td>
+        <td>$39.29</td><td>$24.00</td><td>1</td>
+        <td><span class="roas-badge bad">0.61x</span></td><td>2.16</td>
+        <td style="font-family:'DM Sans';font-size:13px;color:var(--red);">Off: replaced</td>
+      </tr>
+      <tr>
+        <td><div class="ad-name">Founder Unbox 05</div><div class="ad-set-tag">ADV+ WINNERS</div></td>
+        <td>$39.27</td><td>$57.00</td><td>1</td>
+        <td><span class="roas-badge bad">1.45x</span></td><td>2.71</td>
+        <td style="font-family:'DM Sans';font-size:13px;color:var(--red);">Off: hook swap</td>
+      </tr>
+    </tbody>
+  </table>
+  <p style="font-size: 13px; margin-top: 8px;">Star markers indicate ROAS above 6x with positive purchase volume. A further $50.46 sat across the three Mirage teasers (now off), and small residual spend across Skeptic (22.58x on $4.88), Quiet Craftsman (6.61x on $9.08), Holycow and HeCaughtIt (both zero purchases, off). The four Obsidian Scale ads remain in the rotation as the bench for the next refresh.</p>
+</section>
+
+<!-- SLIDE 9: THE DRAG -->
+<section class="slide" id="s9">
+  <div class="slide-num">09: The Drag</div>
+  <h2>One Ad Set Held <span>the Average Down</span></h2>
+  <p style="margin-bottom: 28px;">If Adv+ Winners had simply matched the account average, the core campaign would have landed near 4x rather than 3.26x. The drag is narrow and fixable, and it sits almost entirely in one ad.</p>
+  <div class="trend-row">
+    <div class="trend-card">
+      <div class="trend-label">Adv+ Winners ROAS</div>
+      <div class="trend-flow"><span class="end">2.08x</span></div>
+    </div>
+    <div class="trend-card">
+      <div class="trend-label">Set Cost per Purchase</div>
+      <div class="trend-flow"><span class="end">$25.26</span></div>
+    </div>
+    <div class="trend-card">
+      <div class="trend-label">V3 Origin Story Spend</div>
+      <div class="trend-flow"><span class="end">$421.71</span></div>
+    </div>
+    <div class="trend-card">
+      <div class="trend-label">V3 Origin Story ROAS</div>
+      <div class="trend-flow"><span class="end">2.08x</span></div>
+    </div>
+  </div>
+  <div class="insight-grid" style="margin-top: 28px;">
+    <div class="insight-card red">
+      <h4>V3 Origin Story is the lever</h4>
+      <p>It took $421.71, which is 64% of the Adv+ Winners budget, and returned 2.08x with a $24.81 cost per purchase. The click rate was healthy at 1.32%, so the hook works, but those clicks are not converting at a profitable rate. Moving this budget is the single biggest improvement available in June.</p>
+    </div>
+    <div class="insight-card yellow">
+      <h4>The legacy video pool is tired</h4>
+      <p>Founder Talk 03 at 0.61x, Founder Unbox 05 at 1.45x, and Holycow Ingredient at zero purchases are the older video ads. They are already off or near off. The set has been running on creative that has had its run, while the fresh Obsidian Scale ads sit underfunded.</p>
+    </div>
+    <div class="insight-card green">
+      <h4>The bench is ready</h4>
+      <p>Wife Buyer at 9.83x, Skeptic at 22.58x, and Quiet Craftsman at 6.61x all proved out on small spend inside Obsidian. These are the ads that should inherit the budget coming off V3 Origin Story, rather than leaving it inside a tired set.</p>
+    </div>
+    <div class="insight-card">
+      <h4>What this is not</h4>
+      <p>This is not a frequency or fatigue story like last month. Adv+ Winners frequency is a moderate 3.12x. The issue is creative fit on specific ads, not audience overexposure. That points to swapping ads, not pulling spend or resting the audience.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 10: CUSTOMER ENGINE -->
+<section class="slide" id="s10">
+  <div class="slide-num">10: Customer Engine</div>
+  <h2>New Acquisition <span>Jumped</span></h2>
+  <div class="metrics-grid" style="margin-bottom: 32px;">
+    <div class="metric-card">
+      <div class="metric-label">Total Customers</div>
+      <div class="metric-value">382</div>
+      <div class="metric-delta up">▲ 36.4% MoM</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">New Customers</div>
+      <div class="metric-value" style="color: var(--green);">136</div>
+      <div class="metric-delta up">▲ from 86</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Returning Customers</div>
+      <div class="metric-value">246</div>
+      <div class="metric-delta up">▲ from 194</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Returning Rate</div>
+      <div class="metric-value" style="color: var(--yellow);">64.4%</div>
+      <div class="metric-delta down">▼ from 69.3%</div>
+    </div>
+  </div>
+  <div class="two-col">
+    <div>
+      <div class="divider" style="background: var(--green);"></div>
+      <h3>What's happening</h3>
+      <p>New customer count rose 58% month over month, from 86 to 136, the highest monthly intake in the trailing quarter. The doubled Meta spend behind the Mirage launch and Memorial Day pulled in a fresh wave of first-time buyers. Returning customers also grew in absolute terms, from 194 to 246. Both engines moved up together.</p>
+    </div>
+    <div>
+      <div class="divider"></div>
+      <h3>Why the returning rate dipped</h3>
+      <p>The returning rate fell from 69.3% to 64.4% only because new customers grew faster than returning ones, which is what a launch month should do. A lower returning rate driven by rising new acquisition is the healthy version of that move. The cohort is feeding the top of the funnel that drives next quarter's repeat revenue.</p>
+    </div>
+  </div>
+  <div class="verdict" style="margin-top: 32px;">
+    <h4>The acquisition math:</h4>
+    <p>At a $14.49 blended Meta cost per purchase against an $83 lifetime value, the CAC to LTV ratio sits near 1 to 5.7 even in a heavy-spend month. With a returning customer base this strong, every new buyer brought in during May is an asset that compounds. This is the month to keep the acquisition tap open, not tighten it.</p>
+  </div>
+</section>
+
+<!-- SLIDE 11: QUARTERLY META -->
+<section class="slide" id="s11">
+  <div class="slide-num">11: Quarterly Progress</div>
+  <h2>The Trailing <span>Quarter on Meta</span></h2>
+  <p style="margin-bottom: 8px;">Pulling back to March, April, and May shows the shape of the work. March was a high-spend, low-efficiency month. April was a deliberate pullback to rebuild efficiency. May reopened spend on top of that cleaner base to fund two launches at once.</p>
+  <div class="qtr-row">
+    <div class="qtr-card">
+      <div class="qtr-month">March 2026</div>
+      <div class="qtr-stat"><span class="qtr-stat-label">Meta spend</span><span class="qtr-stat-value">$2,825</span></div>
+      <div class="qtr-stat"><span class="qtr-stat-label">Meta ROAS</span><span class="qtr-stat-value" style="color: var(--red);">2.70x</span></div>
+      <div class="qtr-stat"><span class="qtr-stat-label">Purchases</span><span class="qtr-stat-value">125</span></div>
+      <div class="qtr-stat"><span class="qtr-stat-label">Revenue</span><span class="qtr-stat-value">$7,634</span></div>
+    </div>
+    <div class="qtr-card">
+      <div class="qtr-month">April 2026</div>
+      <div class="qtr-stat"><span class="qtr-stat-label">Meta spend</span><span class="qtr-stat-value">$1,138</span></div>
+      <div class="qtr-stat"><span class="qtr-stat-label">Meta ROAS</span><span class="qtr-stat-value" style="color: var(--green);">3.89x</span></div>
+      <div class="qtr-stat"><span class="qtr-stat-label">Purchases</span><span class="qtr-stat-value">87</span></div>
+      <div class="qtr-stat"><span class="qtr-stat-label">Revenue</span><span class="qtr-stat-value">$4,430</span></div>
+    </div>
+    <div class="qtr-card may">
+      <div class="qtr-month">May 2026</div>
+      <div class="qtr-stat"><span class="qtr-stat-label">Meta spend</span><span class="qtr-stat-value">$2,406</span></div>
+      <div class="qtr-stat"><span class="qtr-stat-label">Meta ROAS</span><span class="qtr-stat-value" style="color: var(--yellow);">3.32x</span></div>
+      <div class="qtr-stat"><span class="qtr-stat-label">Purchases</span><span class="qtr-stat-value">166</span></div>
+      <div class="qtr-stat"><span class="qtr-stat-label">Revenue</span><span class="qtr-stat-value">$7,990</span></div>
+    </div>
+  </div>
+  <div class="insight-grid" style="margin-top: 8px;">
+    <div class="insight-card green">
+      <h4>Efficiency reset in April, scale resumed in May</h4>
+      <p>March ran $2,825 at 2.70x. April cut spend by 60% to rebuild the structure and lifted ROAS to 3.89x. May then pushed spend back to $2,406 while holding ROAS at 3.32x, far better efficiency than March on similar spend. The quarter blends to 3.15x on $6,369 total Meta spend and 378 purchases.</p>
+    </div>
+    <div class="insight-card green">
+      <h4>May produced March-level revenue at higher quality</h4>
+      <p>May matched March on Meta revenue, $7,990 against $7,634, but it did so at 3.32x instead of 2.70x and with a fresh product line added. The account is producing the same top line as its old high-spend months with materially better unit economics.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 12: QUARTERLY SHOPIFY -->
+<section class="slide" id="s12">
+  <div class="slide-num">12: Quarterly Progress</div>
+  <h2>Year on Year, <span>the Business Grew</span></h2>
+  <p style="margin-bottom: 28px;">The clearest measure of progress is the comparison against the same window last year. Across April and May, the business grew on every customer and revenue line, and the returning base grew fastest of all.</p>
+  <div class="trend-row">
+    <div class="trend-card up">
+      <div class="trend-label">Gross Sales (Apr+May)</div>
+      <div class="trend-flow">$22,477<span class="arrow">→</span><span class="end">$32,483</span></div>
+    </div>
+    <div class="trend-card up">
+      <div class="trend-label">Total Customers</div>
+      <div class="trend-flow">458<span class="arrow">→</span><span class="end">622</span></div>
+    </div>
+    <div class="trend-card up">
+      <div class="trend-label">Returning Customers</div>
+      <div class="trend-flow">252<span class="arrow">→</span><span class="end">400</span></div>
+    </div>
+    <div class="trend-card up">
+      <div class="trend-label">New Customers</div>
+      <div class="trend-flow">206<span class="arrow">→</span><span class="end">222</span></div>
+    </div>
+  </div>
+  <div class="insight-grid" style="margin-top: 28px;">
+    <div class="insight-card green">
+      <h4>Gross sales up 44.5% year on year</h4>
+      <p>The April to May window pulled $32,483 in gross sales against $22,477 in the same window last year. May alone was up 58.3% against last May. The brand is selling materially more than it was twelve months ago, and the trend accelerated into May.</p>
+    </div>
+    <div class="insight-card green">
+      <h4>The returning base is compounding</h4>
+      <p>Returning customers grew 58.7% year on year, from 252 to 400, far faster than the 7.8% growth in new customers. That gap is the engine. Each acquisition wave from prior quarters is now coming back and lifting the floor under every new month.</p>
+    </div>
+    <div class="insight-card">
+      <h4>Customer count up 35.8% year on year</h4>
+      <p>622 total customers across the window against 458 last year. The mix shifted toward returning, which moved the year-on-year returning rate from 55.0% to 64.3%. More customers, buying more often, is the pattern that supports reinvesting into acquisition.</p>
+    </div>
+    <div class="insight-card yellow">
+      <h4>Where the next lift comes from</h4>
+      <p>New customer growth was the slower line year on year at 7.8%. May's 58% jump in new buyers is the start of correcting that. Keeping new acquisition climbing while the returning base compounds is the path to the next step up in gross sales.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 13: DIAGNOSIS -->
+<section class="slide" id="s13">
+  <div class="slide-num">13: Diagnosis</div>
+  <h2>What's Working, <span>What Needs Work</span></h2>
+  <div class="insight-grid">
+    <div class="insight-card green">
+      <h4>Working: the launch playbook</h4>
+      <p>Mirage opened at 3.43x in its own campaign and Memorial Day closed at 4.59x in a fresh ad set. The discipline of giving launches and sales their own structure, rather than folding them into existing ads, is producing clean reads and strong opening numbers every time it runs.</p>
+    </div>
+    <div class="insight-card green">
+      <h4>Working: the Obsidian set and the bench</h4>
+      <p>Obsidian Launch ran at 4.00x with healthy frequency, and the smaller Obsidian Scale ads (Wife Buyer 9.83x, Skeptic 22.58x, Quiet Craftsman 6.61x) all proved out. There is a deep, tested bench ready to absorb budget as the tired ads come off.</p>
+    </div>
+    <div class="insight-card red">
+      <h4>Needs work: the Adv+ Winners drag</h4>
+      <p>The set ran at 2.08x with a $25.26 cost per purchase, held down by V3 Origin Story taking $421.71 at 2.08x. This is the rotating constraint for May. It is a creative-fit problem on specific ads, and the fix is reallocation into the proven bench.</p>
+    </div>
+    <div class="insight-card yellow">
+      <h4>Needs work: Mirage frequency</h4>
+      <p>The launch set is at 6.22x frequency with one video carrying 74% of spend. Before Mirage scales, it needs a second hero so the audience is not hit by the same ad over and over. The V3 video is the obvious candidate to build that depth around.</p>
+    </div>
+  </div>
+  <div class="verdict" style="margin-top: 32px;">
+    <h4>The diagnosis in one line:</h4>
+    <p>A record revenue month with healthy launch economics, held back from an even better Meta number by one tired ad set and a single-creative dependency inside Mirage. Both are reallocation problems, not spend or audience problems, and both have a ready fix.</p>
+  </div>
+</section>
+
+<!-- SLIDE 14: ACTIONS TAKEN -->
+<section class="slide" id="s14">
+  <div class="slide-num">14: Already in Motion</div>
+  <h2>Actions Taken <span>in May</span></h2>
+  <p style="margin-bottom: 8px;">These moves were made through the month as the data developed. They are why the launch and the sale both landed cleanly.</p>
+  <ul class="action-list">
+    <li>
+      <div class="action-icon do">L</div>
+      <div class="action-content">
+        <h4>Launched Mirage in its own standalone campaign</h4>
+        <p>A separate Advantage+ campaign at $40 daily kept the new line's learning clean and away from the core account. It opened at 3.43x with 66 purchases in 17 days. Teasers warmed the audience first, then the launch creative carried it.</p>
+      </div>
+    </li>
+    <li>
+      <div class="action-icon do">M</div>
+      <div class="action-content">
+        <h4>Ran Memorial Day as a fresh ad set, not an add-on</h4>
+        <p>The sale lived in its own ad set inside the core campaign, following the fresh-campaign rule for sales. It finished at 4.59x, the highest of the month, with Static 1 leading at 7.85x. Day one of the sale was the strongest day of May.</p>
+      </div>
+    </li>
+    <li>
+      <div class="action-icon kill">P</div>
+      <div class="action-content">
+        <h4>Turned off the tired legacy video pool</h4>
+        <p>Founder Talk 03, Founder Unbox 05, and Holycow Ingredient were paused or moved to off as they slipped below breakeven. This stopped them drawing further budget inside Adv+ Winners while the refresh built up.</p>
+      </div>
+    </li>
+    <li>
+      <div class="action-icon do">S</div>
+      <div class="action-content">
+        <h4>Held the scaling rule through the spend increase</h4>
+        <p>Spend rose to fund the launch and the sale, both of which carry their own justification, while the core everyday budget stayed inside the standing rule. The increases went to events with clear reasons, not to scaling into a tired audience.</p>
+      </div>
+    </li>
+  </ul>
+</section>
+
+<!-- SLIDE 15: JUNE PLAN -->
+<section class="slide" id="s15">
+  <div class="slide-num">15: June Plan</div>
+  <h2>The Plan for <span>June</span></h2>
+  <ul class="action-list">
+    <li>
+      <div class="action-icon kill">1</div>
+      <div class="action-content">
+        <h4>Cut V3 Origin Story and move the budget to the bench</h4>
+        <p>The $421.71 sitting at 2.08x in Adv+ Winners moves to Wife Buyer, Quiet Craftsman, and Skeptic, which all proved out above 6x on small spend. This is the single biggest efficiency move available and should lift the core campaign back toward 4x.</p>
+      </div>
+    </li>
+    <li>
+      <div class="action-icon brief">2</div>
+      <div class="action-content">
+        <h4>Build a second Mirage hero around the V3 video</h4>
+        <p>Mirage is leaning on one video at 5.19x frequency. Scale the V3 video, which ran at 7.36x, and brief one fresh Mirage creative so the launch set has two heroes before any budget increase. This breaks the single-creative dependency before it caps the launch.</p>
+      </div>
+    </li>
+    <li>
+      <div class="action-icon brief">3</div>
+      <div class="action-content">
+        <h4>Brief one fresh packing or ASMR video for the core account</h4>
+        <p>The packing format remains the account's highest-performing creative type historically. The core campaign has not had a fresh one in a while. A short bottling and boxing sequence from Todd, edited cinematic by Geo, gives Adv+ Winners a new lead ad to replace the legacy pool.</p>
+      </div>
+    </li>
+    <li>
+      <div class="action-icon watch">4</div>
+      <div class="action-content">
+        <h4>Watch the Mirage V1 video through the first week</h4>
+        <p>V1 spent $95.50 at 1.66x, the weakest hero candidate. It gets a hook swap or its budget moves to V3 and S1. Decision point is the first full week of June so the launch set is not carrying a sub-2x ad into a scale phase.</p>
+      </div>
+    </li>
+    <li>
+      <div class="action-icon do">5</div>
+      <div class="action-content">
+        <h4>Keep the new acquisition tap open</h4>
+        <p>May's 58% jump in new customers is the start of closing the year-on-year acquisition gap. The CAC to LTV math supports holding acquisition spend high. The goal for June is to keep new buyer count climbing while the reallocation lifts efficiency underneath it.</p>
+      </div>
+    </li>
+  </ul>
+</section>
+
+<!-- SLIDE 16: BUDGET & SCALING -->
+<section class="slide" id="s16">
+  <div class="slide-num">16: Budget & Scaling</div>
+  <h2>The Scaling <span>Window</span></h2>
+  <div class="verdict">
+    <h4>Reallocate first, then scale the proven sets once efficiency returns.</h4>
+    <p>May proved spend can more than double and still hold above 3x on Meta with an 8x MER underneath. The next increment is not a blanket budget rise. It is moving the V3 Origin Story budget to the bench, building Mirage's second hero, and letting the core campaign climb back toward 4x. Once Mirage holds above 3.5x for three to four days with two heroes carrying it, the launch budget opens for a 20% increment under the standing rule.</p>
+  </div>
+  <div class="two-col" style="margin-top: 32px;">
+    <div>
+      <h3>Current state</h3>
+      <div class="metric-card" style="margin-bottom: 12px;">
+        <div class="metric-label">May Meta spend</div>
+        <div class="metric-value">$2,406</div>
+      </div>
+      <p>Up 111% on April to fund the launch and the sale. The core everyday budget held inside the rule. June starts by reallocating within that envelope rather than adding to it, so the gains come from mix before they come from more spend.</p>
+    </div>
+    <div>
+      <h3>Scale trigger conditions</h3>
+      <div class="metric-card" style="margin-bottom: 12px;">
+        <div class="metric-label">Required signal</div>
+        <div class="metric-value" style="color: var(--cbc-orange);">3.5x for 3+ days</div>
+      </div>
+      <p>Mirage scales once it holds above 3.5x for three to four days with two heroes sharing the load and frequency back under 4x. The core campaign scales once the V3 reallocation lands and the set clears breakeven cleanly. The 20% increment per step stays in place.</p>
+    </div>
+  </div>
+  <div class="insight-grid" style="margin-top: 32px;">
+    <div class="insight-card green">
+      <h4>The cushion is wide</h4>
+      <p>An 8.16x MER and a CAC to LTV near 1 to 5.7 mean the business has room to keep acquiring aggressively. The constraint on scaling is creative depth and frequency, not the underlying economics, which stayed healthy through a doubled-spend month.</p>
+    </div>
+    <div class="insight-card yellow">
+      <h4>Why mix comes before money</h4>
+      <p>Adding budget to a set carrying a 2.08x ad spreads the problem. Moving that budget to ads already proven above 6x fixes it. June's first gains come from reallocation, and the scaling conversation reopens once the proven sets are the ones holding the spend.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 17: SUMMARY -->
+<section class="slide" id="s17">
+  <div class="slide-num">17: Summary</div>
+  <h2>Bottom <span>Line</span></h2>
+  <div class="divider"></div>
+  <div style="max-width: 720px; margin-top: 16px;">
+    <p style="font-size: 18px; color: var(--text); line-height: 1.7; margin-bottom: 24px;">3.32x Meta ROAS. $19,639 in Shopify gross, a record for the window and up 52.9% on April. 8.16x blended MER. May more than doubled Meta spend to launch Mirage and run Memorial Day at the same time, and the business answered with its strongest revenue month and a 58% jump in new customers.</p>
+    <p style="font-size: 18px; color: var(--text); line-height: 1.7; margin-bottom: 24px;">The wins: Mirage opened at 3.43x, Memorial Day closed at 4.59x, Obsidian held at 4.00x, and the bench (Wife Buyer 9.83x, Skeptic 22.58x, Mirage V3 7.36x) is deep and tested. The drag: Adv+ Winners at 2.08x, held down by V3 Origin Story taking $421.71 at 2.08x, plus a single-creative dependency inside Mirage at 6.22x frequency.</p>
+    <p style="font-size: 18px; color: var(--text); line-height: 1.7; margin-bottom: 24px;">The quarter: spend reset in April rebuilt efficiency, May scaled on top of it at far better unit economics than March. Year on year across April and May, gross sales rose 44.5%, total customers 35.8%, and the returning base 58.7%.</p>
+    <p style="font-size: 18px; color: var(--cbc-orange); line-height: 1.7; font-weight: 600;">Move the V3 budget to the bench. Build Mirage a second hero. Keep new acquisition climbing. That's the play for June.</p>
+  </div>
+  <div class="title-meta" style="margin-top: 48px; padding-top: 32px; border-top: 1px solid var(--border);">
+    <div class="title-meta-item">Prepared by<strong>Charles</strong></div>
+    <div class="title-meta-item">Date<strong>June 1, 2026</strong></div>
+    <div class="title-meta-item">Account<strong>Chattanooga Beard Co.</strong></div>
+  </div>
+</section>
+
+<script>
+const slides = document.querySelectorAll('.slide');
+const nav = document.getElementById('nav');
+slides.forEach((s, i) => {
+  const a = document.createElement('a');
+  a.href = '#s' + (i + 1);
+  a.title = 'Slide ' + (i + 1);
+  nav.appendChild(a);
+});
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const id = entry.target.id;
+      const idx = parseInt(id.replace('s', '')) - 1;
+      nav.querySelectorAll('a').forEach((a, i) => {
+        a.classList.toggle('active', i === idx);
+      });
+    }
+  });
+}, { threshold: 0.4 });
+
+slides.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>
