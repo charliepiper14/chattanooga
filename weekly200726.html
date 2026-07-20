@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chattanooga Beard Co. Performance Review</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0e1117;--panel:#161b22;--panel-2:#1b222c;--line:#232b36;--line-2:#2c3644;
+    --ink:#e9eef4;--ink-2:#aeb9c6;--ink-3:#727f8e;
+    --orange:#F58220;--green:#42c26b;--red:#f0623f;--amber:#e0a13a;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--ink);font-family:'DM Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased;line-height:1.5}
+  .mono{font-family:'DM Mono',monospace}
+  .scrollbar{position:fixed;top:0;left:0;height:3px;background:var(--orange);width:0;z-index:100;transition:width .1s linear}
+  .topbar{position:fixed;top:0;left:0;right:0;height:52px;background:rgba(14,17,23,.86);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 40px;z-index:90}
+  .topbar .b{display:flex;align-items:center;gap:10px}
+  .topbar .dot{width:9px;height:9px;background:var(--orange);border-radius:2px;transform:rotate(45deg)}
+  .topbar .nm{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2);font-weight:600}
+  .topbar .win{font-family:'DM Mono',monospace;font-size:11px;color:var(--ink-3);letter-spacing:.04em}
+
+  .wrap{max-width:1080px;margin:0 auto;padding:52px 40px 90px}
+  section{padding:50px 0;border-top:1px solid var(--line)}
+  section:first-of-type{border-top:none}
+  .eyebrow{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--orange);margin-bottom:14px}
+  h1{font-size:50px;line-height:1.05;font-weight:600;letter-spacing:-.02em}
+  h2{font-size:26px;font-weight:600;letter-spacing:-.015em;margin-bottom:8px}
+  .kicker{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-bottom:18px}
+  .lede{font-size:15.5px;color:var(--ink-2);max-width:800px;margin-top:12px}
+  p{font-size:14.5px;color:var(--ink-2)}
+  b,strong{color:#fff;font-weight:600}
+  .m{font-family:'DM Mono',monospace;color:var(--orange);font-weight:500}
+  .pos{color:var(--green)}.neg{color:var(--red)}.amb{color:var(--amber)}.mut{color:var(--ink-3)}
+
+  .hero{padding-top:22px}
+  .hero .rule{width:60px;height:4px;background:var(--orange);border-radius:3px;margin:24px 0 22px}
+  .hero .valid{font-family:'DM Mono',monospace;font-size:12px;color:var(--ink-3);letter-spacing:.03em;line-height:1.9}
+  .hero .valid span{color:var(--green)}
+
+  /* scoreboard */
+  .board{display:grid;grid-template-columns:repeat(4,1fr);gap:13px;margin-top:24px}
+  .bc{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px 20px;position:relative}
+  .bc.acc{border-left:3px solid var(--orange)}
+  .bc .k{font-family:'DM Mono',monospace;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+  .bc .v{font-size:32px;font-weight:600;margin-top:10px;letter-spacing:-.02em;line-height:1}
+  .bc .v small{font-size:17px;color:var(--ink-2);font-weight:500}
+  .bc .sub{font-family:'DM Mono',monospace;font-size:11.5px;color:var(--ink-2);margin-top:9px}
+  .bc .sub.g{color:var(--green)}.bc .sub.r{color:var(--red)}.bc .sub.a{color:var(--amber)}
+
+  .split{display:grid;grid-template-columns:1fr 1fr;gap:13px;margin-top:14px}
+  .halfhdr{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);margin:0 0 4px 2px}
+
+  /* table */
+  .tbl{width:100%;border-collapse:collapse;background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden;margin-top:8px}
+  .tbl th{font-family:'DM Mono',monospace;font-size:10.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-3);text-align:right;padding:13px 16px;border-bottom:1px solid var(--line);font-weight:500}
+  .tbl th:first-child{text-align:left}
+  .tbl td{padding:12px 16px;border-bottom:1px solid var(--line);font-size:14px}
+  .tbl td:first-child{color:var(--ink)}
+  .tbl td.n{font-family:'DM Mono',monospace;text-align:right;color:var(--ink-2)}
+  .tbl tr:last-child td{border-bottom:none}
+  .tbl tr.tot td{background:var(--panel-2);font-weight:600;color:#fff}
+  .tbl td .tag{display:block;font-family:'DM Mono',monospace;font-size:10px;color:var(--ink-3);letter-spacing:.03em;margin-top:2px}
+  .roas{font-family:'DM Mono',monospace;font-size:12.5px;font-weight:500;padding:3px 9px;border-radius:6px;display:inline-block;min-width:56px;text-align:center}
+  .roas.win{color:var(--green);background:rgba(66,194,107,.12)}
+  .roas.mid{color:var(--amber);background:rgba(224,161,58,.12)}
+  .roas.low{color:var(--red);background:rgba(240,98,63,.12)}
+  .roas.dead{color:var(--ink-3);background:rgba(174,185,198,.08)}
+  .flag{font-family:'DM Mono',monospace;font-size:10.5px;padding:2px 7px;border-radius:5px}
+  .flag.fat{color:var(--amber);background:rgba(224,161,58,.1)}
+  .flag.hot{color:var(--green);background:rgba(66,194,107,.1)}
+
+  .insights{display:flex;flex-direction:column;gap:12px;margin-top:20px}
+  .insight{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--orange);border-radius:10px;padding:16px 20px;display:flex;gap:16px}
+  .insight .idx{font-family:'DM Mono',monospace;font-size:13px;color:var(--orange);font-weight:500;min-width:22px;padding-top:1px}
+  .insight .t{font-size:14.5px;line-height:1.55;color:var(--ink)}
+  .foot-note{font-size:12px;color:var(--ink-3);margin-top:16px;line-height:1.55}
+  .foot-note b{color:var(--ink-2);font-weight:500}
+
+  /* actions */
+  .now-head{display:flex;align-items:baseline;gap:12px;margin:24px 0 14px}
+  .now-head .lab{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--orange)}
+  .now-head .sub{font-size:13px;color:var(--ink-3)}
+  .act{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:19px 22px;margin-bottom:11px;display:grid;grid-template-columns:32px 1fr;gap:17px}
+  .act .n{font-family:'DM Mono',monospace;font-size:14px;color:var(--orange);border:1px solid var(--line-2);border-radius:7px;height:29px;display:flex;align-items:center;justify-content:center;font-weight:500}
+  .act .t{font-size:16px;font-weight:600;margin-bottom:6px}
+  .act .why{font-size:13.5px;color:var(--ink-2);line-height:1.55}
+  .act .meta{margin-top:11px;display:flex;gap:8px;flex-wrap:wrap}
+  .act .tg{font-family:'DM Mono',monospace;font-size:10.5px;letter-spacing:.03em;color:var(--ink-2);background:var(--panel-2);border:1px solid var(--line);border-radius:6px;padding:3px 9px}
+  .act .tg b{color:var(--orange);font-weight:500}
+  .gated{background:linear-gradient(180deg,rgba(245,130,32,.05),transparent);border:1px solid var(--line);border-radius:12px;padding:20px 24px;margin-top:12px}
+  .gated .h{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--orange);margin-bottom:13px}
+  .gated ul{list-style:none;display:flex;flex-direction:column;gap:10px}
+  .gated li{display:flex;gap:12px;font-size:14px;color:var(--ink-2);line-height:1.5}
+  .gated li .a{color:var(--orange);font-family:'DM Mono',monospace;padding-top:1px}
+  .gated li b{color:#fff}
+
+  .close h2{font-size:31px;letter-spacing:-.02em;line-height:1.18}
+  .close .o{color:var(--orange)}
+  footer{border-top:1px solid var(--line);padding:24px 0 0;margin-top:38px;display:flex;justify-content:space-between;font-family:'DM Mono',monospace;font-size:11px;color:var(--ink-3);letter-spacing:.06em;text-transform:uppercase}
+
+  @media (max-width:900px){
+    .wrap{padding:44px 22px 70px}.board{grid-template-columns:repeat(2,1fr)}.split{grid-template-columns:1fr}
+    h1{font-size:37px}.topbar .win{display:none}.tbl th,.tbl td{padding:10px 11px;font-size:12.5px}
+  }
+</style>
+</head>
+<body>
+<div class="scrollbar" id="sb"></div>
+<div class="topbar">
+  <div class="b"><span class="dot"></span><span class="nm">Chattanooga Beard Co.</span></div>
+  <div class="win">META PERFORMANCE REVIEW &middot; JULY 2026</div>
+</div>
+
+<div class="wrap">
+
+  <!-- HERO -->
+  <section class="hero" style="border-top:none;padding-top:20px">
+    <div class="eyebrow">Meta Performance Review</div>
+    <h1>The flash carried the month.<br>The evergreen needs new creative<br>before it can carry weight.</h1>
+    <div class="rule"></div>
+    <div class="lede">Month to date the account cleared breakeven on paid, at 3.84x Meta ROAS and 9.05x blended MER. Almost all of it came from the July 4 flash. Underneath, the two ads carrying most of the everyday spend are running below the 3.5x floor, and one has fatigued out. The store held up last week on the returning base, not on paid. This is a creative-repair moment, not a scale-now moment.</div>
+    <div class="valid" style="margin-top:24px">
+      SOURCE &nbsp;/&nbsp; META ADS MANAGER + SHOPIFY, JUL 1 TO 20 AND JUL 14 TO 20<br>
+      RECONCILED &nbsp;/&nbsp; <span>ad-level spend ties to campaign totals &middot; daily gross ties to $12,672.31 MTD</span>
+    </div>
+  </section>
+
+  <!-- SCOREBOARD -->
+  <section>
+    <div class="kicker">01 / The scoreboard</div>
+    <h2>The numbers that matter, both windows.</h2>
+    <div class="board">
+      <div class="bc acc"><div class="k">Blended MER &middot; MTD</div><div class="v">9.05<small>x</small></div><div class="sub">gross $12,672 / spend $1,400</div></div>
+      <div class="bc"><div class="k">Meta ROAS &middot; MTD</div><div class="v">3.84<small>x</small></div><div class="sub g">above 3.5x breakeven</div></div>
+      <div class="bc"><div class="k">Meta Spend &middot; MTD</div><div class="v">$1,400</div><div class="sub">110 purchases</div></div>
+      <div class="bc"><div class="k">Attribution Gap</div><div class="v">58<small>%</small></div><div class="sub">Meta sees 42% of store gross</div></div>
+      <div class="bc acc"><div class="k">Blended MER &middot; Last 7</div><div class="v">7.01<small>x</small></div><div class="sub">gross $1,998 / spend $285</div></div>
+      <div class="bc"><div class="k">Meta ROAS &middot; Last 7</div><div class="v">1.62<small>x</small></div><div class="sub r">below breakeven</div></div>
+      <div class="bc"><div class="k">Meta Spend &middot; Last 7</div><div class="v">$285</div><div class="sub">10 purchases</div></div>
+      <div class="bc"><div class="k">Breakeven Floor</div><div class="v">3.5<small>x</small></div><div class="sub">Meta ROAS &middot; account rule</div></div>
+    </div>
+    <div class="foot-note"><b>Read it straight:</b> the month is profitable on paid and the store is healthy. Last week, paid alone ran under breakeven at 1.62x. The store still grew 44% because the returning base carried it. MER stays high because most revenue is not paid-dependent right now.</div>
+  </section>
+
+  <!-- WHERE THE MONEY CAME FROM -->
+  <section>
+    <div class="kicker">02 / Where the return came from</div>
+    <h2>One flash weekend did most of the work.</h2>
+    <table class="tbl">
+      <thead><tr><th>Campaign</th><th>Spend</th><th>Meta value</th><th>ROAS</th><th>Purch</th></tr></thead>
+      <tbody>
+        <tr><td>Independence 250 Flash<span class="tag">JUL 4 TO 5 &middot; COMPLETED</span></td><td class="n">$553</td><td class="n">$3,059</td><td class="n"><span class="roas win">5.53x</span></td><td class="n">63</td></tr>
+        <tr><td>Evergreen ASC<span class="tag">ADVANTAGE+ &middot; ACTIVE</span></td><td class="n">$406</td><td class="n">$1,119</td><td class="n"><span class="roas mid">2.76x</span></td><td class="n">23</td></tr>
+        <tr><td>Mirage Launch<span class="tag">ACTIVE &middot; FREQ 6.23</span></td><td class="n">$441</td><td class="n">$1,133</td><td class="n"><span class="roas mid">2.57x</span></td><td class="n">23</td></tr>
+        <tr><td>Heatwave BOGO<span class="tag">COMPLETED &middot; NO SPEND</span></td><td class="n">$0</td><td class="n">$70</td><td class="n"><span class="roas dead">&middot;</span></td><td class="n">1</td></tr>
+        <tr class="tot"><td>Total</td><td class="n">$1,400</td><td class="n">$5,381</td><td class="n"><span class="roas win">3.84x</span></td><td class="n">110</td></tr>
+      </tbody>
+    </table>
+    <div class="insights">
+      <div class="insight"><div class="idx">&#9656;</div><div class="t">The flash returned <b>5.53x</b> and drove <b>$8,223 of store gross across July 4 and 5 alone</b>, which is 65% of the whole month. The fresh-standalone-ASC-per-flash playbook worked again, exactly like Halloween.</div></div>
+      <div class="insight"><div class="idx">&#9656;</div><div class="t">Strip the flash out and the two active evergreen campaigns sit at <b>2.76x and 2.57x</b>, both under the 3.5x floor. That is the real state of everyday paid.</div></div>
+    </div>
+  </section>
+
+  <!-- WINNERS -->
+  <section>
+    <div class="kicker">03 / Ad-level winners</div>
+    <h2>What earned its spend, month to date.</h2>
+    <table class="tbl">
+      <thead><tr><th>Ad</th><th>ROAS</th><th>Spend</th><th>Purch</th><th>Freq</th></tr></thead>
+      <tbody>
+        <tr><td>Ad 4 &ndash; Mirage Biggest Sale<span class="tag">STARVED WINNER</span></td><td class="n"><span class="roas win">12.15x</span></td><td class="n">$21</td><td class="n">6</td><td class="n">1.72</td></tr>
+        <tr><td>Ad 6 &ndash; Independence Video<span class="tag">FLASH SCALE WINNER</span></td><td class="n"><span class="roas win">6.07x</span></td><td class="n">$163</td><td class="n">20</td><td class="n">1.76</td></tr>
+        <tr><td>Ad 6 &ndash; Independence Video, Copy</td><td class="n"><span class="roas win">5.69x</span></td><td class="n">$58</td><td class="n">6</td><td class="n">1.76</td></tr>
+        <tr><td>Ad 1 &ndash; Liberty Has Spoken</td><td class="n"><span class="roas win">5.62x</span></td><td class="n">$84</td><td class="n">10</td><td class="n">1.99</td></tr>
+        <tr><td>Ad 2 &ndash; Stock Up / Bigfoot, Copy</td><td class="n"><span class="roas win">5.47x</span></td><td class="n">$80</td><td class="n">8</td><td class="n">2.13</td></tr>
+        <tr><td>Ad 2 &ndash; Stock Up / Bigfoot</td><td class="n"><span class="roas win">4.56x</span></td><td class="n">$32</td><td class="n">4</td><td class="n">1.56</td></tr>
+        <tr><td>Mirage V1<span class="tag">EVERGREEN, FRESH LEGS</span></td><td class="n"><span class="roas win">4.15x</span></td><td class="n">$29</td><td class="n">2</td><td class="n">2.49</td></tr>
+      </tbody>
+    </table>
+    <div class="foot-note"><b>The pattern is clear.</b> The flash creatives and the newer Mirage cuts return 4 to 12x. Mirage Biggest Sale did 12.15x on $21. These were underfunded. The money instead sat on two tired ads, next slide.</div>
+  </section>
+
+  <!-- SPEND LEAK -->
+  <section>
+    <div class="kicker">04 / Where the spend leaked</div>
+    <h2>The budget sat on the wrong ads.</h2>
+    <table class="tbl">
+      <thead><tr><th>Ad</th><th>ROAS</th><th>Spend</th><th>Freq</th><th>Flag</th></tr></thead>
+      <tbody>
+        <tr><td>Mirage S1 Desert Lean-In<span class="tag">TOP EVERGREEN SPEND</span></td><td class="n"><span class="roas mid">2.84x</span></td><td class="n">$320</td><td class="n">5.19</td><td class="n"><span class="flag fat">fatigued</span></td></tr>
+        <tr><td>Obsidian Launch Vid 1<span class="tag">ASC WORKHORSE</span></td><td class="n"><span class="roas mid">2.52x</span></td><td class="n">$319</td><td class="n">2.91</td><td class="n"><span class="flag fat">below floor</span></td></tr>
+        <tr><td>Obsidian Journey Static<span class="tag">CTR FELL TO 0.11% LAST 7</span></td><td class="n"><span class="roas dead">faded</span></td><td class="n">$117</td><td class="n">4.36</td><td class="n"><span class="flag fat">collapsed</span></td></tr>
+        <tr><td>Mirage S2 Tropical<span class="tag">ZERO SALES LAST 7</span></td><td class="n"><span class="roas low">1.00x</span></td><td class="n">$95</td><td class="n">3.30</td><td class="n"><span class="flag fat">dead</span></td></tr>
+      </tbody>
+    </table>
+    <div class="insights">
+      <div class="insight"><div class="idx">&#9656;</div><div class="t"><b>The two biggest-spend evergreen ads, $639 together, both ran under the 3.5x floor.</b> Desert Lean-In at frequency 5.19 is fatigued, its CTR down at 0.4%. That is the single largest fix available.</div></div>
+      <div class="insight"><div class="idx">&#9656;</div><div class="t">Obsidian Journey looked fine month to date at 3.64x, but it <b>died in the last week</b>, click-through at 0.11% and zero sales on $31 of spend. The MTD number hides a dead ad.</div></div>
+    </div>
+  </section>
+
+  <!-- STORE VS PAID -->
+  <section>
+    <div class="kicker">05 / Store against paid</div>
+    <h2>The base is covering for a soft paid week.</h2>
+    <div class="split">
+      <div>
+        <div class="halfhdr">Customers, MTD</div>
+        <table class="tbl">
+          <tbody>
+            <tr><td>Returning</td><td class="n">151</td><td class="n pos">+31%</td></tr>
+            <tr><td>New</td><td class="n">57</td><td class="n neg">-7%</td></tr>
+            <tr><td>Returning rate, last 7</td><td class="n">76.2%</td><td class="n pos">+9%</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div>
+        <div class="halfhdr">The gap that explains it</div>
+        <table class="tbl">
+          <tbody>
+            <tr><td>Blended MER, last 7</td><td class="n">7.01x</td><td class="n mut">store</td></tr>
+            <tr><td>Meta ROAS, last 7</td><td class="n">1.62x</td><td class="n neg">paid</td></tr>
+            <tr><td>Store gross growth</td><td class="n pos">+44%</td><td class="n mut">last 7</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="foot-note"><b>What this means.</b> New-customer acquisition slipped 7% while the returning base grew 31%. Last week the store grew 44% on a paid engine returning only 1.62x. The base is holding the line. That is a strength, and a warning: lean on it too long and new-customer growth stalls. Fresh paid creative is how we feed the top of the base.</div>
+  </section>
+
+  <!-- ACTIONS -->
+  <section>
+    <div class="kicker">06 / Tactical actions</div>
+    <h2>What we do on the ads this week.</h2>
+    <div class="now-head"><span class="lab">Do now</span><span class="sub">this week, backed by the data above</span></div>
+
+    <div class="act"><div class="n">01</div><div>
+      <div class="t">Pause the two dead ads today.</div>
+      <div class="why">Obsidian Journey static, click-through collapsed to 0.11% with zero sales on $31 last week, and Mirage S2 Tropical, zero sales last week at 1.00x lifetime. Obsidian Launch Vid 1 stays live in the ASC, so pausing Journey does not take the ad set dark. Sequence held.</div>
+      <div class="meta"><span class="tg">Save <b>burning spend on 0.11% CTR</b></span><span class="tg">Rule <b>keep Vid 1 live, then pause</b></span></div>
+    </div></div>
+
+    <div class="act"><div class="n">02</div><div>
+      <div class="t">Refresh the Mirage line. Do not scale it.</div>
+      <div class="why">Mirage runs at frequency 6.23 campaign-wide, Desert Lean-In at 5.19 with CTR 0.4% and ROAS decaying from 2.84x to 1.70x. That is fatigue, not a budget problem. Retire Desert Lean-In and Tropical. Give room to the fresh legs already inside the line: Mirage V1 at 4.15x and Mirage V2 at 6.94x last week. New Mirage creative is the brief.</div>
+      <div class="meta"><span class="tg">Retire <b>Desert Lean-In, Tropical</b></span><span class="tg">Keep <b>V1, V2</b></span><span class="tg">Brief <b>fresh Mirage cuts</b></span></div>
+    </div></div>
+
+    <div class="act"><div class="n">03</div><div>
+      <div class="t">Rebuild the starved winners into the evergreen.</div>
+      <div class="why">Mirage Biggest Sale did 12.15x on $21. Independence Video did 6.07x on 20 purchases. Stock Up and Liberty held 4.5 to 5.6x. These proven creatives were underfunded while the tired ads ate budget. Move the everyday-safe angles into the ASC as new ads and let the algorithm feed them.</div>
+      <div class="meta"><span class="tg">Fund <b>Mirage Biggest Sale, V1</b></span><span class="tg">Method <b>new ad, never edit live</b></span></div>
+    </div></div>
+
+    <div class="act"><div class="n">04</div><div>
+      <div class="t">Brief the Churchwarden ad. Still the open lane.</div>
+      <div class="why">Churchwarden is the number-one store product month to date at $912, up 58%, pulling on organic and branded search with no creative behind it. It is the clearest new revenue on the board. Founder-led or packing and ASMR, the format that has run 5 to 9x on this account.</div>
+      <div class="meta"><span class="tg">Format <b>packing / ASMR</b></span><span class="tg">Owner <b>Todd film, Gio cut</b></span></div>
+    </div></div>
+
+    <div class="gated">
+      <div class="h">The scaling call</div>
+      <ul>
+        <li><span class="a">&#9656;</span><span><b>No evergreen budget increase yet.</b> Last-7 paid is at 1.62x. Todd's rule holds: nothing scales without three to four days at 2x plus. Fix the creative first, then the rule clears the increase.</span></li>
+        <li><span class="a">&#9656;</span><span><b>The scalable asset is the flash structure.</b> Independence returned 5.53x. Build the next flash on the Independence Video template, fresh standalone ASC, existing-customer cap at 0%.</span></li>
+        <li><span class="a">&#9656;</span><span><b>Once fresh Mirage and Churchwarden hold 2x plus for three to four days,</b> step budgets 20% at a time, penny method on the ad sets already clearing the floor.</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- CLOSE -->
+  <section class="close">
+    <div class="eyebrow">The call</div>
+    <h2>The month cleared breakeven and the store is strong. The paid engine is running on tired creative and a flash that has ended. <span class="o">Repair the evergreen, brief Churchwarden, and hold budgets until fresh creative earns the increase.</span></h2>
+    <div class="foot-note" style="margin-top:20px">Now: pause the two dead ads, refresh Mirage, rebuild the starved winners, brief Churchwarden. Then: run the next flash on the Independence template and step budgets once fresh creative holds 2x plus.</div>
+  </section>
+
+  <footer>
+    <span>Chattanooga Beard Co.</span>
+    <span>Meta Performance Review &middot; July 2026</span>
+  </footer>
+
+</div>
+<script>
+  const sb=document.getElementById('sb');
+  function upd(){const h=document.documentElement;const max=h.scrollHeight-h.clientHeight;sb.style.width=(max>0?(h.scrollTop/max*100):0)+'%';}
+  document.addEventListener('scroll',upd,{passive:true});upd();
+</script>
+</body>
+</html>
