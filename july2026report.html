@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chattanooga Beard Co. July 2026 Review</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#0e1117;--panel:#161b22;--panel-2:#1b222c;--line:#232b36;--line-2:#2c3644;
+    --ink:#e9eef4;--ink-2:#aeb9c6;--ink-3:#727f8e;--orange:#F58220;--green:#42c26b;--red:#f0623f;--amber:#e0a13a;}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--ink);font-family:'DM Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased;line-height:1.5}
+  .mono{font-family:'DM Mono',monospace}
+  .scrollbar{position:fixed;top:0;left:0;height:3px;background:var(--orange);width:0;z-index:100;transition:width .1s linear}
+  .topbar{position:fixed;top:0;left:0;right:0;height:52px;background:rgba(14,17,23,.86);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 40px;z-index:90}
+  .topbar .b{display:flex;align-items:center;gap:10px}
+  .topbar .dot{width:9px;height:9px;background:var(--orange);border-radius:2px;transform:rotate(45deg)}
+  .topbar .nm{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2);font-weight:600}
+  .topbar .win{font-family:'DM Mono',monospace;font-size:11px;color:var(--ink-3);letter-spacing:.04em}
+  .wrap{max-width:1080px;margin:0 auto;padding:52px 40px 90px}
+  section{padding:50px 0;border-top:1px solid var(--line)}
+  section:first-of-type{border-top:none}
+  .eyebrow{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--orange);margin-bottom:14px}
+  h1{font-size:50px;line-height:1.05;font-weight:600;letter-spacing:-.02em}
+  h2{font-size:26px;font-weight:600;letter-spacing:-.015em;margin-bottom:8px}
+  .kicker{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-bottom:18px}
+  .lede{font-size:15.5px;color:var(--ink-2);max-width:820px;margin-top:12px}
+  p{font-size:14.5px;color:var(--ink-2)}
+  b,strong{color:#fff;font-weight:600}
+  .m{font-family:'DM Mono',monospace;color:var(--orange);font-weight:500}
+  .pos{color:var(--green)}.neg{color:var(--red)}.amb{color:var(--amber)}.mut{color:var(--ink-3)}
+  .hero{padding-top:22px}
+  .hero .rule{width:60px;height:4px;background:var(--orange);border-radius:3px;margin:24px 0 22px}
+  .hero .valid{font-family:'DM Mono',monospace;font-size:12px;color:var(--ink-3);letter-spacing:.03em;line-height:1.9}
+  .hero .valid span{color:var(--green)}
+  .board{display:grid;grid-template-columns:repeat(4,1fr);gap:13px;margin-top:24px}
+  .bc{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px 20px}
+  .bc.acc{border-left:3px solid var(--orange)}
+  .bc .k{font-family:'DM Mono',monospace;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+  .bc .v{font-size:31px;font-weight:600;margin-top:10px;letter-spacing:-.02em;line-height:1}
+  .bc .v small{font-size:17px;color:var(--ink-2);font-weight:500}
+  .bc .sub{font-family:'DM Mono',monospace;font-size:11.5px;color:var(--ink-2);margin-top:9px}
+  .bc .sub.g{color:var(--green)}.bc .sub.r{color:var(--red)}.bc .sub.a{color:var(--amber)}
+  .tbl{width:100%;border-collapse:collapse;background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden;margin-top:8px}
+  .tbl th{font-family:'DM Mono',monospace;font-size:10.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-3);text-align:right;padding:13px 15px;border-bottom:1px solid var(--line);font-weight:500}
+  .tbl th:first-child{text-align:left}
+  .tbl td{padding:12px 15px;border-bottom:1px solid var(--line);font-size:14px}
+  .tbl td:first-child{color:var(--ink)}
+  .tbl td.n{font-family:'DM Mono',monospace;text-align:right;color:var(--ink-2)}
+  .tbl tr:last-child td{border-bottom:none}
+  .tbl tr.tot td{background:var(--panel-2);font-weight:600;color:#fff}
+  .tbl td .tag{display:block;font-family:'DM Mono',monospace;font-size:10px;color:var(--ink-3);letter-spacing:.03em;margin-top:2px}
+  .roas{font-family:'DM Mono',monospace;font-size:12.5px;font-weight:500;padding:3px 9px;border-radius:6px;display:inline-block;min-width:54px;text-align:center}
+  .roas.win{color:var(--green);background:rgba(66,194,107,.12)}
+  .roas.mid{color:var(--amber);background:rgba(224,161,58,.12)}
+  .roas.low{color:var(--red);background:rgba(240,98,63,.12)}
+  .roas.dead{color:var(--ink-3);background:rgba(174,185,198,.08)}
+  .flag{font-family:'DM Mono',monospace;font-size:10.5px;padding:2px 7px;border-radius:5px}
+  .flag.fat{color:var(--amber);background:rgba(224,161,58,.1)}
+  .insights{display:flex;flex-direction:column;gap:12px;margin-top:20px}
+  .insight{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--orange);border-radius:10px;padding:16px 20px;display:flex;gap:16px}
+  .insight .idx{font-family:'DM Mono',monospace;font-size:13px;color:var(--orange);font-weight:500;min-width:22px;padding-top:1px}
+  .insight .t{font-size:14.5px;line-height:1.55;color:var(--ink)}
+  .foot-note{font-size:12px;color:var(--ink-3);margin-top:16px;line-height:1.55}
+  .foot-note b{color:var(--ink-2);font-weight:500}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:8px}
+  .halfhdr{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);margin:0 0 6px 2px}
+  .now-head{display:flex;align-items:baseline;gap:12px;margin:24px 0 14px}
+  .now-head .lab{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--orange)}
+  .now-head .sub{font-size:13px;color:var(--ink-3)}
+  .act{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:19px 22px;margin-bottom:11px;display:grid;grid-template-columns:32px 1fr;gap:17px}
+  .act .n{font-family:'DM Mono',monospace;font-size:14px;color:var(--orange);border:1px solid var(--line-2);border-radius:7px;height:29px;display:flex;align-items:center;justify-content:center;font-weight:500}
+  .act .t{font-size:16px;font-weight:600;margin-bottom:6px}
+  .act .why{font-size:13.5px;color:var(--ink-2);line-height:1.55}
+  .act .meta{margin-top:11px;display:flex;gap:8px;flex-wrap:wrap}
+  .act .tg{font-family:'DM Mono',monospace;font-size:10.5px;letter-spacing:.03em;color:var(--ink-2);background:var(--panel-2);border:1px solid var(--line);border-radius:6px;padding:3px 9px}
+  .act .tg b{color:var(--orange);font-weight:500}
+  .close h2{font-size:31px;letter-spacing:-.02em;line-height:1.18}
+  .close .o{color:var(--orange)}
+  footer{border-top:1px solid var(--line);padding:24px 0 0;margin-top:38px;display:flex;justify-content:space-between;font-family:'DM Mono',monospace;font-size:11px;color:var(--ink-3);letter-spacing:.06em;text-transform:uppercase}
+  @media (max-width:900px){.wrap{padding:44px 22px 70px}.board{grid-template-columns:repeat(2,1fr)}.two{grid-template-columns:1fr}
+    h1{font-size:37px}.topbar .win{display:none}.tbl th,.tbl td{padding:10px 10px;font-size:12.5px}}
+</style>
+</head>
+<body>
+<div class="scrollbar" id="sb"></div>
+<div class="topbar">
+  <div class="b"><span class="dot"></span><span class="nm">Chattanooga Beard Co.</span></div>
+  <div class="win">MONTHLY PERFORMANCE REVIEW &middot; JULY 2026</div>
+</div>
+
+<div class="wrap">
+
+  <!-- HERO -->
+  <section class="hero" style="border-top:none;padding-top:20px">
+    <div class="eyebrow">July 2026 Monthly Review</div>
+    <h1>July did more with less.<br>Better returns, lower cost,<br>on 5% less spend.</h1>
+    <div class="rule"></div>
+    <div class="lede">Store gross reached $16,876, up 5% on June and up 41% on July last year. Paid did it on less money: spend down 5%, purchases up 11%, Meta ROAS up to 3.63x, and cost per purchase down 15% to $13.31. Blended MER climbed to 8.99x. The month was more efficient than June across the board. The drag underneath it is the same one: nearly half of paid spend still sits on two ads that will not clear the floor.</div>
+    <div class="valid" style="margin-top:24px">
+      SOURCE &nbsp;/&nbsp; META ADS MANAGER + SHOPIFY, FULL MONTH JULY vs JUNE, YoY vs JULY 2025<br>
+      RECONCILED &nbsp;/&nbsp; <span>ad-level ties to campaign totals both months &middot; daily gross ties to $16,875.57</span>
+    </div>
+  </section>
+
+  <!-- SCOREBOARD -->
+  <section>
+    <div class="kicker">01 / The month in numbers</div>
+    <h2>July against June, and against last July.</h2>
+    <div class="board">
+      <div class="bc acc"><div class="k">Store Gross</div><div class="v">$16,876</div><div class="sub g">+5% MoM &middot; +41% YoY</div></div>
+      <div class="bc acc"><div class="k">Blended MER</div><div class="v">8.99<small>x</small></div><div class="sub g">June 8.10x &middot; +11%</div></div>
+      <div class="bc"><div class="k">Meta ROAS</div><div class="v">3.63<small>x</small></div><div class="sub g">June 2.93x &middot; +24%</div></div>
+      <div class="bc"><div class="k">Cost / Purchase</div><div class="v">$13.31</div><div class="sub g">June $15.60 &middot; -15%</div></div>
+      <div class="bc"><div class="k">Meta Spend</div><div class="v">$1,877</div><div class="sub g">June $1,981 &middot; -5%</div></div>
+      <div class="bc"><div class="k">Meta Purchases</div><div class="v">141</div><div class="sub g">June 127 &middot; +11%</div></div>
+      <div class="bc"><div class="k">Returning Rate</div><div class="v">72.3<small>%</small></div><div class="sub">222 of 307 buyers</div></div>
+      <div class="bc"><div class="k">Meta Capture</div><div class="v">40<small>%</small></div><div class="sub">of store gross &middot; June 36%</div></div>
+    </div>
+    <div class="foot-note"><b>The read:</b> every efficiency line moved the right way while spend came down. Meta clears the 3.5x breakeven at the blended level. MER at 8.99x shows the store banked far more than the platform takes credit for, which is normal for this account and improving.</div>
+  </section>
+
+  <!-- CAMPAIGN COMPARE -->
+  <section>
+    <div class="kicker">02 / Where the return came from</div>
+    <h2>Same shape as June. Flash leads, evergreen drags.</h2>
+    <div class="two">
+      <div>
+        <div class="halfhdr">July by campaign</div>
+        <table class="tbl">
+          <thead><tr><th>Campaign</th><th>Spend</th><th>ROAS</th><th>Pur</th></tr></thead>
+          <tbody>
+            <tr><td>Independence Flash</td><td class="n">$553</td><td class="n"><span class="roas win">5.53x</span></td><td class="n">63</td></tr>
+            <tr><td>Mirage<span class="tag">FREQ 7.67</span></td><td class="n">$702</td><td class="n"><span class="roas mid">3.18x</span></td><td class="n">46</td></tr>
+            <tr><td>Evergreen ASC</td><td class="n">$622</td><td class="n"><span class="roas mid">2.46x</span></td><td class="n">32</td></tr>
+            <tr class="tot"><td>Total</td><td class="n">$1,877</td><td class="n"><span class="roas win">3.63x</span></td><td class="n">141</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div>
+        <div class="halfhdr">June by campaign</div>
+        <table class="tbl">
+          <thead><tr><th>Campaign</th><th>Spend</th><th>ROAS</th><th>Pur</th></tr></thead>
+          <tbody>
+            <tr><td>Heatwave Flash</td><td class="n">$250</td><td class="n"><span class="roas win">5.99x</span></td><td class="n">28</td></tr>
+            <tr><td>Heatwave Warm<span class="tag">RETARGETING</span></td><td class="n">$54</td><td class="n"><span class="roas mid">3.15x</span></td><td class="n">2</td></tr>
+            <tr><td>Mirage</td><td class="n">$702</td><td class="n"><span class="roas mid">2.79x</span></td><td class="n">45</td></tr>
+            <tr><td>Evergreen ASC</td><td class="n">$976</td><td class="n"><span class="roas low">2.23x</span></td><td class="n">52</td></tr>
+            <tr class="tot"><td>Total</td><td class="n">$1,981</td><td class="n"><span class="roas mid">2.93x</span></td><td class="n">127</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="insights">
+      <div class="insight"><div class="idx">&#9656;</div><div class="t"><b>The efficiency gain came from discipline, not more money.</b> June overspent the ASC at $976 for 2.23x. July pulled it back to $622 and lifted it to 2.46x. Same lesson, applied.</div></div>
+      <div class="insight"><div class="idx">&#9656;</div><div class="t"><b>The flash is the engine both months.</b> Independence at 5.53x drove $8,223 of store gross across July 4 and 5, which is 49% of the whole month. Mirage improved to 3.18x and cleared its weight.</div></div>
+      <div class="insight"><div class="idx">&#9656;</div><div class="t"><b>One lever went missing.</b> June ran a warm retargeting campaign at 3.15x. July did not run one at all. That is cheap volume left on the table.</div></div>
+    </div>
+  </section>
+
+  <!-- WINNERS -->
+  <section>
+    <div class="kicker">03 / Ad-level winners</div>
+    <h2>What earned its spend in July.</h2>
+    <table class="tbl">
+      <thead><tr><th>Ad</th><th>ROAS</th><th>Spend</th><th>Purch</th><th>Freq</th></tr></thead>
+      <tbody>
+        <tr><td>Ad 4 &ndash; Mirage Biggest Sale<span class="tag">STARVED, 12x ON $21</span></td><td class="n"><span class="roas win">12.15x</span></td><td class="n">$21</td><td class="n">6</td><td class="n">1.72</td></tr>
+        <tr><td>Ad 6 &ndash; Independence Video<span class="tag">TOP VOLUME CREATIVE</span></td><td class="n"><span class="roas win">6.07x</span></td><td class="n">$163</td><td class="n">20</td><td class="n">1.76</td></tr>
+        <tr><td>Ad 1 &ndash; Liberty Has Spoken</td><td class="n"><span class="roas win">5.62x</span></td><td class="n">$84</td><td class="n">10</td><td class="n">1.99</td></tr>
+        <tr><td>Ad 2 &ndash; Stock Up / Bigfoot, Copy</td><td class="n"><span class="roas win">5.47x</span></td><td class="n">$80</td><td class="n">8</td><td class="n">2.13</td></tr>
+        <tr><td>Mirage V1<span class="tag">SCALED WINNER, FED IN JULY</span></td><td class="n"><span class="roas win">4.83x</span></td><td class="n">$212</td><td class="n">21</td><td class="n">5.60</td></tr>
+        <tr><td>Ad 2 &ndash; Stock Up / Bigfoot</td><td class="n"><span class="roas win">4.56x</span></td><td class="n">$32</td><td class="n">4</td><td class="n">1.56</td></tr>
+      </tbody>
+    </table>
+    <div class="foot-note"><b>The bright spot this month.</b> Mirage V1 got fed properly, $212 of spend, and returned 4.83x on 21 purchases, second only to the flash on volume. That is the model: find a winner, fund it. The flash creatives held 4.5 to 12x, same as always.</div>
+  </section>
+
+  <!-- SPEND LEAK -->
+  <section>
+    <div class="kicker">04 / Where the spend leaked</div>
+    <h2>Half the budget still sat on two ads.</h2>
+    <table class="tbl">
+      <thead><tr><th>Ad</th><th>ROAS</th><th>Spend</th><th>Freq</th><th>Flag</th></tr></thead>
+      <tbody>
+        <tr><td>Obsidian Launch Vid 1<span class="tag">BIGGEST SPEND, BOTH MONTHS</span></td><td class="n"><span class="roas low">2.27x</span></td><td class="n">$535</td><td class="n">2.98</td><td class="n"><span class="flag fat">below floor</span></td></tr>
+        <tr><td>Mirage S1 Desert Lean-In<span class="tag">FATIGUING OUT</span></td><td class="n"><span class="roas low">2.72x</span></td><td class="n">$356</td><td class="n">5.23</td><td class="n"><span class="flag fat">fatigued</span></td></tr>
+        <tr><td>Mirage S2 Tropical</td><td class="n"><span class="roas low">1.97x</span></td><td class="n">$102</td><td class="n">3.71</td><td class="n"><span class="flag fat">weak</span></td></tr>
+        <tr><td>Obsidian Journey Static</td><td class="n"><span class="roas mid">3.64x</span></td><td class="n">$86</td><td class="n">4.36</td><td class="n"><span class="flag fat">faded late</span></td></tr>
+      </tbody>
+    </table>
+    <div class="insights">
+      <div class="insight"><div class="idx">&#9656;</div><div class="t"><b>Obsidian Vid 1 and Mirage Desert Lean-In took $891 between them, 47% of all July spend, both under the 3.5x floor.</b> Move that money to the 4 to 12x winners and the same budget buys materially more purchases. This is the single largest fix into August.</div></div>
+    </div>
+  </section>
+
+  <!-- FATIGUE CURVE -->
+  <section>
+    <div class="kicker">05 / The fatigue curve</div>
+    <h2>Mirage is spending more to earn less.</h2>
+    <div class="two">
+      <div>
+        <div class="halfhdr">Mirage Desert Lean-In, month over month</div>
+        <table class="tbl">
+          <tbody>
+            <tr><td>ROAS</td><td class="n">3.95x</td><td class="n neg">to 2.72x</td></tr>
+            <tr><td>Frequency</td><td class="n">4.36</td><td class="n neg">to 5.23</td></tr>
+            <tr><td>Spend on it</td><td class="n">$278</td><td class="n neg">to $356</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div>
+        <div class="halfhdr">Mirage campaign frequency</div>
+        <table class="tbl">
+          <tbody>
+            <tr><td>June</td><td class="n">6.00</td><td class="n mut">high</td></tr>
+            <tr><td>July</td><td class="n">7.67</td><td class="n neg">saturated</td></tr>
+            <tr><td>Act threshold</td><td class="n">4.00</td><td class="n amb">rule</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="foot-note"><b>What this means.</b> The Mirage audience is being hit nearly eight times each. Desert Lean-In earned less in July than June on more spend, the textbook fatigue signature. The line is at its reach ceiling. More budget cannot fix that. Fresh creative can.</div>
+  </section>
+
+  <!-- STORE VS PAID -->
+  <section>
+    <div class="kicker">06 / Store against paid</div>
+    <h2>The base is strong and growing.</h2>
+    <div class="board">
+      <div class="bc acc"><div class="k">Gross, YoY</div><div class="v">+41<small>%</small></div><div class="sub">vs July 2025</div></div>
+      <div class="bc"><div class="k">Returning Buyers</div><div class="v">72.3<small>%</small></div><div class="sub">of July customers</div></div>
+      <div class="bc"><div class="k">Blended MER</div><div class="v">8.99<small>x</small></div><div class="sub g">up from 8.10x</div></div>
+      <div class="bc"><div class="k">Flash Share</div><div class="v">49<small>%</small></div><div class="sub">of gross from 2 days</div></div>
+    </div>
+    <div class="foot-note"><b>The strength, and the dependency.</b> Store gross is up 41% year over year and nearly three in four buyers are returning. That base is why MER runs near 9x. The dependency is the flash: two days drove half the month. With no flash planned for August, that volume has to be replaced by an always-on offer and warm retargeting, or the month will feel the gap.</div>
+  </section>
+
+  <!-- ACTIONS -->
+  <section>
+    <div class="kicker">07 / The August plan</div>
+    <h2>Where we take it next.</h2>
+    <div class="now-head"><span class="lab">Priorities</span><span class="sub">ordered by impact on purchase volume</span></div>
+
+    <div class="act"><div class="n">01</div><div>
+      <div class="t">Reallocate the $891 off the two below-floor ads.</div>
+      <div class="why">Obsidian Vid 1 at 2.27x and Mirage Desert Lean-In at 2.72x took 47% of July spend under the floor. Cap both. Move the budget to the winners that were starved, Mirage V1 class and the flash creatives at 4.5 to 12x. Same dollars, more purchases. No new spend required.</div>
+      <div class="meta"><span class="tg">Cap <b>Vid 1, Desert Lean-In</b></span><span class="tg">Feed <b>V1, Biggest Sale</b></span></div>
+    </div></div>
+
+    <div class="act"><div class="n">02</div><div>
+      <div class="t">Refresh Mirage. It is at its reach ceiling.</div>
+      <div class="why">Frequency 7.67 caps how many new buyers the line can reach no matter the budget. Retire Desert Lean-In and Tropical. Brief fresh Mirage cuts to reopen reach. Keep V1 running but expect it to need new audience soon at frequency 5.60.</div>
+      <div class="meta"><span class="tg">Retire <b>Desert Lean-In, Tropical</b></span><span class="tg">Brief <b>new Mirage</b></span></div>
+    </div></div>
+
+    <div class="act"><div class="n">03</div><div>
+      <div class="t">Relaunch the ASC with fresh creative, Churchwarden first.</div>
+      <div class="why">The evergreen is running on Obsidian Vid 1, which has been the biggest-spend under-floor ad for two months straight. Load the new ASC batch: Churchwarden, fresh Mirage and Obsidian scent-identity statics, and re-cut flash winners. June proved a founder video at 5.29x, which backs the founder-led Churchwarden brief.</div>
+      <div class="meta"><span class="tg">Launch <b>6-ad ASC batch</b></span><span class="tg">Lead <b>Churchwarden</b></span></div>
+    </div></div>
+
+    <div class="act"><div class="n">04</div><div>
+      <div class="t">Reinstate warm retargeting.</div>
+      <div class="why">June ran a warm retarget at 3.15x. July skipped it. With a 72% returning base plus cart abandoners, a standing Sales campaign to warm audiences is the cheapest incremental volume available, and it runs outside the ASC per the account rules.</div>
+      <div class="meta"><span class="tg">Build <b>manual Sales, warm</b></span><span class="tg">Exclude <b>14d purchasers</b></span></div>
+    </div></div>
+
+    <div class="act"><div class="n">05</div><div>
+      <div class="t">Stand up an always-on offer to replace the flash.</div>
+      <div class="why">The flash was 49% of July gross and there is none on the August calendar. A standing incentive, a wash-plus-conditioner bundle or BOGO framed as 50% off the second, keeps flash-style volume flowing without an event. Without it, August volume drifts down as the base can only carry so far.</div>
+      <div class="meta"><span class="tg">Offer <b>bundle or 50% off second</b></span><span class="tg">Guard <b>protect AOV</b></span></div>
+    </div></div>
+
+    <div class="foot-note"><b>On scaling:</b> the blended month clears breakeven, but the evergreen prospecting does not, so budget increases wait until fresh ASC creative holds 2x plus for three to four days, then step 20% at a time. LTV of $83 against an $11 CAC leaves room to bid for volume on new customers below the 3.5x floor when the always-on offer is live.</div>
+  </section>
+
+  <!-- CLOSE -->
+  <section class="close">
+    <div class="eyebrow">The month in one line</div>
+    <h2>July was the most efficient month of the quarter, up 41% year over year on less spend. <span class="o">August is about fixing the $891 leak, refreshing Mirage, and replacing the flash with an always-on engine.</span></h2>
+    <div class="foot-note" style="margin-top:20px">Reallocate off the two below-floor ads, refresh Mirage, relaunch the ASC with Churchwarden, reinstate warm retargeting, and stand up the always-on offer. Then step budgets once fresh creative earns it.</div>
+  </section>
+
+  <footer>
+    <span>Chattanooga Beard Co.</span>
+    <span>Monthly Performance Review &middot; July 2026</span>
+  </footer>
+</div>
+<script>
+  const sb=document.getElementById('sb');
+  function upd(){const h=document.documentElement;const max=h.scrollHeight-h.clientHeight;sb.style.width=(max>0?(h.scrollTop/max*100):0)+'%';}
+  document.addEventListener('scroll',upd,{passive:true});upd();
+</script>
+</body>
+</html>
