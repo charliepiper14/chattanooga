@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chattanooga Beard Co. Interim Review, August 10 to 16 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#0e1117;--panel:#161b22;--panel-2:#1b222c;--line:#232b36;--line-2:#2c3644;
+    --ink:#e9eef4;--ink-2:#aeb9c6;--ink-3:#727f8e;--orange:#F58220;--green:#42c26b;--red:#f0623f;--amber:#e0a13a;}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--ink);font-family:'DM Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased;line-height:1.5}
+  .mono{font-family:'DM Mono',monospace}
+  .scrollbar{position:fixed;top:0;left:0;height:3px;background:var(--orange);width:0;z-index:100;transition:width .1s linear}
+  .topbar{position:fixed;top:0;left:0;right:0;height:52px;background:rgba(14,17,23,.86);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 40px;z-index:90}
+  .topbar .b{display:flex;align-items:center;gap:10px}
+  .topbar .dot{width:9px;height:9px;background:var(--orange);border-radius:2px;transform:rotate(45deg)}
+  .topbar .nm{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2);font-weight:600}
+  .topbar .win{font-family:'DM Mono',monospace;font-size:11px;color:var(--ink-3);letter-spacing:.04em}
+  .wrap{max-width:1080px;margin:0 auto;padding:52px 40px 90px}
+  section{padding:50px 0;border-top:1px solid var(--line)}
+  section:first-of-type{border-top:none}
+  .eyebrow{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--orange);margin-bottom:14px}
+  h1{font-size:50px;line-height:1.05;font-weight:600;letter-spacing:-.02em}
+  h2{font-size:26px;font-weight:600;letter-spacing:-.015em;margin-bottom:8px}
+  .kicker{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-bottom:18px}
+  .lede{font-size:15.5px;color:var(--ink-2);max-width:820px;margin-top:12px}
+  p{font-size:14.5px;color:var(--ink-2)}
+  b,strong{color:#fff;font-weight:600}
+  .m{font-family:'DM Mono',monospace;color:var(--orange);font-weight:500}
+  .pos{color:var(--green)}.neg{color:var(--red)}.amb{color:var(--amber)}.mut{color:var(--ink-3)}
+  .hero{padding-top:22px}
+  .hero .rule{width:60px;height:4px;background:var(--orange);border-radius:3px;margin:24px 0 22px}
+  .hero .valid{font-family:'DM Mono',monospace;font-size:12px;color:var(--ink-3);letter-spacing:.03em;line-height:1.9}
+  .hero .valid span{color:var(--green)}
+  .board{display:grid;grid-template-columns:repeat(4,1fr);gap:13px;margin-top:24px}
+  .bc{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px 20px}
+  .bc.acc{border-left:3px solid var(--orange)}
+  .bc .k{font-family:'DM Mono',monospace;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+  .bc .v{font-size:31px;font-weight:600;margin-top:10px;letter-spacing:-.02em;line-height:1}
+  .bc .v small{font-size:17px;color:var(--ink-2);font-weight:500}
+  .bc .sub{font-family:'DM Mono',monospace;font-size:11.5px;color:var(--ink-2);margin-top:9px}
+  .bc .sub.g{color:var(--green)}.bc .sub.r{color:var(--red)}.bc .sub.a{color:var(--amber)}
+  .tbl{width:100%;border-collapse:collapse;background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden;margin-top:8px}
+  .tbl th{font-family:'DM Mono',monospace;font-size:10.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-3);text-align:right;padding:13px 15px;border-bottom:1px solid var(--line);font-weight:500}
+  .tbl th:first-child{text-align:left}
+  .tbl td{padding:12px 15px;border-bottom:1px solid var(--line);font-size:14px}
+  .tbl td:first-child{color:var(--ink)}
+  .tbl td.n{font-family:'DM Mono',monospace;text-align:right;color:var(--ink-2)}
+  .tbl tr:last-child td{border-bottom:none}
+  .tbl tr.tot td{background:var(--panel-2);font-weight:600;color:#fff}
+  .tbl td .tag{display:block;font-family:'DM Mono',monospace;font-size:10px;color:var(--ink-3);letter-spacing:.03em;margin-top:2px}
+  .roas{font-family:'DM Mono',monospace;font-size:12.5px;font-weight:500;padding:3px 9px;border-radius:6px;display:inline-block;min-width:54px;text-align:center}
+  .roas.win{color:var(--green);background:rgba(66,194,107,.12)}
+  .roas.mid{color:var(--amber);background:rgba(224,161,58,.12)}
+  .roas.low{color:var(--red);background:rgba(240,98,63,.12)}
+  .roas.dead{color:var(--ink-3);background:rgba(174,185,198,.08)}
+  .flag{font-family:'DM Mono',monospace;font-size:10.5px;padding:2px 7px;border-radius:5px}
+  .flag.fat{color:var(--amber);background:rgba(224,161,58,.1)}
+  .flag.dead{color:var(--red);background:rgba(240,98,63,.1)}
+  .flag.ok{color:var(--green);background:rgba(66,194,107,.1)}
+  .insights{display:flex;flex-direction:column;gap:12px;margin-top:20px}
+  .insight{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--orange);border-radius:10px;padding:16px 20px;display:flex;gap:16px}
+  .insight .idx{font-family:'DM Mono',monospace;font-size:13px;color:var(--orange);font-weight:500;min-width:22px;padding-top:1px}
+  .insight .t{font-size:14.5px;line-height:1.55;color:var(--ink)}
+  .foot-note{font-size:12px;color:var(--ink-3);margin-top:16px;line-height:1.55}
+  .foot-note b{color:var(--ink-2);font-weight:500}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:8px}
+  .halfhdr{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);margin:0 0 6px 2px}
+  .now-head{display:flex;align-items:baseline;gap:12px;margin:24px 0 14px}
+  .now-head .lab{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--orange)}
+  .now-head .sub{font-size:13px;color:var(--ink-3)}
+  .act{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:19px 22px;margin-bottom:11px;display:grid;grid-template-columns:32px 1fr;gap:17px}
+  .act .n{font-family:'DM Mono',monospace;font-size:14px;color:var(--orange);border:1px solid var(--line-2);border-radius:7px;height:29px;display:flex;align-items:center;justify-content:center;font-weight:500}
+  .act .t{font-size:16px;font-weight:600;margin-bottom:6px}
+  .act .why{font-size:13.5px;color:var(--ink-2);line-height:1.55}
+  .act .meta{margin-top:11px;display:flex;gap:8px;flex-wrap:wrap}
+  .act .tg{font-family:'DM Mono',monospace;font-size:10.5px;letter-spacing:.03em;color:var(--ink-2);background:var(--panel-2);border:1px solid var(--line);border-radius:6px;padding:3px 9px}
+  .act .tg b{color:var(--orange);font-weight:500}
+  .funnel{display:grid;grid-template-columns:repeat(6,1fr);gap:9px;margin-top:8px}
+  .fs{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:15px 14px;text-align:center}
+  .fs .k{font-family:'DM Mono',monospace;font-size:9.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);line-height:1.4}
+  .fs .v{font-size:23px;font-weight:600;margin-top:9px;letter-spacing:-.02em;line-height:1}
+  .fs .r{font-family:'DM Mono',monospace;font-size:11px;color:var(--ink-2);margin-top:7px}
+  .fs.brk{border-color:rgba(240,98,63,.4)}
+  .fs.brk .r{color:var(--red)}
+  .close h2{font-size:31px;letter-spacing:-.02em;line-height:1.18}
+  .close .o{color:var(--orange)}
+  footer{border-top:1px solid var(--line);padding:24px 0 0;margin-top:38px;display:flex;justify-content:space-between;font-family:'DM Mono',monospace;font-size:11px;color:var(--ink-3);letter-spacing:.06em;text-transform:uppercase}
+  @media (max-width:900px){.wrap{padding:44px 22px 70px}.board{grid-template-columns:repeat(2,1fr)}.two{grid-template-columns:1fr}
+    .funnel{grid-template-columns:repeat(3,1fr)}
+    h1{font-size:37px}.topbar .win{display:none}.tbl th,.tbl td{padding:10px 10px;font-size:12.5px}}
+</style>
+</head>
+<body>
+<div class="scrollbar" id="sb"></div>
+<div class="topbar">
+  <div class="b"><span class="dot"></span><span class="nm">Chattanooga Beard Co.</span></div>
+  <div class="win">INTERIM PERFORMANCE REVIEW &middot; AUG 10 TO 16, 2026</div>
+</div>
+
+<div class="wrap">
+
+  <!-- HERO -->
+  <section class="hero" style="border-top:none;padding-top:20px">
+    <div class="eyebrow">Last 7 Days &middot; August 10 to 16, 2026</div>
+    <h1>The bleed stopped.<br>The rebuild is<br>forty eight hours old.</h1>
+    <div class="rule"></div>
+    <div class="lede">Paid return went from 1.58x across the first nine days of August to 2.43x across the last seven, on 13% less money. Cost per purchase fell 20% to $22.57 and purchases per day rose 39%. The new evergreen ASC has been live two days at 2.81x. What has not moved: the account is running 34% below July on spend, warm retargeting is still switched off, and 18 checkouts were started and abandoned in seven days with nothing recovered.</div>
+    <div class="valid" style="margin-top:24px">
+      SOURCE &nbsp;/&nbsp; META ADS MANAGER AUG 10 TO 16 &middot; SHOPIFY AUG 10 TO 17 &middot; COMPARED TO AUG 1 TO 9<br>
+      RECONCILED &nbsp;/&nbsp; <span>ad, ad set and campaign totals tie exactly in both windows &middot; $315.93 spend, $767.03 value, 14 purchases</span>
+    </div>
+  </section>
+
+  <!-- 01 SCOREBOARD -->
+  <section>
+    <div class="kicker">01 / The seven days in numbers</div>
+    <h2>Every efficiency line moved, on less money.</h2>
+    <div class="board">
+      <div class="bc acc"><div class="k">Meta ROAS</div><div class="v">2.43<small>x</small></div><div class="sub g">Aug 1 to 9: 1.58x &middot; +54%</div></div>
+      <div class="bc acc"><div class="k">Cost / Purchase</div><div class="v">$22.57</div><div class="sub g">Aug 1 to 9: $28.08 &middot; -20%</div></div>
+      <div class="bc"><div class="k">Meta Spend</div><div class="v">$316</div><div class="sub g">Aug 1 to 9: $365 &middot; -13%</div></div>
+      <div class="bc"><div class="k">Meta Purchases</div><div class="v">14</div><div class="sub g">2.00/day vs 1.44 &middot; +39%</div></div>
+      <div class="bc"><div class="k">Store Gross</div><div class="v">$3,816</div><div class="sub g">Aug 2 to 9: $3,261 &middot; +17%</div></div>
+      <div class="bc"><div class="k">Blended MER</div><div class="v">10.57<small>x</small></div><div class="sub g">matched days &middot; July 8.99x</div></div>
+      <div class="bc"><div class="k">Store Orders</div><div class="v">89</div><div class="sub g">+10% week on week</div></div>
+      <div class="bc"><div class="k">Meta Capture</div><div class="v">20.1<small>%</small></div><div class="sub a">of store gross &middot; July 40%</div></div>
+    </div>
+    <div class="foot-note"><b>The read:</b> this is recovery, not clearance. Platform ROAS at 2.43x still sits under the 3.5x floor, and Meta is now touching only a fifth of store gross against 40% in July because spend has been cut so hard. Two moves produced the turn: Obsidian Launch Vid 1 went off on the 9th, and the new evergreen ASC went live on the 15th. <b>MER method:</b> store gross Aug 10 to 17 over Meta spend normalised to matched days at the observed $45.13 daily rate. Raw division of the two exports gives 12.08x, which carries one extra store day.</div>
+  </section>
+
+  <!-- 02 THE TURN -->
+  <section>
+    <div class="kicker">02 / The turn</div>
+    <h2>A mix change, not a budget change.</h2>
+    <div class="two">
+      <div>
+        <div class="halfhdr">Aug 1 to 9 &middot; 9 days</div>
+        <table class="tbl">
+          <tbody>
+            <tr><td>Meta spend</td><td class="n">$365.07</td><td class="n mut">$40.56/day</td></tr>
+            <tr><td>Meta value</td><td class="n">$577.14</td><td class="n mut">no comp</td></tr>
+            <tr><td>Blended ROAS</td><td class="n"><span class="roas low">1.58x</span></td><td class="n mut">below floor</td></tr>
+            <tr><td>Purchases</td><td class="n">13</td><td class="n mut">1.44/day</td></tr>
+            <tr><td>Cost per purchase</td><td class="n">$28.08</td><td class="n mut">no comp</td></tr>
+            <tr><td>Store gross</td><td class="n">$3,569</td><td class="n mut">$396.54/day</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div>
+        <div class="halfhdr">Aug 10 to 16 &middot; 7 days</div>
+        <table class="tbl">
+          <tbody>
+            <tr><td>Meta spend</td><td class="n">$315.93</td><td class="n pos">$45.13/day</td></tr>
+            <tr><td>Meta value</td><td class="n">$767.03</td><td class="n mut">no comp</td></tr>
+            <tr><td>Blended ROAS</td><td class="n"><span class="roas mid">2.43x</span></td><td class="n pos">+54%</td></tr>
+            <tr><td>Purchases</td><td class="n">14</td><td class="n pos">2.00/day</td></tr>
+            <tr><td>Cost per purchase</td><td class="n">$22.57</td><td class="n pos">-20%</td></tr>
+            <tr><td>Store gross</td><td class="n">$3,816</td><td class="n pos">$476.99/day</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="insights">
+      <div class="insight"><div class="idx">&#9656;</div><div class="t"><b>One ad caused most of the first nine days.</b> Obsidian Launch Vid 1 took $159.67 at 0.61x, which is 44% of that window's entire spend. It went inactive on the 9th and nothing replaced it at that scale. The account got cheaper the moment it stopped.</div></div>
+      <div class="insight"><div class="idx">&#9656;</div><div class="t"><b>The return did not come from spending more.</b> Daily spend rose 11%, from $40.56 to $45.13. Return rose 54% and cost per purchase fell 20%. The gain is entirely in what the money sat on.</div></div>
+      <div class="insight"><div class="idx">&#9656;</div><div class="t"><b>Store gross moved with it.</b> Daily store gross rose 20%, from $396.54 to $476.99, against an 11% rise in daily spend. Online store revenue alone is up 31% week on week, which is the part paid media can actually move.</div></div>
+    </div>
+  </section>
+
+  <!-- 03 CAMPAIGN -->
+  <section>
+    <div class="kicker">03 / Where the return came from</div>
+    <h2>Three campaigns. Two working, one half working.</h2>
+    <div class="two">
+      <div>
+        <div class="halfhdr">Last 7 days &middot; Aug 10 to 16</div>
+        <table class="tbl">
+          <thead><tr><th>Campaign</th><th>Spend</th><th>ROAS</th><th>Pur</th></tr></thead>
+          <tbody>
+            <tr><td>Mirage Launch<span class="tag">FREQ 3.47</span></td><td class="n">$153.50</td><td class="n"><span class="roas mid">2.90x</span></td><td class="n">9</td></tr>
+            <tr><td>Legacy Advantage+<span class="tag">FREQ 4.32</span></td><td class="n">$111.37</td><td class="n"><span class="roas low">1.60x</span></td><td class="n">3</td></tr>
+            <tr><td>Evergreen ASC<span class="tag">2 DAYS LIVE</span></td><td class="n">$51.06</td><td class="n"><span class="roas mid">2.81x</span></td><td class="n">2</td></tr>
+            <tr class="tot"><td>Total</td><td class="n">$315.93</td><td class="n"><span class="roas mid">2.43x</span></td><td class="n">14</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div>
+        <div class="halfhdr">Month to date &middot; Aug 1 to 17</div>
+        <table class="tbl">
+          <thead><tr><th>Campaign</th><th>Spend</th><th>ROAS</th><th>Pur</th></tr></thead>
+          <tbody>
+            <tr><td>Mirage Launch<span class="tag">FREQ 5.59</span></td><td class="n">$355.88</td><td class="n"><span class="roas mid">2.60x</span></td><td class="n">19</td></tr>
+            <tr><td>Legacy Advantage+<span class="tag">FREQ 3.21</span></td><td class="n">$274.06</td><td class="n"><span class="roas low">1.01x</span></td><td class="n">6</td></tr>
+            <tr><td>Evergreen ASC<span class="tag">LAUNCHED AUG 15</span></td><td class="n">$53.94</td><td class="n"><span class="roas mid">2.66x</span></td><td class="n">2</td></tr>
+            <tr class="tot"><td>Total</td><td class="n">$683.88</td><td class="n"><span class="roas low">1.97x</span></td><td class="n">27</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="insights">
+      <div class="insight"><div class="idx">&#9656;</div><div class="t"><b>Mirage has come back from its ceiling.</b> Campaign frequency was 7.67 in July, 5.59 month to date, and 3.47 over the last seven days. Pulling spend back reopened reach. V1 held its return across the shift, 2.80x over the first nine days and 2.89x over the last seven, on a third less daily spend. The line is usable again, which was not true a month ago.</div></div>
+      <div class="insight"><div class="idx">&#9656;</div><div class="t"><b>The legacy campaign is carrying dead weight.</b> Its 1.60x is the average of one ad at 6.55x and one at 0.00x. There is no reason for it to hold anything other than the packing video, and its frequency is at 4.32, past the act threshold.</div></div>
+      <div class="insight"><div class="idx">&#9656;</div><div class="t"><b>The month to date number is a memorial to the first nine days.</b> 1.97x across the month against 2.43x across the last seven tells you the drag sits behind us, not in front.</div></div>
+    </div>
+  </section>
+
+  <!-- 04 WINNERS -->
+  <section>
+    <div class="kicker">04 / Ad level winners</div>
+    <h2>What earned its spend this week.</h2>
+    <table class="tbl">
+      <thead><tr><th>Ad</th><th>ROAS</th><th>Spend</th><th>Value</th><th>Pur</th><th>Freq</th></tr></thead>
+      <tbody>
+        <tr><td>CBC_PACKING_VID_02_081026<span class="tag">LEGACY CAMPAIGN &middot; STARVED</span></td><td class="n"><span class="roas win">6.55x</span></td><td class="n">$27.17</td><td class="n">$177.86</td><td class="n">3</td><td class="n">2.11</td></tr>
+        <tr><td>CBC_PACKING_VID_02_081026 Copy<span class="tag">NEW ASC &middot; SAME ASSET</span></td><td class="n"><span class="roas win">4.99x</span></td><td class="n">$17.38</td><td class="n">$86.70</td><td class="n">1</td><td class="n">1.83</td></tr>
+        <tr><td>MIRAGE_LAUNCH_S2_Tropical_Set<span class="tag">RECOVERED FROM 1.96x MTD</span></td><td class="n"><span class="roas win">4.41x</span></td><td class="n">$12.19</td><td class="n">$53.76</td><td class="n">1</td><td class="n">1.67</td></tr>
+        <tr><td>MIRAGE_LAUNCH_V1<span class="tag">VOLUME DRIVER &middot; 40% OF SPEND</span></td><td class="n"><span class="roas mid">2.89x</span></td><td class="n">$127.57</td><td class="n">$368.50</td><td class="n">7</td><td class="n">3.25</td></tr>
+        <tr><td>MIRAGE_LAUNCH_V3<span class="tag">CTR 1.92%, HIGHEST IN ACCOUNT</span></td><td class="n"><span class="roas low">2.16x</span></td><td class="n">$10.75</td><td class="n">$23.21</td><td class="n">1</td><td class="n">1.50</td></tr>
+        <tr><td>CBC_LINEUP_VID_SCENTID_04<span class="tag">NEW ASC &middot; TOP ASC SPENDER</span></td><td class="n"><span class="roas low">2.12x</span></td><td class="n">$26.90</td><td class="n">$57.00</td><td class="n">1</td><td class="n">2.22</td></tr>
+      </tbody>
+    </table>
+    <div class="insights">
+      <div class="insight"><div class="idx">&#9656;</div><div class="t"><b>The packing video is the clearest funding decision on the board.</b> It is running in two campaigns and both are starved. Together they took $44.55, which is 14% of the week's spend, and returned $264.56, which is 34% of the week's value, at a blended 5.94x. That is the same ASMR pack-out format that has carried this account since December.</div></div>
+      <div class="insight"><div class="idx">&#9656;</div><div class="t"><b>V3 has a hook nobody is funding.</b> A 1.92% link click rate is roughly three times the account average of 0.635%. It has had $10.75. The traffic quality is there even though the return has not landed yet, and it deserves a real test budget before any verdict.</div></div>
+    </div>
+  </section>
+
+  <!-- 05 LEAK -->
+  <section>
+    <div class="kicker">05 / Where the spend leaked</div>
+    <h2>One ad took a quarter of the week and returned nothing.</h2>
+    <table class="tbl">
+      <thead><tr><th>Ad</th><th>ROAS</th><th>Spend</th><th>Pur</th><th>Freq</th><th>Flag</th></tr></thead>
+      <tbody>
+        <tr><td>CBC_RANGE_VID_01_081026<span class="tag">26% OF WEEK &middot; 0 CHECKOUTS STARTED</span></td><td class="n"><span class="roas dead">0.00x</span></td><td class="n">$83.34</td><td class="n">0</td><td class="n">4.03</td><td class="n"><span class="flag dead">now off</span></td></tr>
+        <tr><td>OBSIDIAN LAUNCH VID 1<span class="tag">MONTH TO DATE &middot; ALL PRE-AUG 10</span></td><td class="n"><span class="roas low">0.61x</span></td><td class="n">$160.53</td><td class="n">3</td><td class="n">1.92</td><td class="n"><span class="flag dead">now off</span></td></tr>
+        <tr><td>MIRAGE_LAUNCH_V1<span class="tag">NOT A LEAK, NOT CLEARING</span></td><td class="n"><span class="roas mid">2.89x</span></td><td class="n">$127.57</td><td class="n">7</td><td class="n">3.25</td><td class="n"><span class="flag fat">below floor</span></td></tr>
+        <tr><td>CBC_SAMPLER_VID_TRYFIRST_01<span class="tag">0 LINK CLICKS ON $4.25</span></td><td class="n"><span class="roas dead">0.00x</span></td><td class="n">$4.25</td><td class="n">0</td><td class="n">1.71</td><td class="n"><span class="flag fat">untested</span></td></tr>
+      </tbody>
+    </table>
+    <div class="insights">
+      <div class="insight"><div class="idx">&#9656;</div><div class="t"><b>The range video is the week's whole story on the loss side.</b> $83.34 spent, 8,669 impressions, 63 link clicks, 25 landing page views, 3 adds to cart, zero checkouts started, zero purchases. Its click to landing page rate was 40% against 55% account wide, which points at click quality rather than the offer or the page. It is inactive now. It stays off.</div></div>
+      <div class="insight"><div class="idx">&#9656;</div><div class="t"><b>V1 is the honest problem, not a leak.</b> $127.57 is 40% of the week sitting on a line that returns 2.89x against a 3.5x floor. It is the account's volume driver and it holds until fresh Mirage creative lands, but it is not something to scale into.</div></div>
+    </div>
+    <div class="foot-note"><b>Reallocation math:</b> the $83.34 that went to the range video, moved onto the packing format at its observed 5.94x, would have returned roughly $495 instead of $0, and added five to six purchases to the week on the same total budget.</div>
+  </section>
+
+  <!-- 06 NEW ASC -->
+  <section>
+    <div class="kicker">06 / The new ASC, first forty eight hours</div>
+    <h2>Clean delivery. Meta has already picked a side.</h2>
+    <table class="tbl">
+      <thead><tr><th>Ad</th><th>ROAS</th><th>Spend</th><th>Share</th><th>Pur</th><th>CTR</th></tr></thead>
+      <tbody>
+        <tr><td>CBC_PACKING_VID_02_081026 Copy</td><td class="n"><span class="roas win">4.99x</span></td><td class="n">$17.38</td><td class="n">34%</td><td class="n">1</td><td class="n">0.829%</td></tr>
+        <tr><td>CBC_LINEUP_VID_SCENTID_04</td><td class="n"><span class="roas low">2.12x</span></td><td class="n">$26.90</td><td class="n">53%</td><td class="n">1</td><td class="n">0.622%</td></tr>
+        <tr><td>CBC_SAMPLER_VID_TRYFIRST_01</td><td class="n"><span class="roas dead">no data</span></td><td class="n">$4.25</td><td class="n">8%</td><td class="n">0</td><td class="n">0.000%</td></tr>
+        <tr><td>CBC_SAMPLER_VID_SOCIALPROOF_02</td><td class="n"><span class="roas dead">no data</span></td><td class="n">$2.53</td><td class="n">5%</td><td class="n">0</td><td class="n">0.575%</td></tr>
+        <tr class="tot"><td>Campaign</td><td class="n"><span class="roas mid">2.81x</span></td><td class="n">$51.06</td><td class="n">100%</td><td class="n">2</td><td class="n">0.630%</td></tr>
+      </tbody>
+    </table>
+    <div class="insights">
+      <div class="insight"><div class="idx">&#9656;</div><div class="t"><b>Delivery is behaving.</b> Spend landed at $25.53 per day against the $25 set, campaign frequency is 2.68, and the ad set is pacing without throttling. That is a clean launch by this account's history.</div></div>
+      <div class="insight"><div class="idx">&#9656;</div><div class="t"><b>Meta put 87% of the budget behind two ads inside 48 hours.</b> The two sampler cuts have had $6.78 between them. That is not a verdict on the creative, it is Meta not having tested them yet. Do not judge or cut them before day 7.</div></div>
+      <div class="insight"><div class="idx">&#9656;</div><div class="t"><b>The packing copy is outperforming the lineup video on half the budget.</b> 4.99x on $17.38 against 2.12x on $26.90. If the pattern holds through day 7, the ASC creative mix wants weighting toward pack-out and away from lineup reveal.</div></div>
+    </div>
+    <div class="foot-note"><b>Day 7 review lands Saturday the 22nd.</b> The standing rule holds: no budget increase until three to four consecutive days at 2x or better, then step 20% to $30 per day. Two days at 2.81x is directional only and does not satisfy the rule yet.</div>
+  </section>
+
+  <!-- 07 FUNNEL -->
+  <section>
+    <div class="kicker">07 / The funnel break</div>
+    <h2>Eighteen checkouts started and walked away.</h2>
+    <div class="funnel">
+      <div class="fs"><div class="k">Impressions</div><div class="v">29,608</div><div class="r">CTR 0.635%</div></div>
+      <div class="fs"><div class="k">Link Clicks</div><div class="v">188</div><div class="r">to page 54.8%</div></div>
+      <div class="fs"><div class="k">Landing Views</div><div class="v">103</div><div class="r">to cart 42.7%</div></div>
+      <div class="fs"><div class="k">Adds To Cart</div><div class="v">44</div><div class="r">to checkout 72.7%</div></div>
+      <div class="fs brk"><div class="k">Checkouts Started</div><div class="v">32</div><div class="r">to purchase 43.8%</div></div>
+      <div class="fs"><div class="k">Purchases</div><div class="v">14</div><div class="r">$54.79 order</div></div>
+    </div>
+    <div class="insights">
+      <div class="insight"><div class="idx">&#9656;</div><div class="t"><b>The break is at checkout, not at the top.</b> Add to cart converts to checkout at 72.7%, which is healthy. Checkout converts to purchase at 43.8%, which is not. Eighteen people entered checkout in seven days and did not finish, worth roughly $986 at the $54.79 Meta order value. Month to date that figure is 54 abandoned checkouts and roughly $2,688.</div></div>
+      <div class="insight"><div class="idx">&#9656;</div><div class="t"><b>Nothing is chasing them.</b> Shopify recovered $0 from abandoned checkout in the last seven days and $25 month to date. Warm retargeting was flagged as action four in the July review and is still not running. This is the cheapest volume in the account and it needs no new creative.</div></div>
+    </div>
+  </section>
+
+  <!-- 08 MEASUREMENT -->
+  <section>
+    <div class="kicker">08 / The measurement problem</div>
+    <h2>Half of August's sessions never had a wallet.</h2>
+    <div class="two">
+      <div>
+        <div class="halfhdr">Sessions by region &middot; Aug 1 to 17</div>
+        <table class="tbl">
+          <thead><tr><th>Region</th><th>Now</th><th>Prior</th></tr></thead>
+          <tbody>
+            <tr><td>Columbus, Ohio</td><td class="n">546</td><td class="n mut">10</td></tr>
+            <tr><td>San Jose, California</td><td class="n">476</td><td class="n mut">36</td></tr>
+            <tr><td>Ashburn, Virginia</td><td class="n">378</td><td class="n mut">81</td></tr>
+            <tr><td>United States, no region</td><td class="n">59</td><td class="n mut">24</td></tr>
+            <tr class="tot"><td>Datacentre cluster</td><td class="n">1,459</td><td class="n">151</td></tr>
+            <tr><td>Share of all sessions</td><td class="n neg">51.0%</td><td class="n mut">8.4%</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div>
+        <div class="halfhdr">Reported against adjusted</div>
+        <table class="tbl">
+          <thead><tr><th>Metric</th><th>Reported</th><th>Adjusted</th></tr></thead>
+          <tbody>
+            <tr><td>Sessions</td><td class="n">2,862</td><td class="n">1,403</td></tr>
+            <tr><td>Change on prior</td><td class="n pos">+60%</td><td class="n neg">-14%</td></tr>
+            <tr><td>Completed checkouts</td><td class="n">80</td><td class="n">80</td></tr>
+            <tr><td>Conversion rate</td><td class="n">2.79%</td><td class="n">5.70%</td></tr>
+            <tr><td>Change on prior</td><td class="n neg">-46%</td><td class="n pos">+2%</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="insights">
+      <div class="insight"><div class="idx">&#9656;</div><div class="t"><b>The conversion rate drop on the dashboard is a counting problem, not a store problem.</b> All four regions above are datacentre hubs, not customer markets. Strip them from both periods and conversion rate is flat month over month at roughly 5.7%. Real traffic is down 14%, which is what a 34% spend cut looks like.</div></div>
+      <div class="insight"><div class="idx">&#9656;</div><div class="t"><b>This is the second month running and it has grown.</b> July had the Vilnius crawler at roughly a quarter of one week's traffic. August has four datacentre regions at half the month. Until it is filtered, conversion rate and session counts cannot be read at face value and neither can any landing page comparison built on them.</div></div>
+    </div>
+    <div class="foot-note"><b>Method:</b> adjustment removes the four datacentre regions from both the current and prior period, then recomputes rate on completed checkouts, which are unaffected. Completed checkouts fell 13% while real sessions fell 14%, which is why the adjusted rate holds flat.</div>
+  </section>
+
+  <!-- 09 STORE -->
+  <section>
+    <div class="kicker">09 / Store against paid</div>
+    <h2>The base is holding. The flash gap is real.</h2>
+    <div class="board">
+      <div class="bc acc"><div class="k">Gross, Month To Date</div><div class="v">$7,385</div><div class="sub g">+27% vs Jul 15 to 31</div></div>
+      <div class="bc"><div class="k">Online Store, 7d</div><div class="v">$2.2<small>K</small></div><div class="sub g">+31% week on week</div></div>
+      <div class="bc"><div class="k">Average Order</div><div class="v">$38.70</div><div class="sub g">+5% week on week</div></div>
+      <div class="bc"><div class="k">Returning Rate</div><div class="v">51.3<small>%</small></div><div class="sub a">July 72.3% &middot; more new buyers</div></div>
+    </div>
+    <table class="tbl" style="margin-top:16px">
+      <thead><tr><th>Top products, month to date</th><th>Revenue</th><th>Change</th><th>Dedicated creative</th></tr></thead>
+      <tbody>
+        <tr><td>Churchwarden Beard Oil</td><td class="n">$586</td><td class="n pos">+107%</td><td class="n"><span class="flag dead">none</span></td></tr>
+        <tr><td>Churchwarden Beard Balm</td><td class="n">$578</td><td class="n pos">+102%</td><td class="n"><span class="flag dead">none</span></td></tr>
+        <tr><td>Obsidian Beard Balm</td><td class="n">$571</td><td class="n pos">+93%</td><td class="n"><span class="flag ok">running</span></td></tr>
+        <tr><td>Sir Beard Wash<span class="tag">LAST 7 DAYS &middot; 40% SELL THROUGH</span></td><td class="n">$258</td><td class="n pos">+91%</td><td class="n"><span class="flag dead">none</span></td></tr>
+      </tbody>
+    </table>
+    <div class="insights">
+      <div class="insight"><div class="idx">&#9656;</div><div class="t"><b>Churchwarden is the number one and number two product and still has no ad behind it.</b> Both lines more than doubled month on month with zero paid support. This is the third consecutive review it has been flagged. Sir Beard Wash is the new pocket, up 91% in seven days with a 40% sell through rate, also with nothing running.</div></div>
+      <div class="insight"><div class="idx">&#9656;</div><div class="t"><b>The returning rate falling is a good sign here.</b> 72.3% in July down to 51.3% in August means a larger share of orders are coming from new buyers, which is what the rebuild was for. The base is not shrinking, the top of the funnel is widening.</div></div>
+      <div class="insight"><div class="idx">&#9656;</div><div class="t"><b>The month is pacing to roughly $13.5K against July's $16,876.</b> That $3.4K gap is the flash gap. July 4 and 5 alone were 49% of July gross and August has no equivalent on the calendar. Point of sale is carrying $2.2K of the $7.4K, so the online half is the part paid can move, and it needs an event to close the difference.</div></div>
+    </div>
+  </section>
+
+  <!-- 10 ACTIONS -->
+  <section>
+    <div class="kicker">10 / The next seven days</div>
+    <h2>Where we take it from here.</h2>
+    <div class="now-head"><span class="lab">Priorities</span><span class="sub">ordered by impact on purchase volume</span></div>
+
+    <div class="act"><div class="n">01</div><div>
+      <div class="t">Fund the packing format. It is the account's cheapest return.</div>
+      <div class="why">Both instances took $44.55 this week, 14% of spend, and returned $264.56, 34% of value, at a blended 5.94x. Both are starved. Move the range video's freed budget onto them, weight the ASC toward the pack-out cut, and brief Gio for two fresh pack-out variants so the format has a bench when this asset fatigues.</div>
+      <div class="meta"><span class="tg">Feed <b>PACKING_VID_02 both instances</b></span><span class="tg">Brief <b>2 fresh pack-out cuts</b></span></div>
+    </div></div>
+
+    <div class="act"><div class="n">02</div><div>
+      <div class="t">Hold the ASC at $25 per day through Saturday's day 7 review.</div>
+      <div class="why">Two days at 2.81x is directional, not evidence. The rule needs three to four consecutive days at 2x or better before a 20% step to $30. Leave the two sampler cuts alone at $6.78 spent, they have not been tested yet and cutting them now discards the test. Read the packing copy against the lineup video on the 22nd and reweight then.</div>
+      <div class="meta"><span class="tg">Hold <b>$25/day</b></span><span class="tg">Review <b>Sat 22nd</b></span><span class="tg">Then <b>step 20%</b></span></div>
+    </div></div>
+
+    <div class="act"><div class="n">03</div><div>
+      <div class="t">Turn warm retargeting and abandoned checkout back on.</div>
+      <div class="why">Eighteen abandoned checkouts in seven days, 54 month to date, roughly $2,688 sitting in carts, and $25 recovered all month. Build the manual Sales campaign outside the ASC per the account rules: Advantage+ audience off, original audience options on, cart and checkout custom audiences, 14 day purchaser exclusion. No new creative needed, the existing pack-out and Mirage assets carry it.</div>
+      <div class="meta"><span class="tg">Build <b>manual Sales, warm</b></span><span class="tg">Exclude <b>14d purchasers</b></span><span class="tg">Flagged <b>since July</b></span></div>
+    </div></div>
+
+    <div class="act"><div class="n">04</div><div>
+      <div class="t">Strip the legacy campaign to the packing ad and keep the range video off.</div>
+      <div class="why">The campaign's 1.60x is one ad at 6.55x averaged with one at 0.00x. Range video burned $83.34 for zero checkouts at a 40% click to landing rate, and campaign frequency is 4.32, past the act threshold. Leave the packing ad running there to hold its learning, and let the ASC take the growth.</div>
+      <div class="meta"><span class="tg">Keep off <b>RANGE_VID_01</b></span><span class="tg">Hold <b>PACKING_VID_02</b></span></div>
+    </div></div>
+
+    <div class="act"><div class="n">05</div><div>
+      <div class="t">Brief Churchwarden creative. Then Sir Beard Wash.</div>
+      <div class="why">Churchwarden oil and balm are the top two products month to date, both up over 100%, both with no dedicated ad. Third review in a row this has been raised. Sir Beard Wash is up 91% in seven days at 40% sell through and is the natural second brief. Founder led scent identity for Churchwarden, given the June founder video ran at 5.29x.</div>
+      <div class="meta"><span class="tg">Brief <b>Churchwarden founder cut</b></span><span class="tg">Then <b>Sir Beard Wash</b></span></div>
+    </div></div>
+
+    <div class="act"><div class="n">06</div><div>
+      <div class="t">Book an end of August flash and filter the bot traffic.</div>
+      <div class="why">The month paces to roughly $13.5K against July's $16,876 and the difference is a missing flash. Build a fresh standalone ASC for the final weekend, 50% off the second to protect order value, existing customer cap at 0%, gender set to all. Separately, put bot filtering in front of the store, because at 51% datacentre sessions the conversion rate on the dashboard is not readable.</div>
+      <div class="meta"><span class="tg">Build <b>fresh standalone ASC</b></span><span class="tg">Frame <b>50% off the second</b></span><span class="tg">Fix <b>session filtering</b></span></div>
+    </div></div>
+
+    <div class="foot-note"><b>On scaling:</b> nothing gets a budget increase this week. The account clears breakeven on a blended basis at 10.57x MER, but platform return at 2.43x is still under the 3.5x floor and the ASC has two days of history. The order is fix the mix, prove the ASC over three to four days, then step 20%. The lifetime value of $83 against the current $22.57 cost per purchase leaves room to bid harder on new customers once the retargeting layer is live and catching the leak.</div>
+  </section>
+
+  <!-- CLOSE -->
+  <section class="close">
+    <div class="eyebrow">The week in one line</div>
+    <h2>Killing one ad and launching four turned the account from 1.58x to 2.43x on less money. <span class="o">The next seven days are about funding the pack-out, proving the ASC to day 7, and finally catching the 18 checkouts a week walking out of the cart.</span></h2>
+    <div class="foot-note" style="margin-top:20px">Fund the packing format, hold the ASC at $25 through Saturday, turn warm retargeting on, strip the legacy campaign, brief Churchwarden, and book the end of month flash. Then step budgets once the creative earns it.</div>
+  </section>
+
+  <footer>
+    <span>Chattanooga Beard Co.</span>
+    <span>Interim Performance Review &middot; Aug 10 to 16, 2026</span>
+  </footer>
+</div>
+<script>
+  const sb=document.getElementById('sb');
+  function upd(){const h=document.documentElement;const max=h.scrollHeight-h.clientHeight;sb.style.width=(max>0?(h.scrollTop/max*100):0)+'%';}
+  document.addEventListener('scroll',upd,{passive:true});upd();
+</script>
+</body>
+</html>
